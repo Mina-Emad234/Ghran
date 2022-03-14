@@ -1,0 +1,9 @@
+.block.med,.block.sml,.gallery li,#loginInfo *,ul.tagCloud li,.cleditorMain{display:inline}
+.form .button{height:35px}
+#loginInfo .count{color:#fff;left:0px}
+html{overflow-x:hidden}
+#rightColumn{position: absolute}
+.boxStyle .title .tabs{margin-top:-10px}
+
+#loginPage{position:fixed}
+#loginPage .login .textBox{height:30px;padding-top:10px}

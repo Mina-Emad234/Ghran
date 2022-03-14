@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Smart CMS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="كلمات البحث مفصولة بفاصلة" />
+    <meta name="description" content="وصف مختصر للموقع" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/jquery.hoverscroll.css" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/jquery.cleditor.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="screen" href="css/ie.css" /><![endif]-->
+    <!--[if lte IE 7]>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ie7.css" />
+        <script type="text/javascript">
+            /*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; }
+            var IE6UPDATE_OPTIONS = {icons_path: "images/ie6update/"}
+        </script>
+        <script type="text/javascript" src="js/ie6update.js"></script>
+    <![endif]-->
+
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/clearinput.js"></script>
+    <script type="text/javascript" src="js/jquery.easyTooltip.js"></script>
+    <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="js/jquery.hoverscroll.js"></script>
+    <script type="text/javascript" src="js/jquery.tabbed.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.blind.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cleditor.js"></script>
+    <script type="text/javascript" src="js/cms.init.js"></script> <!-- All jquery plugins initialization & tweaks here -->
+</head>
+<body>
+    <div id="loginPage">
+        <img src="images/logo.png" alt="" class="logo"/>
+        <!-- Login Start -->
+        <div class="login boxStyle">
+            <form action="">
+                <fieldset class="form">
+                    <legend>&nbsp;</legend>
+                    <p class="notice error rnd3"><a href="javascript:void(0)" class="close"></a><b>خطأ</b>عفواً يجب عليك تعديل الآتي</p><!-- <a href="#" class="close"></a> -->
+                    <p class="notice information rnd3"><a href="javascript:void(0)" class="close"></a><b>معلومة</b>هذه معلومة لابد أن تعلمها</p>
+                    <p class="notice attention rnd3"><a href="javascript:void(0)" class="close"></a><b>تأكيد</b>تأكد من هذا</p>
+
+                    <input id="name" class="textBox rnd5 clear-input" value="اسم المستخدم" />
+                    <input id="password" type="password" class="textBox rnd5 clear-input" value="كلمة المرور" />
+
+                    <input type="checkbox" id="chk2" /><label for="chk2">تذكرني</label><br />
+                    <div class="center">
+                        <a href="javascript:void(0)" class="button sub inlineBlock rnd5 lightTextShadow">نسيت اسم المستخدم أو كلمة المرور؟</a>
+                        <input id="submit" type="submit" value="أدخل" class="button inlineBlock sml rnd5 drkTextShadow" />
+                    </div>
+                </fieldset>
+            </form>
+        </div><!-- Login End -->
+    </div>
+</body>
+</html>

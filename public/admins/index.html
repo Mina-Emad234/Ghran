@@ -1,0 +1,920 @@
+
+Bitbucket
+
+    Repositories
+    Create
+
+    owner/repository
+    Help
+    fakhrawy
+
+fakhrawy/smartcms
+smartcms
+
+    User icon fakhrawy
+    Following
+    Invitation icon Share
+
+Clone icon Clone Fork icon Fork
+Compare icon Compare Pull request icon Pull request
+
+    Overview
+    Source
+    Commits
+    Pull requests
+    Downloads
+
+    Administration
+
+Source Diff History
+smartcms / index.html
+Full commit
+Blame Raw
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Smart CMS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="كلمات البحث مفصولة بفاصلة" />
+    <meta name="description" content="وصف مختصر للموقع" />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/jquery.hoverscroll.css" />
+    <link rel="stylesheet" type="text/css" title="style" media="screen" href="css/jquery.cleditor.css" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" media="screen" href="css/ie.css" /><![endif]-->
+    <!--[if lte IE 7]>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ie7.css" />
+        <script type="text/javascript">
+            /*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; }
+            var IE6UPDATE_OPTIONS = {icons_path: "images/ie6update/"}
+        </script>
+        <script type="text/javascript" src="js/ie6update.js"></script>
+    <![endif]-->
+
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/clearinput.js"></script>
+    <script type="text/javascript" src="js/jquery.easyTooltip.js"></script>
+    <script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="js/jquery.hoverscroll.js"></script>
+    <script type="text/javascript" src="js/jquery.tabbed.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.18.blind.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cleditor.js"></script>
+    <script type="text/javascript" src="js/jquery.fancyfileinputs.js"></script>
+    <script type="text/javascript" src="js/cms.init.js"></script>  <!-- All jquery plugins initialization & tweaks here -->
+</head>
+<body>
+    <div id="container">
+        <div id="rightColumn">
+            <a href="javascript:void(0)" id ="logo"><img src="images/logo.png" alt="" /></a>
+            <!-- Login Info Start -->
+            <div id="loginInfo" class="drkTextShadow rnd5">
+                <h3>فلان الفولاني</h3>
+                <b>مشرف محتوى</b>
+                <span>آخر تواجد 2/5/2011</span>
+                <a href="javascript:void(0)" title="لديك 9 رسائل جديدة"><img src="images/email.png" alt=""/><span class="count rnd3">9</span></a>
+                <a href="javascript:void(0)" title="تسجيل الخروج"><img src="images/logout.png" alt=""/></a>
+            </div><!-- Login Info End -->
+            <!-- Menu Start -->
+            <div class="block">
+                <div class="content">
+                    <ul id="rightNav" class="menu drkTextShadow">
+                        <li><a href="javascript:void(0)" class="current"><img src="images/icons/dashboard.png" alt="" />لوحة التحكم</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/posts.png" alt="" />الرسائل</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/media.png" alt="" />ميديا</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/notes.png" alt="" />ملاحظاتي</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/coin.png" alt="" />الأرباح</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/users.png" alt="" />المستخدمين</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/settings.png" alt="" />الخيارات</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/dashboard.png" alt="" />لوحة التحكم</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/posts.png" alt="" />الرسائل</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/media.png" alt="" />ميديا</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/notes.png" alt="" />ملاحظاتي</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/coin.png" alt="" />الأرباح</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/users.png" alt="" />المستخدمين</a></li>
+                        <li><a href="javascript:void(0)"><img src="images/icons/settings.png" alt="" />الخيارات</a></li>
+                    </ul>
+                </div>
+            </div><!-- Menu End -->
+        </div><!-- right Column End -->
+        <div id="middleContent">
+            <!-- Dashboard Gallery Strat -->
+            <div class="block">
+                <div class="title lightTextShadow">لوحة التحكم</div>
+                <div class="content">
+                    <ul class="gallery dashboard">
+                        <li><a href="javascript:void(0)" class="boxStyle" title="أنشأ مقال جديد"><img src="images/icons/2.png" alt="" /><br />مقال جديد</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="استعراض الملاحظات السابقة"><img src="images/icons/3.png" alt="" /><br />ملاحظاتي</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="بيانات الموعيد المسجلة"><img src="images/icons/4.png" alt="" /><br />جدول المواعيد</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="تنبيهات النظام (لديك 76 تنبيه جديد)"><span class="count rnd3">76</span><img src="images/icons/7.png" alt="" /><br />تنبيهات</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="صوتيات، مرئيات، صور"><img src="images/icons/5.png" alt="" /><br />ميديا</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="استعراض جميع بيانات السيرفر"><img src="images/icons/6.png" alt="" /><br />بيانات السيرفر</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="ألبوم صور الموقع"><img src="images/icons/8.png" alt="" /><br />ألبوم الصور</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="إدارة تحميل المواد"><img src="images/icons/9.png" alt="" /><br />تحميلات</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="قوائم التخصيص"><img src="images/icons/10.png" alt="" /><br />قوائم</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="إدارة حسابات المستخدمين"><span class="count rnd3">13</span><img src="images/icons/11.png" alt="" /><br />المستخدمين</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="حسابات الأرباح"><img src="images/icons/13.png" alt="" /><br />الأرباح</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="إحصائيات استخدام الموقع"><img src="images/icons/14.png" alt="" /><br />الإحصائيات</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="صندوق الوارد ( لديك 5 رسائل جديدة)"><span class="count rnd3">5</span><img src="images/icons/12.png" alt="" /><br />رسائل واردة</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="تسجيل الخروج من النظام"><img src="images/icons/15.png" alt="" /><br />خروج</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="دليل التعامل مع الأعضاء"><img src="images/icons/16.png" alt="" /><br />دليل</a></li>
+                        <li><a href="javascript:void(0)" class="boxStyle" title="الأعضاء الذين تم وقفهم"><img src="images/icons/17.png" alt="" /><br />أعضاء موقوفين</a></li>
+                    </ul>
+                </div>
+            </div><!-- Dashboard Gallery End -->
+            <!-- Notifications Area Start -->
+            <div class="block">
+                <div class="title lightTextShadow">الملاحظات والتنبيهات</div>
+                <div class="content">
+                    <p class="block boxStyle notice error"><a href="javascript:void(0)" class="close"></a><b>خطأ!</b>لوريم إيبسوم  هو ببساطة نص شكلي بمعنى أن الغاية هي الشكل وليس المحتوى  ويُستخدم في صناعات </p>
+                    <p class="block boxStyle notice information"><a href="javascript:void(0)" class="close"></a><b>ملحوظة!</b>لوريم إيبسوم  هو ببساطة نص شكلي بمعنى أن الغاية هي الشكل وليس المحتوى  ويُستخدم في صناعات </p>
+                    <p class="block boxStyle notice attention"><a href="javascript:void(0)" class="close"></a><b>تنبيه!</b>لوريم إيبسوم  هو ببساطة نص شكلي بمعنى أن الغاية هي الشكل وليس المحتوى  ويُستخدم في صناعات </p>
+                    <p class="block boxStyle notice succeed"><a href="javascript:void(0)" class="close"></a><b>تمام!</b>لوريم إيبسوم  هو ببساطة نص شكلي بمعنى أن الغاية هي الشكل وليس المحتوى  ويُستخدم في صناعات </p>
+                    <p class="block boxStyle notice tip"><a href="javascript:void(0)" class="close"></a><b>فكرة!</b>لوريم إيبسوم  هو ببساطة نص شكلي بمعنى أن الغاية هي الشكل وليس المحتوى  ويُستخدم في صناعات </p>
+                </div>
+            </div><!-- Notifications Area End -->
+            <!-- Multi Size Blocks Start -->
+            <div class="block">
+                <div class="title lightTextShadow">مربعات نص متعددة الأحجام</div>
+                <div class="content">
+                    <!-- Medium Size Block Start -->
+                    <div class="block med boxStyle">
+                        <div class="title lightTextShadow"><a href="javascript:void(0)" class="collapse"></a>عنوان البلوك يظهر هنا</div>
+                        <div class="info">معلومات عن المحتوى بتاريخ 30/10/2010  ▪ التعليقات (154)</div>
+                        <div class="content text collapsible"><img src="data/def01.jpg" alt="" class="img rnd10" />لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)  ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. <a href="javascript:void(0)">خمسة قرون من الزمن لم تقضي على هذا النص</a>، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد الإلكتروني.انتشر بشكل كبير في ستينيّات هذا القرن مع إصدار رقائق "ليتراسيت"(Letraset) البلاستيكية تحوي مقاطع من هذا النص، وعاد لينتشر مرة أخرىمؤخراَ مع ظهور برامج النشر الإلكتروني مثل "ألدوس بايج مايكر" (AldusPageMaker) والتي حوت أيضاً على نسخ من نص لوريم إيبسوم. لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)  ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها </div>
+                    </div><!--  Medium Size Block End -->
+                    <!-- Activities list Start -->
+                    <div class="block sml boxStyle">
+                        <div class="title lightTextShadow"><a href="javascript:void(0)" class="collapse"></a>آخر أنشطة الأعضاء</div>
+                        <div class="content collapsible">
+                            <ul class="activities">
+                                <li>
+                                    <a href="javascript:void(0)" class="close"></a>
+                                    <img src="images/icons/user(7).png" alt="" />
+                                    <h4>عنوان آخر نشاط</h4>
+                                    <span>لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) </span>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="close"></a>
+                                    <img src="images/icons/user(7).png" alt="" />
+                                    <h4>عنوان آخر نشاط</h4>
+                                    <span>لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) </span>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" class="close"></a>
+                                    <img src="images/icons/user(7).png" alt="" />
+                                    <h4>عنوان آخر نشاط</h4>
+                                    <span>لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div><!-- Activities list End -->
+                    <!-- Small Size Block Start -->
+                    <div class="block sml boxStyle">
+                        <div class="title lightTextShadow"><a href="javascript:void(0)" class="collapse"></a>عنوان البلوك يظهر هنا</div>
+                        <div class="content text collapsible">لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)  ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف. <a href="javascript:void(0)">خمسة قرون من الزمن لم تقضي على هذا النص</a>، بل انه حتى صار مستخدماً وبشكله الأصلي في الطباعة والتنضيد الإلكتروني.انتشر بشكل كبير في ستينيّات هذا القرن مع إصدار رقائق "ليتراسيت"...</div>
+                    </div><!-- Small Size Block End -->
+                    <!-- Tag Cloud Start -->
+                    <div class="block sml boxStyle">
+                        <div class="title lightTextShadow"><a href="javascript:void(0)" class="collapse"></a>سحابة الوسوم</div>
+                        <div class="content collapsible">
+                            <ul class="tagCloud">
+                                <li><a href="javascript:void(0)" style="font-size:10pt">تقنية</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:15pt">ثقافة</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:20pt">علوم</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:16pt">مهارات</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:12pt">فنون</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:25pt">ديني</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:8pt">مقالات</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:20pt">بالبلدي</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:10pt">تقنية</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:15pt">ثقافة</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:12pt">علوم</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:11pt">مهارات</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:12pt">فنون</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:8pt">ديني</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:14pt">مقالات</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:12pt">بالبلدي</a></li>
+                                <li><a href="javascript:void(0)" style="font-size:23pt">إسلامي</a></li>
+                            </ul>
+                        </div>
+                    </div><!-- Tag Cloud End -->
+                    <!-- Tabbed Start -->
+                    <div id="tabbed" class="block sml boxStyle">
+                        <div class="title lightTextShadow">
+                            <a href="javascript:void(0)" class="collapse"></a>
+                            <ul class="tabs">
+                                <li><a href="#tab1">قائمة</a></li>
+                                <li><a href="#tab2" >أرشيف زمني</a></li>
+                                <li><a href="#tab3">محتوى</a></li>
+                            </ul>
+                        </div>
+                        <div class="content collapsible">
+                            <ul id="tab1" class="tabcontent menu">
+                                <li><a href="javascript:void(0)">هذا عنصر من القائمة الرئيسية</a></li>
+                                <li><a href="javascript:void(0)">هذا عنصر ثاني من القائمة</a></li>
+                                <li><a href="javascript:void(0)">هذا العنصر الثالث</a></li>
+                                <li><a href="javascript:void(0)">هذا عنصر من القائمة الرئيسية</a></li>
+                                <li><a href="javascript:void(0)">هذا عنصر ثاني من القائمة</a></li>
+                                <li><a href="javascript:void(0)">هذا العنصر الثالث</a></li>
+                            </ul>
+                            <ul id="tab2" class="tabcontent menu dateArchive">
+                                <li><a href="javascript:void(0)"><b>(35)</b><span>مايو 2009</span></a></li>
+                                <li><a href="javascript:void(0)"><b>(10)</b><span>يونيو 2009</span></a></li>
+                                <li><a href="javascript:void(0)"><b>(5)</b><span>يوليو 2009</span></a></li>
+                                <li><a href="javascript:void(0)"><b>(20)</b><span>أغسطس 2009</span></a></li>
+                            </ul>
+                            <div id="tab3" class="tabcontent">
+                                لوريم إيبسوم (Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص الشكلي منذ القرن الخامس عشر عندما قامت مطبعة مجهولة برص مجموعة من الأحرف بشكل عشوائي أخذتها من نص، لتكوّن كتيّب بمثابة دليل أو مرجع شكلي لهذه الأحرف.
+                            </div>
+                        </div>
+                    </div><!-- Tabbed End -->
+                    <a href="javascript:void(0)" class="button rnd5 drkTextShadow sml">استعرض المزيد</a>
+                </div>
+            </div>
+            <!-- Multi Size Blocks End -->
+            <!-- Form Start -->
+            <div class="block">
+                <div class="title lightTextShadow">اسم الفورم</div>
+                <div class="content">
+                    <form action="">
+                        <fieldset class="form boxStyle">
+                            <legend class="boxStyle">جميع عناصر الفورم</legend>
+
+                            <p class="notice error rnd3"><a href="javascript:void(0)" class="close"></a><b>خطأ</b>عفواً يجب عليك تعديل الآتي</p><!-- <a href="#" class="close"></a> -->
+                            <p class="notice information rnd3"><a href="javascript:void(0)" class="close"></a><b>معلومة</b>هذه معلومة لابد أن تعلمها</p>
+                            <p class="notice attention rnd3"><a href="javascript:void(0)" class="close"></a><b>تأكيد</b>تأكد من هذا</p>
+                            <p class="notice succeed rnd3"><a href="javascript:void(0)" class="close"></a><b>تمام</b>تم الإدخال بنجاح</p>
+                            <p class="notice tip rnd3"><a href="javascript:void(0)" class="close"></a><b>هل تعلم؟</b>يمكنك أن تفعل كذا كذا كذا</p>
+
+                            <label for="name" class="label">الإسم <em>*</em>:</label>
+                            <input id="name" class="textBox med rnd5" /><span class="correct">مقبول..</span><br />
+
+                            <label for="password" class="label">كلمة المرور :</label>
+                            <input id="password" type="password" class="textBox sml rnd5" /><span class="incorrect">يوجد خطأ هنا</span><br />
+
+                            <label for="email" class="label">البريد الإلكترونى :</label>
+                            <input id="email" class="textBox med rnd5" /><br />
+
+                            <label for="comment" class="label">التعليق <em>*</em>:</label>
+                            <textarea id="comment" rows="6" cols="0" class="textArea lrg rnd5"></textarea><br />
+
+                            <label class="label">النوع :</label>
+                            <input type="radio" id="sexMale" name="sex" /><label for="sexMale">ذكر</label>
+                            <input type="radio"  id="sexFemale" name="sex" /><label for="sexFemale">أنثى</label><br />
+
+                            <label class="label">اختيارات :</label>
+                            <input type="checkbox" id="chk1" /><label for="chk1">الاختيار الأول</label>
+                            <input type="checkbox" id="chk2" /><label for="chk2">الاختيار الثانى</label>
+                            <input type="checkbox" id="chk3" /><label for="chk3">الاختيار الثالث</label><br />
+
+                            <label for="file" class="label">رفع ملفات :</label>
+                            <div class="fileUpload">
+                                <input id="file" type="file" />
+                                <span class="button rnd5 drkTextShadow">اختر ملفاً</span>
+                                <img src="images/preloader.gif" alt="" />
+                            </div>
+                            <br />
+
+                            <label class="label">اختار :</label>
+                            <select size="1" name="country" class="select rnd5">
+                                <option value=""> -- اختر -- </option>
+                                <option value="Syria">سوريا</option>
+                                <option value="Algeria">الجزائر</option>
+                                <option value="Bahrain">البحرين</option>
+                                <option value="Djibouti">جيبوتي</option>
+                                <option value="Egypt">مصر</option>
+                                <option value="Ethiopia">الحبشة</option>
+                                <option value="Eritrea">أريتريا</option>
+                                <option value="Iran">إيران</option>
+                                <option value="Iraq">العراق</option>
+                                <option value="Jordan">الأردن</option>
+                                <option value="Kuwait">الكويت</option>
+                                <option value="Lebanon">لبنان</option>
+                                <option value="Libya">ليبيا</option>
+                                <option value="Mali">دولة مالي</option>
+                                <option value="Mauritania">موريتانيا</option>
+                                <option value="Morocco">المغرب</option>
+                                <option value="Oman">عُمان</option>
+                                <option value="Palestine">فلسطين</option>
+                                <option value="Qatar">قطر</option>
+                                <option value="Saudi Arabia">السـعودية</option>
+                                <option value="Somalia">الصومال</option>
+                                <option value="Sudan">السودان</option>
+                                <option value="Tunisia">تونس</option>
+                                <option value="United Arab Emirates">الامارات العربية المتحدة</option>
+                                <option value="Yemen">اليمن</option>
+                            </select><br />
+                            
+                            <label class="label">محرر نصوص :</label>
+                            <textarea id="textEditor" rows="6" cols="0" class="textArea lrg rnd5">نموذج لنص يمكن استخدامه</textarea><br /><br />
+
+                            <div class="center">
+                                <input id="submit" type="submit" value="تفريغ الحقول" class="button sub sml inlineBlock rnd5 lightTextShadow" />
+                                <input id="submit" type="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div><!-- Form End -->
+            <!-- Data Grid Start -->
+            <div class="block">
+                <div class="title lightTextShadow">نتائج البحث عن كلمة ""</div>
+                <div class="content">
+                    <form action="">
+                        <table class="dataGrid tableSorter boxStyle" cellspacing="0" cellpadding="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="selectAll" /></th>
+                                    <th>مسلسل</th>
+                                    <th>صورة</th>
+                                    <th>الإسم</th>
+                                    <th>عنوان كلمة إضافية</th>
+                                    <th>أكشنز</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" value="fff" /></td>
+                                    <td>4</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(1).png" alt="" /></a></td>
+                                    <td>لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>ويُستخدم في صناعات المطابع</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr class="odd">
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>7</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(2).png" alt="" /></a></td>
+                                    <td>لوريم إيبسوم هو ببساطة نص شكلي 4</td>
+                                    <td>ويُستخدم في صناعات المطابع 46</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>1</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(3).png" alt="" /></a></td>
+                                    <td>لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>ويُستخدم في صناعات المطابع</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr class="odd">
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>2</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(4).png" alt="" /></a></td>
+                                    <td>67 لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>46 ويُستخدم في صناعات المطابع</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>9</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(5).png" alt="" /></a></td>
+                                    <td>لوريم إيبسوم هو ببساطة نص شكلي 45</td>
+                                    <td>ويُستخدم في صناعات المطابع 45</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>43</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(6).png" alt="" /></a></td>
+                                    <td>45 لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>ويُستخدم في صناعات المطابع 56</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>3</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(7).png" alt="" /></a></td>
+                                    <td>7 لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>3 ويُستخدم في صناعات المطابع</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>50</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(8).png" alt="" /></a></td>
+                                    <td>5 لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>ويُستخدم في صناعات المطابع 6</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>5</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(9).png" alt="" /></a></td>
+                                    <td>لوريم إيبسوم هو ببساطة نص شكلي 3</td>
+                                    <td>ويُستخدم في صناعات المطابع 4</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="groupe" /></td>
+                                    <td>8</td>
+                                    <td><a href="javascript:void(0)"><img src="images/icons/user(10).png" alt="" /></a></td>
+                                    <td>1 لوريم إيبسوم هو ببساطة نص شكلي</td>
+                                    <td>2 ويُستخدم في صناعات المطابع</td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="تعديل البيانات"><img src="images/icons/Pencil.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="خيارات وتخصيص"><img src="images/icons/Preferences.png" alt="" /></a>
+                                        <a href="javascript:void(0)" class="tool boxStyle" title="مسح هذا العنصر"><img src="images/icons/Trash.png" alt="" /></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pager">
+                            <div class="resultsCount"><b>10</b> - <b>20</b> / <em>200</em></div>
+                            <div class="pages"><a href="javascript:void(0)" class="nextPrev">&lt;&lt; الأولى</a><a href="javascript:void(0)" class="nextPrev">&lt;</a>&nbsp;<a href="javascript:void(0)">1</a><a href="javascript:void(0)" class="current">2</a><a href="javascript:void(0)">3</a><a href="javascript:void(0)">4</a><a href="javascript:void(0)">5</a>&nbsp;<a href="javascript:void(0)" class="nextPrev">&gt;</a><a href="javascript:void(0)" class="nextPrev">الأخيرة &gt;&gt;</a></div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- Data Grid End -->
+            <div id="footer">
+                <span id="copyrights">جميع الحقوق محفوظة بيد الله رب العالمين يقضي بها يوم القيامة بين عباده، فاتق الله © 2012</span>
+                <p>تصميم وتطوير  <a href="http://muslimmeskeen.deviantart.com/art/My-Resume-135246691" onclick="window.open(this.href); return false;">مسلم مسكين</a></p>
+                <p><a href="javascript:void(0)"><img src="images/xhtml.png" alt="" /></a><a href="javascript:void(0)"><img src="images/css.png" alt="" /></a></p>
+            </div><!-- footer End -->
+        </div><!-- middleColumn End -->
+    </div><!-- container End -->
+</body>
+</html>
