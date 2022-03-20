@@ -26,7 +26,9 @@ class PhotoRequest extends FormRequest
         return [
             'photos'=>'required|array|min:1',
             'photos.*'=>'required|max:4000|mimes:jpg,jpeg,gif,png',
-            'album_id'=>'required|exists:albums,id'
+            'album_id'=>'required|exists:albums,id',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
@@ -36,6 +38,8 @@ class PhotoRequest extends FormRequest
             'exists'=>'قسم الصور غير موجود',
             'max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'mimes'=>"نوع الملف غير مسموح به",
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

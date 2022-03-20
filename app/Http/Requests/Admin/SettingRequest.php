@@ -24,16 +24,17 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'key'=>'required|max:100',
-            'value'=>'required|max:200'
+            'value'=>'required',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
     {
         return [
             'required'=>'إملأ الخقل',
-            'key.max'=>' الحد الأقصى 100 حرف',
-            'value.max'=>' الحد الأقصى 200 حرف',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

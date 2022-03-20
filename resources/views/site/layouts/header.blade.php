@@ -8,10 +8,15 @@
         </div>
         <div class="pull-left">
             <ul class="social-header">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                @php
+                    $setting=new \App\Models\Setting();
+                @endphp
+
+                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Facebook')}}"><i class="fa fa-facebook"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Twitter')}}"><i class="fa fa-twitter"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Youtube')}}"><i class="fa fa-youtube"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Instagram')}}"><i class="fa fa-instagram"></i></a></li>
+
             </ul>
         </div>
     </div>
@@ -20,13 +25,16 @@
 
 <div class="middel-nav">
     <div class="container">
-
-        <a href="#" class="logo"><img src="{{asset('site/img/logo.png')}}"/></a>
-        <form action="{{route('search.index')}}" method="get" >
-
+        @php
+            $image=\App\Models\SiteSection::with('image')->where('name','header_logo')->first()->image->image;
+        @endphp
+        <a href="#" class="logo"><img src="{{asset('site/img/'.$image)}}"/></a>
+        <form action="{{route('search')}}" method="post" >
+            @csrf
             <div class="col-sm-4 pull-left margin-top-30 search">
                 <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="ادخل كلمة البحث ...">
+                    {!! RecaptchaV3::field('search') !!}
                     <span class="input-group-btn">
                     <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
                   </span>
@@ -59,7 +67,7 @@
                 <li><a href="{{route('pages.about')}}">عن اللجنة</a></li>
                 <li><a href="{{route('pages.programs')}}">برامجنا</a></li>
                 <li class="dropdown">
-                    <a href="<site/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">تطـوع معنـا <span class="caret"></span></a>
+                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">تطـوع معنـا <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{route('scout.register')}}">التسجيل في الكشافة</a></li>
                         <li><a href="{{route('media.register')}}">الانتساب للمركز الإعلامي</a></li>
@@ -73,7 +81,7 @@
         </div><!--/.nav-collapse -->
     </div><!--/.container -->
 </nav>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+@push('scripts')
 <script>
     $(function (){
         $('#navbar ul li').on('click',function () {
@@ -88,3 +96,4 @@
 
     });
 </script>
+@endpush

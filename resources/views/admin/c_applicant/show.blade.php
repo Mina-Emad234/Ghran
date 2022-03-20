@@ -42,6 +42,11 @@
                 <strong> الكورس  : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {{$applicant->course->name }}<br>
+                <strong> تاريخ التسجيل  : </strong><br>
+                {{ date("g:i a F j, Y ", strtotime($applicant->created_at))}}<br>
+                 <strong> كود الدفع  : </strong><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {{$applicant->payment_method }}<br>
 
 
             </div>

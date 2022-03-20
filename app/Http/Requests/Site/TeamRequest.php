@@ -47,7 +47,7 @@ class TeamRequest extends FormRequest
             'image'=>'required|mimes:jpg,gif,jpeg,png|max:4000',
             'parent_job'=>'required|max:50',
             'fav_days'=>'max:55',
-            'captcha' => 'required|captcha',
+            'g-recaptcha-response' => 'required'
         ];
     }
 
@@ -72,8 +72,8 @@ class TeamRequest extends FormRequest
             'mobile.unique'=>'رقم الجوال تم تسجيله من قبل',
             'string'=>' يجب أن يحتوي الحقل على بيانات نصية',
             'numeric'=>' يجب أن يحتوي الحقل على بيانات رقمية',
-            'parent_tel.max'=>'الحد الأقصى 15 رقم'
-
+            'parent_tel.max'=>'الحد الأقصى 15 رقم',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 }

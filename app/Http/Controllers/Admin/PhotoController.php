@@ -14,19 +14,22 @@ use PHPUnit\Exception;
 class PhotoController extends Controller
 {
     use GhranTrait;
-    public function index($album_id='')
+    public function index()
     {
-        if(!empty($album_id)){
-            $photos = Photo::with('album')->where('album_id',$album_id)->orderBy('order','asc')->paginate(10);
-        }else{
+
             $photos = Photo::with('album')->orderBy('order','asc')->paginate(10);
-        }
+        return view('admin.photo.index',compact('photos'));
+    }
+
+    public function getAlbumPhotos($album_id)
+    {
+            $photos = Photo::with('album')->where('album_id',$album_id)->orderBy('order','asc')->paginate(10);
         return view('admin.photo.index',compact('photos'));
     }
 
     public function create()
     {
-        $albums=Album::where('active',1)->get();
+        $albums=Album::get();
         return view('admin.photo.create',compact('albums'));
     }
 

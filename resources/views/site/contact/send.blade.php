@@ -76,7 +76,7 @@
                         @error('title')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
-                    </div>contact_
+                    </div>
                     <div class="form-group">
                         <label>محتوى الرسالة</label>
                         <textarea name="content" class="form-control" rows="5">{{old('content')}}</textarea>
@@ -99,12 +99,13 @@
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
-                        @if(!isset($_COOKIE['contact_sent']))
                     <div class="form-group">
-                        {{--  captcha                  --}}
+                        {!! RecaptchaV3::field('contact') !!}
+                        @error('g-recaptcha-response')
+                        <p><strong>{{$message}}</strong></p>
+                        @enderror
 
                     </div>
-                    @endif
                     <input @if(!isset($_COOKIE['contact_sent'])) type="submit" @endif class="btn btn-custom pull-left" value="إرسال الرسالة"/>
                     <br/><br/>
                     </form>
@@ -112,17 +113,24 @@
 
                 <div class="col-md-4">
                     <div class="arrow_box"><h3>معلومات الاتصال</h3></div>
-                    <p class="font"><strong>تلفــــــاكس</strong>&nbsp; 0114801860</p>
-                    <p class="font"><strong>الجــــــــــــــوال</strong>&nbsp; 0552077724</p>
-                    <p class="font"><strong>البريد الالكتروني</strong>&nbsp; info@tanmiyahergah.com</p>
+                    <p class="font"><strong>تلفــــــاكس</strong>&nbsp; {{$setting->val('Telefax')}}</p>
+
+                    <p class="font"><strong>الجــــــــــــــوال</strong>&nbsp; {{$setting->val('Mobile')}}</p>
+
+                    <p class="font"><strong>البريد الالكتروني</strong>&nbsp; {{$setting->val('Email')}}</p>
 
                     <div class="arrow_box"><h3>شبكات التواصل الاجتماعي</h3></div>
 
                     <ul class="social-contact text-center">
-                        <li><a href="https://www.facebook.com/grantanmih" class="fa" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/grantanmih" class="tw" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://www.youtube.com/grantanmih" class="you" target="_blank"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="https://instagram.com/grantanmih/" class="ins" target="_blank"><i class="fa fa-instagram"></i></a></li>
+
+                            <li><a href="{{$setting->val('Facebook')}}" class="fa" target="_blank"><i class="fa fa-facebook"></i></a></li>
+
+                            <li><a href="{{$setting->val('Twitter')}}" class="tw" target="_blank"><i class="fa fa-twitter"></i></a></li>
+
+                            <li><a href="{{$setting->val('Youtube')}}" class="you" target="_blank"><i class="fa fa-youtube"></i></a></li>
+
+                            <li><a href="{{$setting->val('Instagram')}}" class="ins" target="_blank"><i class="fa fa-instagram"></i></a></li>
+
                     </ul>
 
 

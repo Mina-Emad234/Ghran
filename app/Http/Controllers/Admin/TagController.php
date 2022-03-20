@@ -14,13 +14,19 @@ use PHPUnit\Exception;
 class TagController extends Controller
 {
     use GhranTrait;
-    public function index($blog_id='')
+    public function index()
     {
-        if(!empty($blog_id)){
-            $tags = Blog::find($blog_id)->tags()->orderBy('order')->paginate(10);
-        }else{
+
             $tags = Tag::orderBy('order','asc')->paginate(10);
-        }
+
+        return view('admin.tag.index',compact('tags'));
+    }
+
+    public function getBlogTags($blog_id)
+    {
+
+            $tags = Blog::find($blog_id)->tags()->orderBy('order')->paginate(10);
+
         return view('admin.tag.index',compact('tags'));
     }
 

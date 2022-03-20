@@ -26,6 +26,8 @@ class RoleRequest extends FormRequest
         return [
             "name"=>"required|max:50",
             "permissions"=>"required|array|min:1",
+            'g-recaptcha-response' => 'required'
+
         ];
     }
 
@@ -34,6 +36,8 @@ class RoleRequest extends FormRequest
         return [
             'required'=>'إملأ الخقل',
             'name.max'=>' الحد الأقصى 50 حرف',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

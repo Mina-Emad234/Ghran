@@ -30,6 +30,8 @@ class BlogRequest extends FormRequest
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
@@ -45,6 +47,7 @@ class BlogRequest extends FormRequest
             'image.max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'image.mimes'=>"نوع الملف غير مسموح به",
             'tags'=>'إختار كلمة بحث أو أكثر',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 }

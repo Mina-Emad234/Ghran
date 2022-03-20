@@ -29,7 +29,8 @@ class MediaRequest extends FormRequest
             'mobile'=>'required|size:11|starts_with:010,011,012,015|unique:media,mobile',
             'email'=>'required|email|max:50|unique:media,email',
             'course'=>'required|in:المونتـــــــــاج,التصميـــــــــم,التمثيـــــــــل,التصوير الفوتوغرافي,تصويــــر الفيديو,إدارة المواقع الالكترونية',
-            'captcha' => 'required|captcha',
+            'g-recaptcha-response' => 'required',
+
         ];
     }
     public function messages()
@@ -47,6 +48,7 @@ class MediaRequest extends FormRequest
             'starts_with' => 'رقم الجوال غير صالح',
             'mobile.unique' => 'رقم الجوال تم تسجيله من قبل',
             'identity.unique' => 'رقم الهوية تم تسجيله من قبل',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
 
         ];
     }

@@ -86,6 +86,11 @@
                         <label for="chk1" class="label">تفعيل</label>
                         <input type="checkbox" name="active" id="chk1" value="1" @if(old('active',$video->active)==1) checked @endif/>
                         <br />
+                        {!! RecaptchaV3::field('video') !!}
+                        @error('g-recaptcha-response')
+                        <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
+                        @enderror
+                        <br />
                         <div class="center">
                             <input id="submit" type="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
                         </div>

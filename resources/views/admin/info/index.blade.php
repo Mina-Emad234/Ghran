@@ -1,33 +1,6 @@
 @extends('admin.index')
 @section('content')
-    <style>
-        .pagination li{
-            list-style-type: none;
-            display: inline;
-        }
-    </style>
-    <script>
-        jQuery(document).ready(function() {
-            jQuery("#operation").change(function() {
 
-                var len = jQuery("#group:checked").length;
-                if (len < 1) {
-                    alert("لم تقم باختيار أى عنصر");
-                    jQuery(".defaultOpt").attr("selected", "selected");
-                    return false;
-                } else {
-                    if (jQuery("option.delete").is(":selected")) {
-                        var answer = confirm('هل أنت متأكد من حذف هذه العناصر؟');
-                        if (answer == false) {
-                            jQuery(".defaultOpt").attr("selected", "selected");
-                            return false;
-                        }
-                    }
-                    jQuery("#form").submit();
-                }
-            });
-        });
-    </script>
     <div id="middleContent">
 
         <!-- Data Grid Start -->

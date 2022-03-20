@@ -25,14 +25,22 @@
                         <img src="{{asset('admins/images/icons/media.png')}}" alt="" />استديو الصور</a></li>
                 @endcan
                 @can('blogs')
-                <li><a href="{{route("blog.index",1)}}" >
+                    @if(\App\Models\BlogCategory::find(1))
+                <li><a href="{{route('cat.blogs',1)}}" >
                         <img src="{{asset('admins/images/icons/articles.png')}}" alt="" />المقالات </a></li>
-                <li><a href="{{route("blog.index",2)}}" >
-                        <img src="{{asset('admins/images/icons/news.png')}}" alt="" />الاخبار </a></li>
-                <li><a href="{{route("blog.index",3)}}">
+                @endif
+                @if(\App\Models\BlogCategory::find(2))
+                <li><a href="{{route('cat.blogs',2)}}" >
+                     <img src="{{asset('admins/images/icons/news.png')}}" alt="" />الاخبار </a></li>
+                @endif
+                @if(\App\Models\BlogCategory::find(3))
+                <li><a href="{{route('cat.blogs',3)}}">
                         <img src="{{asset('admins/images/icons/Muslim_Female.png')}}" alt="" />الاقسام النسائية</a></li>
-                <li><a href="{{route("blog.index",4)}}">
+                @endif
+                @if(\App\Models\BlogCategory::find(4))
+                <li><a href="{{route('cat.blogs',4)}}">
                         <img src="{{asset('admins/images/icons/chat.png')}}" alt="" />قالوا عنا</a></li>
+                @endif
                 @endcan
                 @can('users')
                 <li><a href="{{route('admin.index')}}" >

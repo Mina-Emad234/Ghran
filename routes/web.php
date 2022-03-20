@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace'=>'\App\Http\Controllers\Site'],function(){
-    Route::get('/','HomeController@index')->name('home');
+    Route::get('/home','HomeController@index')->name('home');
     Route::post('/send_mail','HomeController@send_mail')->name('send_mail');
     Route::group(['prefix'=>'posts'],function(){
         Route::get('/{cat_slug?}','PostController@index')->name('post.index');
@@ -31,7 +31,8 @@ Route::group(['namespace'=>'\App\Http\Controllers\Site'],function(){
     });
 
     Route::group(['prefix'=>'search'],function(){
-        Route::get('/','SearchController@index')->name('search.index');
+        Route::get('/','SearchController@searchPage')->name('search.page');
+        Route::post('/search_data','SearchController@search')->name('search');
     });
 
     Route::group(['prefix'=>'album_categories'],function(){
@@ -53,29 +54,37 @@ Route::group(['namespace'=>'\App\Http\Controllers\Site'],function(){
     });
 
     Route::group(['prefix'=>'contact_us'],function(){
-        Route::get('register','ContactController@getPage')->name('contact.register');
+        Route::get('register','ContactController@registerPage')->name('contact.register');
         Route::post('send','ContactController@send')->name('contact.send');
     });
 
     Route::group(['prefix'=>'volunteer'],function(){
-        Route::get('register','VolunteerController@getPage')->name('volunteer.register');
+        Route::get('register','VolunteerController@registerPage')->name('volunteer.register');
         Route::post('send','VolunteerController@send')->name('volunteer.send');
     });
 
     Route::group(['prefix'=>'media_center'],function(){
-        Route::get('register','MediaController@getPage')->name('media.register');
+        Route::get('register','MediaController@registerPage')->name('media.register');
         Route::post('send','MediaController@send')->name('media.send');
     });
 
     Route::group(['prefix'=>'scouts'],function(){
-        Route::get('register','ScoutController@getPage')->name('scout.register');
+        Route::get('register','ScoutController@registerPage')->name('scout.register');
         Route::post('send','ScoutController@send')->name('scout.send');
     });
 
     Route::group(['prefix'=>'courses'],function(){
-        Route::get('/','CourseController@getPage')->name('course.all');
+        Route::get('/','CourseController@getCourses')->name('course_free.all');
+        Route::get('payable/','CourseController@getPayableCourses')->name('course_payable.all');
         Route::get('videos/{course_id}','CourseController@getVideos')->name('course.videos');
         Route::get('video/{video_id}','CourseController@listenVideo')->name('video');
+    });
+
+    Route::group(['prefix'=>'course_applicants'],function(){
+        Route::get('register/{course_id}','CourseApplicantController@registerPage')->name('course_applicant.register');
+        Route::post('send/{course_id}','CourseApplicantController@send')->name('course_applicant.send');
+        Route::get('callback','CourseApplicantController@paymentCallBack');
+        Route::get('callback_error','CourseApplicantController@paymentError');
     });
 
 });

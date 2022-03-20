@@ -14,7 +14,7 @@ class ScoutController extends Controller
 {
     use GhranTrait;
 
-    public function getPage()
+    public function registerPage()
     {
         return view('site.scout.send');
     }
@@ -41,7 +41,7 @@ class ScoutController extends Controller
             $data=['name'=>$request->name];
             Mail::to($request->email)->send(new ScoutMail($data));
             setcookie('scout_sent', $request->email, 2147483647,'/');
-            return redirect()->route('scout.page')->with(['scout_success'=>'تم تسجيل البيانات بنجاح']);
+            return redirect()->route('scout.register')->with(['scout_success'=>'تم تسجيل البيانات بنجاح']);
         }catch (\Exception $ex){
             return redirect()->back()->withInput()->with(['scout_error'=>'حدث خطأ ما حاول مرة أخرى']);
         }

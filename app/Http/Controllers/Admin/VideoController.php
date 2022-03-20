@@ -14,13 +14,18 @@ use PHPUnit\Exception;
 class VideoController extends Controller
 {
     use GhranTrait;
-    public function index($course_id='')
+    public function index()
     {
-        if(!empty($course_id)){
-            $videos = Video::with('course')->where('course_id',$course_id)->orderBy('order','asc')->paginate(10);
-        }else{
+
             $videos = Video::with('course')->orderBy('order','asc')->paginate(10);
-        }
+
+        return view('admin.video.index',compact('videos'));
+    }
+
+    public function getCourseVideos($course_id)
+    {
+            $videos = Video::with('course')->where('course_id',$course_id)->orderBy('order','asc')->paginate(10);
+
         return view('admin.video.index',compact('videos'));
     }
 
@@ -36,10 +41,14 @@ class VideoController extends Controller
             $active = $this->checkActive($request);
             $video_name = $this->upload($request->video,'uploads/v_videos');
             $file_name = $this->upload($request->image,'uploads/v_images');
+            $course = Course::where('course_payable',0)->find($request->course_id);
+            if(!$course)
+                return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
+
             Video::create([
                 'name'=>$request->name,
                 'author'=>$request->author,
-                'course_id'=>$request->course_id,
+                'course_id'=>$course->id,
                 'image'=>$file_name,
                 'video'=>$video_name,
                 'active'=>$active,
@@ -71,11 +80,16 @@ class VideoController extends Controller
         try{
             $video = $this->checkModel(new Video,$id);
             $active = $this->checkActive($request);
+            $course = Course::where('course_payable',0)->find($request->course_id);
+            if(!$course)
+                return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
+
+
             $this->updateUpload($request,'video','uploads/v_videos/',$video->video,$video);
             $this->updateUpload($request,'image','uploads/v_images/',$video->image,$video);
             $data['name'] = $request->name;
             $data['author'] = $request->author;
-            $data['course_id'] = $request->course_id;
+            $data['course_id'] = $course->id;
             $data['active'] = $active;
             $video->update($data);
             return redirect()->route('video.index')->with(['success_msg' => 'تم تحديث الفيديو بنجاح']);

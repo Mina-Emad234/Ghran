@@ -29,7 +29,9 @@ class CourseRequest extends FormRequest
             'duration'=>'required|numeric',
             'licence'=>'required|max:100',
             'price'=>'required_with:course_payable|numeric',
-            'image'=>'required_without:id|mimes:jpg,gif,jpeg,png|max:4000'
+            'image'=>'required_without:id|mimes:jpg,gif,jpeg,png|max:4000',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
@@ -44,6 +46,8 @@ class CourseRequest extends FormRequest
             'unique'=>'هذا الاسم موجود بالفعل من فضلك ضع اسم غير موجود من قبل',
             'image.max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'image.mimes'=>"نوع الملف غير مسموح به",
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

@@ -24,7 +24,9 @@ class InfoRequest extends FormRequest
     public function rules()
     {
         return [
-            'body'=>'required|max:500'
+            'body'=>'required|max:500',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
 
@@ -33,6 +35,8 @@ class InfoRequest extends FormRequest
         return [
             'required'=>'إملأ الخقل',
             'name.max'=>' الحد الأقصى 500 حرف',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

@@ -1,40 +1,12 @@
 @extends('admin.index')
 @section('content')
-    <style>
-        .pagination li{
-            list-style-type: none;
-            display: inline;
-        }
-    </style>
-<script>
-    jQuery(document).ready(function() {
-        jQuery("#operation").change(function() {
-
-            var len = jQuery("#group:checked").length;
-            if (len < 1) {
-                alert("لم تقم باختيار أى عنصر");
-                jQuery(".defaultOpt").attr("selected", "selected");
-                return false;
-            } else {
-                if (jQuery("option.delete").is(":selected")) {
-                    var answer = confirm('هل أنت متأكد من حذف هذه العناصر؟');
-                    if (answer == false) {
-                        jQuery(".defaultOpt").attr("selected", "selected");
-                        return false;
-                    }
-                }
-                jQuery("#form").submit();
-            }
-        });
-    });
-</script>
 <div id="middleContent">
 
     <!-- Data Grid Start -->
     <div class="block">
         <div class="title lightTextShadow">الأقسام</div>
         <div class="content">
-            <a href="{{url('admin/blog_category/create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
+            <a href="{{route('category.create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
                 <span>قسم جديد<img src="{{asset('admins/images/plus-small.gif')}}" width="12" height="9" alt="New new" /></span>
             </a>
             @if(session()->has('error_msg'))
@@ -68,7 +40,7 @@
                          class='odd'
                     @endif >
                     <td class="align-center">{{$counter}}</td>
-                    <td>{{$cat->name}}</a></td>
+                    <td><a href="{{route('cat.blogs',$cat->id)}}">{{$cat->name}}</a></td>
                     <td >
                         @if($cat->image != "" && file_exists("uploads/categories/" . $cat->image))
                         <img src="{{'../../uploads/categories/'.$cat->image}}" width="80" height="50" />

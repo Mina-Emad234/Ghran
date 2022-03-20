@@ -1,17 +1,7 @@
 @extends('site.index')
 @section('title',$blog->title)
 @section('content')
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <link href="{{asset('admins/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-seaside.light.css')}}" rel="stylesheet">
-    <script src="{{asset('admins/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js')}}"></script>
 
-    <script type='text/javascript'>
-        $(document).ready(function () {
-            $('pre code').each(function (i, block) {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
 
     <div class="slider_bg">
         <div class="banner-inner">
@@ -197,6 +187,10 @@
                                             @error('body')
                                             <p><b>{{$message}}</b></p>
                                             @enderror
+                                            {!! RecaptchaV3::field('comment') !!}
+                                            @error('g-recaptcha-response')
+                                            <p><strong>{{$message}}</strong></p>
+                                            @enderror
                                             <input type='hidden' name='parent_id' value="{{old('parent_id',NULL)}}" id='parent_id' />
                                             <input type='hidden' name='blog_id' value="{{$blog->id}}" id='parent_id'/>
                                         </div>
@@ -227,6 +221,10 @@
                                     @error('body')
                                     <p><b>{{$message}}</b></p>
                                     @enderror
+                                    {!! RecaptchaV3::field('comment') !!}
+                                    @error('g-recaptcha-response')
+                                    <p><strong>{{$message}}</strong></p>
+                                    @enderror
                                     <input type='hidden' name='parent_id' value="{{old('parent_id',NULL)}}" id='parent_id' />
                                     <input type='hidden' name='blog_id' value="{{$blog->id}}" id='parent_id'/>
                                 </div>
@@ -244,6 +242,9 @@
 
 
 
+
+@endsection
+@push('scripts')
     <?php //$this->view('blog/blog/comment'); ?>
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({
@@ -287,4 +288,4 @@
             });
         });
     </script>
-@endsection
+    @endpush

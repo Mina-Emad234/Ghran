@@ -1,9 +1,9 @@
 @extends('admin.index')
+@section('stylesheets')
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/default/easyui.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/icon.css')}}">
+@endsection
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/default/easyui.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/icon.css')}}">
-    <script type="text/javascript" src="{{asset('admin/easyui/jquery.easyui.min.js')}}"></script>
-
     <div id="middleContent">
         <a href="{{route('course.index')}}"
            class="button sub inlineBlock rnd3 lightTextShadow">
@@ -84,6 +84,11 @@
                         <label for="chk2" class="label">هل الكورس مدفوع أو مجاني؟</label>
                         <input type="checkbox" name="course_payable" id="chk2" value="1" @if(old('course_payable',$course->course_payable)==1) checked @endif/>
                         <br />
+                        {!! RecaptchaV3::field('course') !!}
+                        @error('g-recaptcha-response')
+                        <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
+                        @enderror
+                        <br />
                         <div class="center">
                             <input id="submit" type="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
                         </div>
@@ -94,3 +99,6 @@
     </div>
 
 @endsection
+@push('sripts')
+    <script type="text/javascript" src="{{asset('admins/easyui/jquery.easyui.min.js')}}"></script>
+@endpush

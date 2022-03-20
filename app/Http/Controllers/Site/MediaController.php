@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class MediaController extends Controller
 {
-    public function getPage()
+    public function registerPage()
     {
         return view('site.media.send');
     }
@@ -28,7 +28,7 @@ class MediaController extends Controller
             $data=['name'=>$request->name];
             Mail::to($request->email)->send(new MediaMail($data));
             setcookie('media_sent', $request->email, 2147483647,'/');
-            return redirect()->route('media.page')->with(['media_success'=>'تم تسجيل البيانات بنجاح']);
+            return redirect()->route('media.register')->with(['media_success'=>'تم تسجيل البيانات بنجاح']);
         }catch (\Exception $ex){
             return redirect()->back()->withInput()->with(['media_error'=>'حدث خطأ ما حاول مرة أخرى']);
         }

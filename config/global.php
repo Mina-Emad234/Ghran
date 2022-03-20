@@ -2,6 +2,8 @@
     return [
         "permissions"=>[
             'categories'=>'الأقسام',
+            'site_content'=>'محنوى الموقع',
+            'site_section'=>'أقسام الواجهة الأمامية(الموقع)',
             'blogs'=>'المنشورات',
             'comments'=>'التعليقات',
             'infos'=>'المعلومات',

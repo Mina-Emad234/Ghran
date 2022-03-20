@@ -1,13 +1,14 @@
 @extends('site.index')
-@section('title','الكورسات')
+@section('title','الكورسات المجانية ')
 @section('content')
+
     <!-- start slider -->
     <div class="banner-inner">
         <div class="container">
-            <h1 class="pull-right">الكورسات</h1>
+            <h1 class="pull-right">الكورسات المجانية</h1>
             <ul class="breadcrumb pull-left">
                 <li><a href="{{route('home')}}">الرئيسية</a></li>
-                <li class="active">الكورسات</li>
+                <li class="active">الكورسات المجانية</li>
             </ul>
         </div>
     </div>
@@ -19,36 +20,43 @@
 
             <div class="col-md-8">
                 <div class="content" style="min-height: 800px;">
-                    @forelse($courses as $course)
-                    <div class="panel panel-default" dir="ltr">
-                        <div class="panel-heading" role="tab" id="heading{{$course->id}}">
-                            <h4 class="panel-title collapsed acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">{{$course->name}}</h4>
-                        </div>
-                        <div id="collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$course->id}}">
-                            <div class="panel-body">
-                                <div class="col-md-9" style="font-size: 18px; line-height: 30px;text-wrap: normal">
-                                    <a href="{{route('course.videos',$course->id)}}">{!! $course->description !!}</a>
-                                </div>
-                                <div class="col-md-3">
-                                    @if (!empty($course->image) && file_exists("uploads/courses/" . $course->image))
-                                    <img src="{{'../../../uploads/courses/'.$course->image}}" class="img-responsive" width="150px" />
-                                    @else
-                                    <img src="{{asset('admins/images/no-img.png')}}" width="150px"  class="img-responsive" />
-                                    @endif
-                                </div>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        @forelse($courses as $course)
+                        <div dir="rtl" class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{$course->id}}">
+                                <h4 class="panel-title acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$course->id}}" aria-expanded="true" aria-controls="collapse{{$course->id}}">{{$course->name}}</h4>
+                            </div>
+                            <div id="collapse{{$course->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$course->id}}">
+                                <div class="panel-body">
 
+                                    <a href="{{route('course.videos',$course->id)}}">
+                                        <div class="col-md-3" style="margin-top: 15px">
+                                            @if ($course->image != "" && file_exists("uploads/courses/" . $course->image))
+                                                <img src="{{'../../../uploads/courses/'.$course->image}}" class="img-responsive" width="110" style="display: inline !important;"/>
+                                            @else
+                                                <img src="{{asset('admins/images/no-img.png')}}" width="110"/>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-9" style="font-size: 18px; line-height: 30px;text-wrap: normal;">
+                                            {!! $course->description !!}
+                                        </div>
+
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                        @empty
+                            <h4 style="text-align: center">لا توجد كورسات لعرضها</h4>
+                        @endforelse
                     </div>
-                    @empty
-                        <h4 style="text-align: center">لا يوجد كورسات لعرضها</h4>
-                    @endforelse
-                        <div class="d-flex justify-content-center">
-                            {!! $courses->appends(['sort' => 'science-stream'])->links() !!}
-                        </div>                    <div class="clearfix"></div>
-
+                    <div align="center">
+                        {!! $courses->appends(['sort' => 'science-stream'])->links("pagination::bootstrap-4") !!}
+                    </div>
                 </div>
+                <div class="clearfix"></div>
+
             </div>
+
 
             <aside>
                 <div class="col-md-4">
@@ -86,4 +94,12 @@
         </div>
 
     </section>
+
 @endsection
+@push('scripts')
+    <script>
+        $(function (){
+            $('#accordion div:first-child .panel-collapse').addClass('in');
+        });
+    </script>
+@endpush

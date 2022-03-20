@@ -1,5 +1,13 @@
 @extends('admin.index')
+@section('stylesheets')
+    <style>
+        img{
+            margin: 5px 0;
+        }
+    </style>
+@endsection
 @section('content')
+
     <div id="middleContent">
 
         <div class="block">
@@ -20,7 +28,7 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>قسم الموقع</th>
+                            <th>الصفحة</th>
                             <th>الصورة</th>
                         </tr>
                         </thead>
@@ -36,7 +44,7 @@
                                 @endif
                             >
                                 <td class="align-center">{{$counter}}</td>
-                                <td>{{$site_image->site_part}}</td>
+                                <td>{{$site_image->site_section->name}}</td>
                                 <td>
                                     @if($site_image->image != "" && file_exists("site/img/" . $site_image->image))
                                         <img src="{{'../../site/img/'.$site_image->image}}" width="300" height="150" />

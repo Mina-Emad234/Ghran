@@ -15,44 +15,39 @@
 
 
 
+
 <section class="gray">
 
     <div class="container" id="resp-height">
 
         <div class="col-md-8">
             <div class="content">
-
-
-
-
-
-
-
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title acc-head active" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">بدر بن عبد الله الرواف</h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                            <div class="panel-body">
+                    @foreach($members as $member)
+                        <div dir="rtl" class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{$member->id}}">
+                                <h4 class="panel-title acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$member->id}}" aria-expanded="true" aria-controls="collapse{{$member->id}}">{{$member->title}}</h4>
+                            </div>
+                            <div id="collapse{{$member->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$member->id}}">
+                                <div class="panel-body">
 
-                                <h4>رئيس مجلس الأدارة</h4>
+                                    {!! $member->body !!}
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-
-
-
+                    @endforeach
                 </div>
-
-
-
-
-
-                <div class="clearfix"></div>
-
+                <div align="center">
+                    {!! $members->appends(['sort' => 'science-stream'])->links("pagination::bootstrap-4") !!}
+                </div>
             </div>
+
+
+            <div class="clearfix"></div>
+
         </div>
 
 
@@ -63,9 +58,9 @@
                     <div class="arrow_box no-margin"><h3>أخر الأخبار</h3></div>
                     <ul class="news-menu margin-top-15">
                         @php
-                            $all = \App\Models\Blog::where(['active'=>1,'category_id'=>2])->latest()->limit(6)->get();
+                            $all = \App\Models\Blog::where(['active'=>1,'category_id'=>2])->whereDate('created_at', \Carbon\Carbon::today())->latest()->limit(6)->get();
                         @endphp
-                        @forelse ($all as $news)
+                        @foreach ($all as $news)
                             <li><a href="{{route('post.show',$news->slug)}}">
                                     @if ($news->image != "" && file_exists("uploads/blogs/" . $news->image))
                                         <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
@@ -74,9 +69,8 @@
                                     @endif
                                     <h5 style="font-size: 15px;font-weight: bold;line-height: 20px !important;text-align: center">{{strlen($news->title)>100?substr($news->title,0,strpos($news->title,' ',100)).'...': $news->title}}</h5>
                                 </a></li>
-                        @empty
-                            <li><h3 style="text-align: center">لا يوجد أخبار لعرضها حاليا</h3></li>
-                        @endforelse
+
+                        @endforeach
                     </ul>
                     <div class="clearfix"></div>
 
@@ -88,7 +82,17 @@
         </aside>
 
 
+
+
     </div>
 
 </section>
+
 @endsection
+@push('scripts')
+    <script>
+        $(function (){
+            $('#accordion div:first-child .panel-collapse').addClass('in');
+        });
+    </script>
+@endpush

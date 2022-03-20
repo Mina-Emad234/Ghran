@@ -1,9 +1,7 @@
 
 @extends('admin.index')
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/default/easyui.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/icon.css')}}">
-    <script type="text/javascript" src="{{asset('admin/easyui/jquery.easyui.min.js')}}"></script>
+
 
     <div id="middleContent">
         <a href="{{route('photo.index')}}"
@@ -42,6 +40,11 @@
                         @endforeach
                     </select>
                     @error('album_id')
+                    <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
+                    @enderror
+                    <br />
+                    {!! RecaptchaV3::field('photo') !!}
+                    @error('g-recaptcha-response')
                     <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                     @enderror
                     <br />

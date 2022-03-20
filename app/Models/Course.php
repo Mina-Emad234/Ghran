@@ -19,4 +19,5 @@ class Course extends Model
     public function applicants(){
         return $this->hasMany(CourseApplicant::class,'course_id','id');
     }
+
 }

@@ -29,7 +29,8 @@ class ContactRequest extends FormRequest
             'title'=>'required|max:50',
             'content'=>'required|max:1000',
             'file'=>'mimes:jpg,gif,jpeg,png,mp4,pdf,txt,mkv,flv,docs,doc,3gb,xlsx,pptx|max:4000',
-            'captcha' => 'required|captcha',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
 
@@ -42,7 +43,8 @@ class ContactRequest extends FormRequest
             'content.max'=>' الحد الأقصى 1000 حرف',
             'file.max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'file.mimes'=>"نوع الملف غير مسموح به",
-            'captcha'=>'رمز التحقيق غير صحيح'
-        ];
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
+            ];
     }
 }

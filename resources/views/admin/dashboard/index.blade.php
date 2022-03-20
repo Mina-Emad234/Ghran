@@ -68,6 +68,13 @@
                     <li><a href="{{route('c_applicant.index')}}" class="boxStyle" >
                             <img src="{{asset('admins/images/icons/11.png')}}" alt="" /><br />المتقدمين للكورسات</a></li>
                     @endcan
+                    @can('site_section')
+                        <li><a href="{{route('site_section.index')}}" class="boxStyle" >
+                                <img src="{{asset('admins/images/icons/9.png')}}" width="75px" alt="" /><br />أقسام الواجهة الأمامية</a></li>
+                    @endcan
+                    @can('site_content')
+                        <li><a href="{{route('site_content')}}" class="boxStyle" ><img src="{{asset('admins/images/icons/10.png')}}" alt="" /><br />محتوي الموقع</a></li>
+                    @endcan
                     @can('site_image')
                         <li><a href="{{route('site_image.index')}}" class="boxStyle" ><img src="{{asset('admins/images/icons/8.png')}}" alt="" /><br />صور الموقع</a></li>
                     @endcan

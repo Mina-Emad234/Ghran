@@ -28,7 +28,9 @@ class VoteQuestionRequest extends FormRequest
             'answer1'=>'required|max:100',
             'answer2'=>'required|max:100',
             'answer3'=>'required|max:100',
-            'answer4'=>'required|max:100'
+            'answer4'=>'required|max:100',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
@@ -38,6 +40,8 @@ class VoteQuestionRequest extends FormRequest
             'question.max'=>' الحد الأقصى 200 حرف',
             'ends_with'=>'يجب أن ينتهي السؤال يعلامة إستفهام',
             'max'=>' الحد الأقصى 100 حرف',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

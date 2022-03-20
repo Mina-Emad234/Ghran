@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Site\VoteRequest;
 use App\Models\VoteQuestion;
 use App\Models\VoteResult;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class VoteController extends Controller
         return view('site.vote.previous_votes',compact('votes'));
     }
 
-    public function voteAnswer($id,Request $request){
+    public function voteAnswer($id,VoteRequest $request){
         try {
             $vote = VoteQuestion::where('active',1)->find($id);
             if(!$vote || !in_array($request->answer,['1','2','3','4']))

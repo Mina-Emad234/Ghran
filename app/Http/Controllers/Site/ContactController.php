@@ -12,9 +12,10 @@ use PHPUnit\Exception;
 
 class ContactController extends Controller
 {
-    public function getPage()
+    public function registerPage()
     {
-        return view('site.contact.send');
+        $setting=new \App\Models\Setting();
+        return view('site.contact.send',compact('setting'));
     }
     public function send(ContactRequest $request)
     {
@@ -38,7 +39,7 @@ class ContactController extends Controller
             $data=['sender'=>$request->sender];
                 Mail::to($request->email)->send(new ContactMail($data));
             setcookie('contact_sent', $request->email, time()+(60*60*24*2),'/');
-            return redirect()->route('contact.page')->with(['contact_success'=>'تم التسجيل بنجاح']);
+            return redirect()->route('contact.register')->with(['contact_success'=>'تم التسجيل بنجاح']);
         }catch (Exception $ex){
             return redirect()->back()->withInput()->with(['contact_error'=>'حدث خطأ ما حاول مرة أخرى']);
         }

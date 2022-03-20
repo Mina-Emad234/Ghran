@@ -9,8 +9,9 @@ class CourseApplicant extends Model
 {
     use HasFactory;
     protected $table = 'course_applicants';
-    protected $fillable = ['course_id', 'name', 'email', 'mobile', 'marita_status', 'job', 'city', 'age', 'read'];
-    public $timestamps=false;
+    protected $fillable = ['course_id', 'name', 'email', 'mobile', 'marital_status',
+                            'address','job', 'city', 'age', 'payment_method', 'read'];
+    public $timestamps=true;
 
     public function course(){
         return $this->belongsTo(Course::class,'course_id','id');

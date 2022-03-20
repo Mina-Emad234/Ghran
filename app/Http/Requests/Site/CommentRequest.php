@@ -27,6 +27,7 @@ class CommentRequest extends FormRequest
             'writer'=>'required|max:50',
             'email'=>'required|max:50|email',
             'body'=>'required|max:500',
+            'g-recaptcha-response' => 'required',
         ];
     }
     public function messages()
@@ -35,7 +36,9 @@ class CommentRequest extends FormRequest
             'required'=>'إملأ الخقل',
             'max'=>' الحد الأقصى 50 حرف',
             'body.max'=>' الحد الأقصى 500 حرف',
-            'email'=>'يجب أن يحتوي البريد الالكتروني على الرمز @'
+            'email'=>'يجب أن يحتوي البريد الالكتروني على الرمز @',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

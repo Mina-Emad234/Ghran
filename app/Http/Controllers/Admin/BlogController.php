@@ -17,17 +17,21 @@ use Illuminate\Support\Facades\DB;
 class BlogController extends Controller
 {
     use GhranTrait;
-    public function index($cat_id='')
+    public function index()
     {
-        if (!empty($cat_id)){
-            $blogs = Blog::with('category')->withCount(['comments','tags'=> function (Builder $query) {
-                $query->where('active', 1);
-            }])->where('category_id',$cat_id)->orderBy('id','desc')->paginate(10);
-        }else {
+
             $blogs = Blog::with('category')->withCount(['comments','tags'=> function (Builder $query) {
                 $query->where('active', 1);
             }])->orderBy('id','desc')->paginate(10);
-        }
+        return view('admin.blog.index',compact('blogs'));
+    }
+
+    public function getCategoryBlog($cat_id)
+    {
+            $blogs = Blog::with('category')->withCount(['comments','tags'=> function (Builder $query) {
+                $query->where('active', 1);
+            }])->where('category_id',$cat_id)->orderBy('id','desc')->paginate(10);
+
         return view('admin.blog.index',compact('blogs'));
     }
 

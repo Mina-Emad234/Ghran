@@ -1,33 +1,5 @@
 @extends('admin.index')
 @section('content')
-    <style>
-        .pagination li{
-            list-style-type: none;
-            display: inline;
-        }
-    </style>
-<script>
-    jQuery(document).ready(function() {
-        jQuery("#operation").change(function() {
-
-            var len = jQuery("#group:checked").length;
-            if (len < 1) {
-                alert("لم تقم باختيار أى عنصر");
-                jQuery(".defaultOpt").attr("selected", "selected");
-                return false;
-            } else {
-                if (jQuery("option.delete").is(":selected")) {
-                    var answer = confirm('هل أنت متأكد من حذف هذه العناصر؟');
-                    if (answer == false) {
-                        jQuery(".defaultOpt").attr("selected", "selected");
-                        return false;
-                    }
-                }
-                jQuery("#form").submit();
-            }
-        });
-    });
-</script>
 <div id="middleContent">
 
     <!-- Data Grid Start -->
@@ -81,7 +53,7 @@
                     <td class="align-center">{{$counter}}</td>
                     <td>{{strlen($course->name)>50?substr($course->name,0,strpos($course->name,' ',50)).'...': $course->name}}</td>
                     <td>{{$course->duration}} ساعة</td>
-                    <td><a href="{{route('video.index',$course->id)}}">{{$course->videos_count}} فيديو</a></td>
+                    <td><a href="{{route('get_course.videos',$course->id)}}">{{$course->videos_count}} فيديو</a></td>
                     <td>{{$course->licence}}</td>
                     <td>
                         @if($course->image != "" && file_exists("uploads/courses/" . $course->image))

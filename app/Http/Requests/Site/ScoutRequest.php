@@ -38,7 +38,7 @@ class ScoutRequest extends FormRequest
             'parent_tel'=>'max:15',
             'image'=>'required|mimes:jpg,gif,jpeg,png|max:4000',
             'parent_job'=>'required|max:50',
-            'captcha' => 'required|captcha',
+            'g-recaptcha-response' => 'required'
         ];
     }
     public function messages()
@@ -59,7 +59,7 @@ class ScoutRequest extends FormRequest
             'string'=>' يجب أن يحتوي الحقل على بيانات نصية',
             'parent_tel.max'=>'الحد الأقصى 15 رقم',
             'numeric'=>' يجب أن يحتوي الحقل على بيانات رقمية',
-
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 }

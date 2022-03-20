@@ -35,6 +35,7 @@
     <script type="text/javascript" src="{{asset('admins/js/jquery-ui-2.8.18.blind.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('admins/js/jquery.cleditor.js')}}"></script>
     <script type="text/javascript" src="{{asset('admins/js/cms.init.js')}}"></script> <!-- All jquery plugins initialization & tweaks here -->
+    {!! RecaptchaV3::initJs() !!}
 </head>
 <body>
 <div id="loginPage">
@@ -54,6 +55,9 @@
                 @error('password')
                 <span class="text-danger">{{$message}}</span><br>
                 @enderror
+                @error('g-recaptcha-response')
+                    <span class="text-danger">{{$message}}</span><br>
+                @enderror
                 <legend>&nbsp;</legend>
                 <div class="form-group">
                     <input id="name" value="{{old('email')}}" class="form-control" placeholder="email" name="email"/>
@@ -63,7 +67,10 @@
                 </div>
                 <input type="checkbox" id="chk2" name="remember_me" value="1"/>
                 <label for="chk2">تذكرني</label><br />
-
+                    {!! RecaptchaV3::field('login') !!}
+                    @error('g-recaptcha-response')
+                    <p><strong>{{$message}}</strong></p>
+                    @enderror
                 <div class="center">
                     <input id="submit" type="submit" name="login" value="أدخل" class="button inlineBlock sml rnd5 drkTextShadow" />
                 </div>

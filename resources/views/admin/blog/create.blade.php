@@ -1,8 +1,12 @@
 @extends('admin.index')
+@section('stylesheets')
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/default/easyui.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/icon.css')}}">
+@endsection
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/default/easyui.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/easyui/themes/icon.css')}}">
-    <script type="text/javascript" src="{{asset('admin/easyui/jquery.easyui.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/default/easyui.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admins/easyui/themes/icon.css')}}">
+    <script type="text/javascript" src="{{asset('admins/easyui/jquery.easyui.min.js')}}"></script>
 
     <div id="middleContent">
         <a href="{{route('blog.index')}}"
@@ -66,6 +70,11 @@
                     <label for="chk1" class="label">تفعيل</label>
                     <input type="checkbox" name="active" id="chk1" value="1" @if(old('active')==1) checked @endif/>
                     <br />
+                    {!! RecaptchaV3::field('blog') !!}
+                    @error('g-recaptcha-response')
+                    <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
+                    @enderror
+                    <br />
                     <div class="center">
                         <input id="submit" type="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
                     </div>
@@ -76,3 +85,6 @@
     </div>
 
 @endsection
+@push('sripts')
+    <script type="text/javascript" src="{{asset('admins/easyui/jquery.easyui.min.js')}}"></script>
+@endpush

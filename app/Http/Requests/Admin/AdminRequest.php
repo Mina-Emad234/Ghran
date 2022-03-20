@@ -30,6 +30,8 @@ class AdminRequest extends FormRequest
             "email"=>"required|email|unique:admins,email,".$this->id,
             "password"=>"required_without:id|nullable|confirmed|min:8",
             "role_id"=>"required|exists:roles,id",
+            'g-recaptcha-response' => 'required'
+
         ];
     }
         public function messages()
@@ -42,6 +44,7 @@ class AdminRequest extends FormRequest
             "confirmed"=>"كلمة المرور غير متطابقة",
             "min"=>"يجب ألا تقل كلمة الحروف عن 8 أحرف",
             'exists'=>'هذه الصلاحية غير موجود',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 

@@ -15,7 +15,7 @@ class AddActiveAndLoginAttemptsToAdminsTable extends Migration
     {
         Schema::table('admins', function (Blueprint $table) {
             $table->boolean('active')->after('role_id');
-            $table->integer('login_attempts')->after('active');
+            $table->integer('login_attempts')->default(0)->after('active');
         });
     }
 

@@ -22,13 +22,13 @@
                         <legend class="boxStyle">إضافة أو تعديل صورة للموقع</legend>
 
 
-                        <label class="label">قسم الموقع :</label>
-                        <select size="1" name="site_part" class="select med rnd5">
-                                <option value="main" @if(old('site_part')=='main') selected @endif>main</option>
-                                <option value="support" @if(old('site_part')=='support') selected @endif>support</option>
+                        <label class="label">الصفحة :</label>
+                        <select size="1" name="site_section_id" class="select med rnd5">
+                            @foreach($sections as $section)
+                                <option value="{{$section->id}}" @if(old('site_section_id')==$section->id) selected @endif>{{$section->name}}</option>
+                            @endforeach
                         </select>
-
-                        @error('site_part')
+                        @error('site_section_id')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
@@ -41,6 +41,10 @@
                             @enderror
                         </div>
                         <br />
+                        {!! RecaptchaV3::field('site_image') !!}
+                        @error('g-recaptcha-response')
+                        <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
+                        @enderror
                         <br />
                         <div class="center">
                             <input id="submit" type="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
@@ -50,15 +54,5 @@
             </div>
         </div>
     </div>
-<script>
-    $(function(){
-        $('input[name=key]').change(function(){
-            $('#key option').each(function (){
-                if($(this).val() === $('[name="key"]').val()){
-                    $('input[name=value]').val($(this).data('value'));
-                }
-            });
-        });
-    });
-</script>
+
 @endsection

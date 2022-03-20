@@ -55,6 +55,11 @@
                         <label for="active" class="label"> تفعيل </label>
                         <input type="checkbox" id="active" class="textBox med rnd5" value="1" name="active" @if(old('active')==1) checked @endif/>
                         <br>
+                        {!! RecaptchaV3::field('admin') !!}
+                        @error('g-recaptcha-response')
+                        <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
+                        @enderror
+                        <br />
                         <div class="center">
                             <input id="submit" type="submit" name="submit" value="أدخل" class="button sml inlineBlock rnd5 drkTextShadow" />
                         </div>

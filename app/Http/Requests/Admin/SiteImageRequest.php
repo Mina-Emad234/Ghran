@@ -24,8 +24,10 @@ class SiteImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'site_part'=>'required|in:main,support',
-            'image'=>'required|mimes:jpg,gif,jpeg,png|max:6000'
+            'site_section_id'=>'required|exists:site_sections,id',
+            'image'=>'required|mimes:jpg,gif,jpeg,png|max:6000',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
 
@@ -33,9 +35,11 @@ class SiteImageRequest extends FormRequest
     {
         return [
             'required'=>'إملأ الخقل',
-            'in'=>'حدث خطأ ما',
+            'exists'=>'حدث خطأ ما',
             'image.max'=>"حجم الملف لا يجب أن يكون أكبر من 6 ميجا",
             'image.mimes'=>"نوع الملف غير مسموح به",
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

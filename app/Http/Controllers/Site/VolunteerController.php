@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class VolunteerController extends Controller
 {
-    public function getPage()
+    public function registerPage()
     {
         return view('site.volunteer.send');
     }
@@ -46,7 +46,7 @@ class VolunteerController extends Controller
             $data=['name'=>$request->name];
             Mail::to($request->email)->send(new VolunteerMail($data));
             setcookie('team_sent', $request->email, 2147483647,'/');
-            return redirect()->route('volunteer.page')->with(['team_success'=>'تم تسجيل البيانات بنجاح']);
+            return redirect()->route('volunteer.register')->with(['team_success'=>'تم تسجيل البيانات بنجاح']);
         }catch (\Exception $ex){
             return redirect()->back()->withInput()->with(['team_error'=>'حدث خطأ ما حاول مرة أخرى']);
         }

@@ -1,14 +1,13 @@
 @extends('admin.index')
-@section('content')
+@section('stylesheets')
     <style>
-        .pagination li{
-            list-style-type: none;
-            display: inline;
-        }
         table{
             font-size: 13px;
         }
     </style>
+@endsection
+@section('content')
+
     <div id="middleContent">
 
         <!-- Data Grid Start -->

@@ -100,12 +100,12 @@
                         </label>
                         <br>
                     </div>
-                    @if(!isset($_COOKIE['media_sent']))
                     <div class="form-group">
-                        {{--  captcha                  --}}
-
+                        {!! RecaptchaV3::field('media') !!}
+                        @error('g-recaptcha-response')
+                        <p><strong>{{$message}}</strong></p>
+                        @enderror
                     </div>
-                    @endif
                     <input @if(!isset($_COOKIE['media_sent'])) type="submit" @endif class="btn btn-custom pull-left" value="إدخال">
                     <br><br>
                     </form>

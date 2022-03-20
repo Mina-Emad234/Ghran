@@ -10,10 +10,16 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
 
-    public function getPage()
+    public function getCourses()
     {
-        $courses = Course::where('active',1)->orderByDesc('id')->paginate(5);
+        $courses = Course::where(['active'=>1,'course_payable'=>0])->orderByDesc('id')->paginate(5);
         return view('site.course.courses',compact('courses'));
+    }
+
+    public function getPayableCourses()
+    {
+        $courses = Course::where(['active'=>1,'course_payable'=>1])->orderByDesc('id')->paginate(5);
+        return view('site.course.payable_courses',compact('courses'));
     }
 
     public function getVideos($course_id)

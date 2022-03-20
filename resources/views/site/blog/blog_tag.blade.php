@@ -1,11 +1,14 @@
 @extends('site.index')
 @section('title',$tag_data->slug)
-@section('content')
+@section('stylesheets')
     <style>
         table{
             border: none !important;
         }
     </style>
+@endsection
+@section('content')
+
     <div class="banner-inner">
         <div class="container">
             <h1 class="pull-right">$tag_data->slug</h1>
@@ -47,10 +50,13 @@
 
     </div>
 
+
+
+@endsection
+@push('scripts')
     <script src="{{asset('site/js/classie.js')}}"></script>
     <script src="{{asset('site/js/uisearch.js')}}"></script>
     <script>
         new UISearch(document.getElementById('sb-search'));
     </script>
-
-@endsection
+@endpush

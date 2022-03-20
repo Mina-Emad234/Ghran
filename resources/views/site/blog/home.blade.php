@@ -1,5 +1,14 @@
 @extends('site.index')
 @section('title','الرئيسية')
+@section('stylesheets')
+    <style>
+    .banner-main {
+        min-height: 507px;
+        background: url({{asset('site/img/'.$data['image'])}}) no-repeat top center;
+        background-size: cover;
+    }
+</style>
+@endsection
 @section('content')
 
     <section>
@@ -19,17 +28,22 @@
     <div class="banner-main">
         <div class="container">
             <div class="col-md-7 margin-top-30">
-                <h2>برنامج تأهيل<br/><span>المقبلين على الزواج للشباب والفتيات</span></h2>
+                @php
+                    $course=$data['paid_course'];
+                @endphp
+                @if(!empty($course))
+                <h2>{{substr($course->name,0,strpos($course->name,' ',15))}}<br><span>{{substr($course->name,strpos($course->name,' ',15))}}</span></h2>
                 <br/>
-                <p class="font">تبدأ البرامج من شهر جمادي الثاني وحتى شعبان<br/>كل أسبوع دورة جديدة لمدة ثلاثة أيام</p>
-                <br/>
-                <p class="font">نخبة من خبراء التدريب في مجال تأهيل المقبلين على الزواج<br/>في قاعة المقصورة للاحتفالات والمؤتمرات , الرياض - طريق الملك عبد الله</p>
-
+                {!! $course->description !!}
                 <div class="box-darg margin-top-30">
-                    <div class="pull-right margin-left-30"><p class="price font">5000<br/>ريـــــــــــــــــال</p>
-                        <p class="font">سحب على إعانة زواج في كل دورة</p></div>
-                    <div class="pull-left margin-top-15"><a href="#" class="btn btn-custom big">نموذج التسجيل</a></div>
+                    <div class="pull-right margin-left-30">
+                        {!! $data['offer'] !!}
+{{--                        <p class="price font">5000<br/>ريـــــــــــــــــال</p>--}}
+{{--                        <p class="font">سحب على إعانة زواج في كل دورة</p>--}}
+                    </div>
+                    <div class="pull-left margin-top-15"><a href="{{route('course_applicant.register',$course->id)}}" class="btn btn-custom big">نموذج التسجيل</a></div>
                 </div>
+                @endif
 
             </div>
         </div>
@@ -213,6 +227,7 @@
 
                             <input name="answer" type="radio" id="answer3" value="4" />
                             <label for="answer4" class="label">{{$vote->answer4}}</label><br />
+                            {!! RecaptchaV3::field('vote') !!}
 
                             <input name="votes" id="votes"  class="btn btn-custom btn-block"  type="submit"  value="تصويت" />
                             <a href="{{route('vote.result',$vote->id)}}" id="results" class="btn btn-secondary btn-block" >نتائج التصويت</a>
@@ -254,4 +269,13 @@
             @endif
         </div>
     </div><!--/.partners  -->
+
 @endsection
+@push('scripts')
+    <script>
+        $(function (){
+            $('.banner-main div div p').addClass('font');
+            $('.banner-main div div div p:first-child').addClass('price');
+        });
+    </script>
+    @endpush

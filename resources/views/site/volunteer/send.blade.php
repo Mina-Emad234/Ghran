@@ -437,10 +437,11 @@
                             <div class="fileUpload btn btn-success">
                                 <span>تحميل الملف</span>
                                 <input name="image" id="uploadBtn" type="file" value="{{old('image')}}" class="upload">
-                                @error('image')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div></div>
+                            </div>
+                            @error('image')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>اسم ولي الأمر</label>
@@ -508,12 +509,12 @@
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
-                    @if(!isset($_COOKIE['team_sent']))
                     <div class="form-group">
-
-                    {{--  captcha                  --}}
+                        {!! RecaptchaV3::field('volunteer') !!}
+                        @error('g-recaptcha-response')
+                        <p><strong>{{$message}}</strong></p>
+                        @enderror
                     </div>
-                    @endif
                     <input @if(!isset($_COOKIE['team_sent'])) type="submit" @endif class="btn btn-custom pull-left" value="إدخال">
                     <br><br>
                     </form>

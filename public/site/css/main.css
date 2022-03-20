@@ -101,11 +101,11 @@ input[type="text"], input[type="email"], select, textarea {
 	font-weight: bold;
 	color: #7a797a;
 }
-.banner-main {
-    min-height: 507px;
-    background: url('../img/banner-main.jpg') no-repeat top center;
-    background-size: cover;
-}
+/*.banner-main {*/
+/*    min-height: 507px;*/
+/*    background: url('../img/banner-main.jpg') no-repeat top center;*/
+/*    background-size: cover;*/
+/*}*/
 .banner-main .box-darg {
 	float: right;
 	background: #fafafa;

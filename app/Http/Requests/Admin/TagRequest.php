@@ -25,6 +25,7 @@ class TagRequest extends FormRequest
     {
         return [
             'name'=>'required|max:50|unique:tags,name,'.$this->id,
+            'g-recaptcha-response' => 'required'
         ];
     }
 
@@ -34,6 +35,7 @@ class TagRequest extends FormRequest
             'required'=>'إملأ الخقل',
             'name.max'=>' الحد الأقصى 50 حرف',
             'unique'=>'هذا الاسم موجود بالفعل من فضلك ضع اسم غير موجود من قبل',
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 }

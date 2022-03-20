@@ -1,16 +1,24 @@
 @extends('site.index')
 @section('title',$search??"البحث")
-@section('content')
+@section('stylesheets')
     <style>
         table{
             border: none !important;
         }
     </style>
+@endsection
+@section('content')
+
     <div id="sb-search" class="sb-search" style="width: 400px; margin: 20px auto">
-        <form action="{{route('search.index')}}" method="get" >
+        <form action="{{route('search')}}" method="post" >
+            @csrf
             <div class="form-group">
                 <input class="sb-search-input form-control" placeholder="أدخل مصطلح البحث هنا..." type="text" value="" name="search" id="search">
             </div>
+            {!! RecaptchaV3::field('search') !!}
+            @error('g-recaptcha-response')
+            <p><strong>{{$message}}</strong></p>
+            @enderror
             <div class="form-group">
                 <input class="sb-search-submit btn btn-custom center-block" type="submit" value="بحث">
             </div>
@@ -46,10 +54,13 @@
     </div>
 
 
+
+
+@endsection
+@push('scripts')
     <script src="{{asset('site/js/classie.js')}}"></script>
     <script src="{{asset('site/js/uisearch.js')}}"></script>
     <script>
         new UISearch(document.getElementById('sb-search'));
     </script>
-
-@endsection
+    @endpush

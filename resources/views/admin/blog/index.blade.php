@@ -1,33 +1,5 @@
 @extends('admin.index')
 @section('content')
-    <style>
-        .pagination li{
-            list-style-type: none;
-            display: inline;
-        }
-    </style>
-<script>
-    jQuery(document).ready(function() {
-        jQuery("#operation").change(function() {
-
-            var len = jQuery("#group:checked").length;
-            if (len < 1) {
-                alert("لم تقم باختيار أى عنصر");
-                jQuery(".defaultOpt").attr("selected", "selected");
-                return false;
-            } else {
-                if (jQuery("option.delete").is(":selected")) {
-                    var answer = confirm('هل أنت متأكد من حذف هذه العناصر؟');
-                    if (answer == false) {
-                        jQuery(".defaultOpt").attr("selected", "selected");
-                        return false;
-                    }
-                }
-                jQuery("#form").submit();
-            }
-        });
-    });
-</script>
 <div id="middleContent">
 
     <!-- Data Grid Start -->
@@ -75,7 +47,7 @@
                     <td><a href="{{route('blog.show',$blog->id)}}">{{strlen($blog->title)>50?substr($blog->title,0,strpos($blog->title,' ',50)).'...': $blog->title}}</a></td>
                     <td>{{$blog->category->name}}</td>
                     <td><a href="{{route('comment.index',$blog->id)}}">{{$blog->comments_count}}تعليقات</a></td>
-                    <td><a href="{{route('tag.index',$blog->id)}}">{{$blog->tags_count}}كلمات بحث</a></td>
+                    <td><a href="{{route('blog.tags',$blog->id)}}">{{$blog->tags_count}}كلمات بحث</a></td>
                     <td>
                         @if($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
                         <img src="{{'../../../uploads/blogs/'.$blog->image}}" width="80" height="50" />

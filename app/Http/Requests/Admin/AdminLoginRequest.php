@@ -25,14 +25,17 @@ class AdminLoginRequest extends FormRequest
     {
         return [
             "email"=>"required|email",
-            "password"=>"required"
+            "password"=>"required",
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
     {
         return [
             "required"=>"الحقل مطلوب من فضلك إملأ الحقل",
-            "email"=>"البريد الألكتروني به مشكلة أو قد يكون غير صحيح"
+            "email"=>"البريد الألكتروني به مشكلة أو قد يكون غير صحيح",
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }
 }

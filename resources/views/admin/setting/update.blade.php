@@ -7,7 +7,7 @@
             <span>قائمة الإعدادات</span>
         </a>
         <div class="block">
-            <div class="title lightTextShadow"> تعديل إعداد </div>
+            <div align="center" class="title lightTextShadow"> {{$setting->key}} </div>
             <br />
 
             @if(session()->has('error_msg'))
@@ -21,16 +21,15 @@
                     <fieldset class="form boxStyle">
                         <legend class="boxStyle"> تعديل إعداد</legend>
 
-                        <input type="hidden" name="id" value="{{$setting->id}}">
-                        <label for="key" class="label">الاسم :</label>
-                        <input type="text" name="key" class="textBox med rnd5" value="{{$setting->key}}" id="key">
-                        @error('key')
+
+                        <label for="chk1" class="label">القيمة</label>
+                        <textarea id="chk1" class=" med rnd5" name="value" cols="80" rows="10">{{old('value',$setting->value)}}</textarea>
+                        @error('value')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
-                        <label for="chk1" class="label">القيمة</label>
-                        <input id="chk1" class="textBox med rnd5" name="value" value="{{old('value',$setting->value)}}">
-                        @error('value')
+                        {!! RecaptchaV3::field('settings') !!}
+                        @error('g-recaptcha-response')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />

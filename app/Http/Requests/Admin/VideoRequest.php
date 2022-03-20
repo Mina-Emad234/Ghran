@@ -28,7 +28,9 @@ class VideoRequest extends FormRequest
             'author'=>'required|max:50',
             'course_id'=>'required|exists:courses,id',
             'video'=>'required_without:id|mimes:mp4,mkv,flv,3GP,avi,vob,mov|max:250000',
-            'image'=>'required_without:id|mimes:jpg,gif,jpeg,png|max:4000'
+            'image'=>'required_without:id|mimes:jpg,gif,jpeg,png|max:4000',
+            'g-recaptcha-response' => 'required'
+
         ];
     }
     public function messages()
@@ -43,6 +45,8 @@ class VideoRequest extends FormRequest
             'image.max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'video.max'=>"حجم الملف لا يجب أن يكون أكبر من 250 ميجا",
             'mimes'=>"نوع الملف غير مسموح به",
+            'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
+
         ];
     }
 }

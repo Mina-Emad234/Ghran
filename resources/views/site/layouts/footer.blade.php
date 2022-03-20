@@ -2,9 +2,11 @@
 
     <div class="footer-top">
         <div class="container">
-
+            @php
+                $image=\App\Models\SiteSection::with('image')->where('name','footer_logo')->first()->image->image;
+            @endphp
             <div class="col-md-9">
-                <img src="{{asset('site/img/logo-footer.png')}}" class="img-responsive margin-bottom-15"/>
+                <img src="{{asset('site/img/'.$image)}}" class="img-responsive margin-bottom-15"/>
                 <p>تعد التنمية بمفهومها العام عملية واعية موجهة لصياغة بناء حضاري اجتماعي متكامل يؤكد فيه المجتمع هويته وذاتيته وإبداعه .</p>
             </div>
 
@@ -28,19 +30,26 @@
                     @endif
                 </span><br />
                     <form method="POST" action="{{route('send_mail')}}">
-                        @CSRF
+                        {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" name="name" value="" class="form-control" placeholder="الاسم">
+                            <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="الاسم">
                             @error('name')
                             <p><strong>{{$message}}</strong></p>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="text" name="mail" value="" class="form-control" placeholder="البريد الالكتروني ">
+                            <input type="text" name="mail" value="{{old('mail')}}" class="form-control" placeholder="البريد الالكتروني ">
                             @error('mail')
                             <p><strong>{{$message}}</strong></p>
                             @enderror
+
                         </div>
+
+                        {!! RecaptchaV3::field('mail') !!}
+                        @error('g-recaptcha-response')
+                        <p><strong>{{$message}}</strong></p>
+                        @enderror
+
                         <input @if(!isset($_COOKIE['mail_sent'])) type="submit" @endif  class="btn btn-custom btn-block" value="الاشتراك بالنشرة البريدية">
                     </form>
             </div>
@@ -58,7 +67,7 @@
                     <li><a href="{{route('pages.about')}}">نبذه عنا</a></li>
                     <li><a href="{{route('pages.members')}}">أعضاء اللجنة</a></li>
                     <li><a href="{{route('pages.map')}}">خريطة الموقع</a></li>
-                    <li><a href="{{route('search.index')}}">البحث</a></li>
+                    <li><a href="{{route('search.page')}}">البحث</a></li>
                     <li><a href="{{route('pages.info')}}">معلومات</a></li>
                 </ul>
             </div>
@@ -68,7 +77,8 @@
                     <li><a href="{{route('home')}}">الرئيسية</a></li>
                     <li><a href="{{route('post.index')}}">المنشورات</a></li>
                     <li><a href="{{route('partners.index')}}">شركائنا</a></li>
-                    <li><a href="{{route('course.all')}}">الكورسات</a></li>
+                    <li><a href="{{route('course_free.all')}}">الكورسات المجانية</a></li>
+                    <li><a href="{{route('course_payable.all')}}">الكورسات المدفوعة</a></li>
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
