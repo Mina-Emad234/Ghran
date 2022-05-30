@@ -32,14 +32,12 @@
                     $course=$data['paid_course'];
                 @endphp
                 @if(!empty($course))
-                <h2>{{substr($course->name,0,strpos($course->name,' ',15))}}<br><span>{{substr($course->name,strpos($course->name,' ',15))}}</span></h2>
+                <h2>{{strlen($course->name)<15?$course->name:substr($course->name,0,strpos($course->name,' ',15))??$course->name}}<br><span>{{strlen($course->name)>15?substr($course->name,strpos($course->name,' ',15)):""}}</span></h2>
                 <br/>
                 {!! $course->description !!}
                 <div class="box-darg margin-top-30">
                     <div class="pull-right margin-left-30">
                         {!! $data['offer'] !!}
-{{--                        <p class="price font">5000<br/>ريـــــــــــــــــال</p>--}}
-{{--                        <p class="font">سحب على إعانة زواج في كل دورة</p>--}}
                     </div>
                     <div class="pull-left margin-top-15"><a href="{{route('course_applicant.register',$course->id)}}" class="btn btn-custom big">نموذج التسجيل</a></div>
                 </div>
@@ -73,7 +71,7 @@
                             <p>{!! substr($article->body,0,strpos($article->body,' ',150)).'...' !!}</p>
                             <a href="{{route('post.show',$article->slug)}}">أقرا المزيد ..</a>
                             <div class="comment">
-                                <div><p class="font">تاريخ النشر<span class="number">{{ date("F j, Y ", strtotime($article->created_at))}}</span></p></div>
+                                <div><p class="font">تاريخ النشر                    <span dir="ltr" class="number">{{$article->created_at->diffForHumans()}}</span></p></div>
                             </div>
                         @else
                             <h4 style="text-align: center">لا توجد مقالات لعرضها حاليا</h4>
@@ -102,7 +100,7 @@
                                     <p>{!!substr($news->body,0,strpos($news->body,' ',150)).'...'!!}</p>
                                 <a href="{{route('post.show',$news->slug)}}">أقرا المزيد ..</a>
                                 <div class="comment">
-                                    <div><p class="font">تاريخ النشر<span class="number">{{ date("F j, Y ", strtotime($news->created_at))}}</span></p></div>
+                                    <div><p class="font">تاريخ النشر<span dir="ltr" class="number">{{$news->created_at->diffForHumans()}}</span></p></div>
                                 </div>
                         @else
                             <h4 style="text-align: center">لا توجد أخبار لعرضها حاليا</h4>
@@ -127,7 +125,7 @@
                                 <p>{!!substr($woman->body,0,strpos($woman->body,' ',150)).'...'!!}</p>
                                 <a href="{{route('post.show',$woman->slug)}}">أقرا المزيد ..</a>
                                 <div class="comment">
-                                    <div><p class="font">تاريخ النشر<span class="number">{{ date(" F j, Y ", strtotime($woman->created_at))}}</span></p></div>
+                                    <div><p class="font">تاريخ النشر<span dir="ltr" class="number">{{$woman->created_at->diffForHumans()}}</span></p></div>
                                 </div>
                         @else
                             <h4 style="text-align: center">لا توجد مقالات نسائية لعرضها حاليا</h4>
@@ -198,11 +196,21 @@
                             <strong>{{session()->get('vote_error')}}</strong>
                         </div>
                     @endif
+                    @error('answer')
+                        <div class="alert alert-error">
+                            <strong>{{$message}}</strong>
+                        </div>
+                    @enderror
+                    @error('g-recaptcha-response')
+                        <div class="alert alert-error">
+                            <strong>{{$message}}</strong>
+                        </div>
+                    @enderror
                     @if(isset($_COOKIE['vote_id']) && $vote->id == $_COOKIE['vote_id'])
                         <div class="alert alert-info">
                             <strong>تم التصويت من قبل</strong>
                         </div>
-                            <a href="" id="{{route('vote.result',$vote->id)}}" class="btn btn-secondary btn-block" >نتائج التصويت</a>
+                            <a href="{{route('vote.result',$vote->id)}}" class="btn btn-secondary btn-block" >نتائج التصويت</a>
                             <a href="{{route('vote.previous')}}" style="font-weight:bold;margin:10px auto 0;display:block">استطلاعات سابقة</a>
                     @else
                     @php

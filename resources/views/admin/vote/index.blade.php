@@ -8,7 +8,7 @@
             <div class="title lightTextShadow">قائمة الإستفتاءات </div>
 
             <div class="content">
-                <a href="{{route('v_question.create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
+                <a href="{{route('questions.create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
                     <span>اضف إستفتاء<img src="{{asset('admins/images/plus-small.gif')}}" width="12" height="9" alt="New new" /></span>
                 </a>
 
@@ -58,21 +58,25 @@
                                 <td>{{$vote->answer2}}</td>
                                 <td>{{$vote->answer3}}</td>
                                 <td>{{$vote->answer4}}</td>
-                                <td><a href="{{route('v_question.result',$vote->id)}}">عرض النتائج</a></td>
-                                <td>{{ date("g:i a F j, Y ", strtotime($vote->created_at))}}</td>
+                                <td><a href="{{route('results.index',$vote->id)}}">عرض النتائج</a></td>
+                                <td><span dir="ltr">{{$vote->created_at->diffForHumans()}}</span></td>
                                 <td class="align-center">
-                                    <a href="{{route('v_question.sort',['direction'=>'up','id'=>$vote->id])}}" ><img src="{{asset('admins/images/up.png')}}" title="أعلى" alt="up"/></a>
-                                    <a href="{{route('v_question.sort',['direction'=>'down','id'=>$vote->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
+                                    <a href="{{route('questions.sort',['direction'=>'up','vote'=>$vote->id])}}" ><img src="{{asset('admins/images/up.png')}}" title="أعلى" alt="up"/></a>
+                                    <a href="{{route('questions.sort',['direction'=>'down','vote'=>$vote->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                                 </td>
-                                <td title="">
+                                <td>
                                     @if($vote->active == 1)
-                                        <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('v_question.deactivate',$vote->id)}}"><img alt="" src="{{asset('admins/images/minus-circle.gif')}}"></a>
+                                        <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('questions.deactivate',$vote->id)}}"><img alt="" src="{{asset('admins/images/minus-circle.gif')}}"></a>
                                     @else
-                                        <a  title="تفعيل " class="tool boxStyle" href="{{route('v_question.activate',$vote->id)}}"><img alt="" src="{{asset('admins/images/icons/active.png')}}"></a>
+                                        <a  title="تفعيل " class="tool boxStyle" href="{{route('questions.activate',$vote->id)}}"><img alt="" src="{{asset('admins/images/icons/active.png')}}"></a>
                                     @endif
 
-                                    <a title="تعديل البيانات"  class="tool boxStyle" href="{{route('v_question.edit',$vote->id)}}"><img alt="" src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل"> </a>
-                                    <a title="حذف " class="tool boxStyle" href="{{route('v_question.delete',$vote->id)}}" onclick="return confirm('هل تريد حذف هذا العنصر؟');"><img alt="" src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" > </a>
+                                    <a title="تعديل البيانات"  class="tool boxStyle" href="{{route('questions.edit',$vote->id)}}"><img alt="" src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل"> </a>
+                                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                                        <form method="post" action="{{route('questions.destroy',$vote->id)}}" style="display: none">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
                                 </td>
                             </tr>
                             @php

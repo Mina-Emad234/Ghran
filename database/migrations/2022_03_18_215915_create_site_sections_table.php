@@ -16,7 +16,6 @@ class CreateSiteSectionsTable extends Migration
         Schema::create('site_sections', function (Blueprint $table) {
             $table->id();
             $table->string('name',100);
-            $table->string('slug',100);
             $table->enum('section_type',['images','pages','front links']);
             $table->unique(['name','section_type']);
         });

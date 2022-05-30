@@ -21,6 +21,7 @@
             <div class="content">
                 <form method="POST" action="{{route('info.update',$info->id)}}" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <fieldset class="form boxStyle">
                         <legend class="boxStyle">إضافة  معلومة جديد</legend>
                         <input type="hidden" name="id" value="{{$info->id}}">

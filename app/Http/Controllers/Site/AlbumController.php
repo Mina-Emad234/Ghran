@@ -10,14 +10,14 @@ class AlbumController extends Controller
 {
     public function index()
     {
-        $albums = Album::get();
+        $albums = Album::orderByDesc('id')->get();
        return view('site.album.index',compact('albums'));
     }
-    public function photos($id)
+    public function photos($slug)
     {
         $photos = Album::with(['photos'=>function($query){
             $query->where('active',1);
-        }])->find($id);
+        }])->where('slug',$slug)->first();
         return view('site.album.photos',compact('photos'));
     }
 }

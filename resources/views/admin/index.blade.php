@@ -13,11 +13,11 @@
 
         <style>
             .grecaptcha-badge { visibility: hidden !important; }
-
             .pagination li{
                 list-style-type: none;
                 display: inline;
             }
+
         </style>
     </head>
     <body>
@@ -66,6 +66,12 @@
             }
         });
     });
+        $(function(){
+        $('.operation').on('click',function (e){
+            e.preventDefault();
+            $(this).next().submit();
+        })
+    })
 </script>
 
     @stack('scripts')

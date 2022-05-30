@@ -2,7 +2,7 @@
 @section('content')
 
     <div id="middleContent">
-        <a href="{{route('v_question.index')}}"
+        <a href="{{route('questions.index')}}"
            class="button sub inlineBlock rnd3 lightTextShadow">
             <span>قائمة الإستفتاءات </span>
         </a>
@@ -16,45 +16,46 @@
 
 
             <div class="content">
-                <form method="POST" action="{{route('v_question.update',$vote->id)}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('questions.update',$question->id)}}" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <fieldset class="form boxStyle">
                         <legend class="boxStyle">تحديث الإستفتاء</legend>
 
-                        <input type="text" name="id" value="$vote->id">
+                        <input type="hidden" name="id" value="$question->id">
 
                         <label class="label">السؤال :</label>
-                        <input type="text" name="question" value="{{old('question',$vote->question)}}">
+                        <input type="text" name="question" value="{{old('question',$question->question)}}">
                         @error('question')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
                         <label class="label">الإجابة الأولى :</label>
-                        <input type="text" name="answer1" value="{{old('answer1',$vote->answer1)}}">
+                        <input type="text" name="answer1" value="{{old('answer1',$question->answer1)}}">
                         @error('answer1')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
                         <label class="label">الإجابة الثانية :</label>
-                        <input type="text" name="answer2" value="{{old('answer2',$vote->answer2)}}">
+                        <input type="text" name="answer2" value="{{old('answer2',$question->answer2)}}">
                         @error('answer2')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
                         <label class="label">الإجابة الثالثة :</label>
-                        <input type="text" name="answer3" value="{{old('answer3',$vote->answer3)}}">
+                        <input type="text" name="answer3" value="{{old('answer3',$question->answer3)}}">
                         @error('answer3')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
                         <label class="label">الإجابة الرابعة :</label>
-                        <input type="text" name="answer4" value="{{old('answer4',$vote->answer4)}}">
+                        <input type="text" name="answer4" value="{{old('answer4',$question->answer4)}}">
                         @error('answer4')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
                         <label for="chk1" class="label">تفعيل</label>
-                        <input type="checkbox" name="active" id="chk1" value="1" @if(old('active',$vote->active)==1) checked @endif/>
+                        <input type="checkbox" name="active" id="chk1" value="1" @if(old('active',$question->active)==1) checked @endif/>
                         <br />
                         {!! RecaptchaV3::field('vote') !!}
                         @error('g-recaptcha-response')

@@ -89,7 +89,7 @@ class CourseApplicantController extends Controller
 
             $data = [
                 'name' => $request->Session()->get('name'),
-                'course' => Course::where(['id' => $course_id, 'course_payable' => 1, 'active' => 1])->first()->name
+                'courses' => Course::where(['id' => $course_id, 'course_payable' => 1, 'active' => 1])->first()->name
             ];
             Mail::to($request->Session()->get('email'))->send(new ApplicantMail($data));
             setcookie('course_id', $course_id, 2147483647, '/');

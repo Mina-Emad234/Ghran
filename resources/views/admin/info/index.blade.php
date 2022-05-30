@@ -49,12 +49,12 @@
                             >
                                 <td class="align-center">{{$counter}}</td>
                                 <td>{!!$info->body!!}</td>
-                                <td>{{ date("g:i a F j, Y ", strtotime($info->created_at))}}</td>
+                                <td><span dir="ltr">{{$info->created_at->diffForHumans()}}</span></td>
                                 <td class="align-center">
-                                    <a href="{{route('info.sort',['direction'=>'up','id'=>$info->id])}}" ><img src="{{asset('admins/images/up.png')}}" title="أعلى" alt="up"/></a>
-                                    <a href="{{route('info.sort',['direction'=>'down','id'=>$info->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
+                                    <a href="{{route('info.sort',['info'=>$info->id,'direction'=>'up',])}}" ><img src="{{asset('admins/images/up.png')}}" title="أعلى" alt="up"/></a>
+                                    <a href="{{route('info.sort',['info'=>$info->id,'direction'=>'down',])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                                 </td>
-                                <td title="">
+                                <td>
                                     @if($info->active == 1)
                                         <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('info.deactivate',$info->id)}}"><img alt="" src="{{asset('admins/images/icons/deactive.png')}}"></a>
                                     @else
@@ -62,7 +62,11 @@
                                     @endif
 
                                     <a title="تعديل البيانات"  class="tool boxStyle" href="{{route('info.edit',$info->id)}}"><img alt="" src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل"> </a>
-                                    <a title="حذف " class="tool boxStyle" href="{{route('info.delete',$info->id)}}" onclick="return confirm('هل تريد حذف هذا العنصر؟');"><img alt="" src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" > </a>
+                                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟')"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                                    <form method="post" action="{{route('info.destroy',$info->id)}}" style="display: none">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
                                 </td>
                             </tr>
                             @php

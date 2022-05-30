@@ -11,24 +11,24 @@
                 <br /><br /><br />
                 <strong>الإسم الثلاثي  : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$media->name}}<br>
+                {{$applicant->name}}<br>
 
                 <strong>رقم الهوية   : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$media->identity}}<br>
+                {{$applicant->identity}}<br>
 
                 <strong>رقم الجوال   : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$media->mobile}}<br>
+                {{$applicant->mobile}}<br>
 
                 <strong>البريد الإلكتروني   : </strong><br>
 
-                {{$media->email}}<br>
+                {{$applicant->email}}<br>
 
 
                 <strong>الدورة المطلوبة  : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$media->course}}<br>
+                {{$applicant->course}}<br>
               </div>
         </div><!-- Data Grid End -->
     </div>

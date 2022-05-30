@@ -13,7 +13,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "symfony/intl": "^5.4"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -33,7 +34,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

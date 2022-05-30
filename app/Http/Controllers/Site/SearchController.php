@@ -7,6 +7,7 @@ use App\Http\Requests\Site\VoteRequest;
 use App\Http\Requests\Site\SearchRequest;
 use App\Models\Blog;
 use App\Models\Tag;
+use App\Models\ViewSearchData;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -14,21 +15,15 @@ class SearchController extends Controller
     public function searchPage(){
         return view('site.search.index');
     }
-    public function search(SearchRequest $request){
-        try{
+    public function search(Request $request){
+        try {
             $search = $request->search;
-            $tag_data = Tag::with(['blogs' => function ($query) {
-                $query->where('active', 1);
-            }])->where('name', 'like', '%' . $search . '%')->orWhere('slug', 'like', '%' . $search . '%')->get();
-            $tag_blogs = [];
-            foreach ($tag_data as $data) {
-                array_push($tag_blogs, $data->blogs);
+            if($search!=""){
+            $search_data = ViewSearchData::where('title', 'like', '%' . $search . '%')->orWhere('body', 'like', '%' . $search . '%')->paginate(10);
+                $search_data->appends(['search' => $search]);
             }
-            $blog_data = Blog::where('title', 'like', '%' . $search . '%')->orWhere('slug', 'like', '%' . $search . '%')->where('active', 1)->get();
-            $results = [];
-            array_push($results, $blog_data);
-            $results = array_unique(array_merge($results, $tag_blogs));
-            return view('site.search.index', compact('search', 'results'));
+            return view('site.search.index', compact('search', 'search_data'));
+
         }catch(\Exception $ex){
             return redirect()->route('search.page');
         }

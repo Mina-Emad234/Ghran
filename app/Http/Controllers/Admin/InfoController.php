@@ -39,16 +39,14 @@ class InfoController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Info $info)
     {
-        $info = $this->checkModel(new Info,$id);
         return view('admin.info.update',compact('info'));
     }
 
-    public function update($id,InfoRequest $request)
+    public function update(InfoRequest $request,Info $info)
     {
         try{
-            $info = $this->checkModel(new Info,$id);
             $active = $this->checkActive($request);
 
             $data['body']=$request->body;
@@ -61,10 +59,8 @@ class InfoController extends Controller
         }
     }
 
-    public function delete($id){
+    public function destroy(Info $info){
         try{
-            $info = $this->checkModel(new Info,$id);
-
             $delete = $info->delete();
 
             return redirect()->route('info.index')->with(['success_msg'=>'تم حذف المعلومة بنجاح']);
@@ -73,18 +69,19 @@ class InfoController extends Controller
         }
     }
 
-    public function activate($id){
-        return $this->modelActivation(new Info,$id,1,'تم تفعيل المعلومة بنجاح','info.index');
+    public function activate(Info $info){
+        return $this->modelActivation($info,1,'تم تفعيل المعلومة بنجاح','info.index');
     }
 
-    public function deactivate($id){
-        return $this->modelActivation(new Info,$id,1,'تم إلغاء تفعيل المعلومة بنجاح','info.index');
+    public function deactivate(Info $info){
+        return $this->modelActivation($info,1,'تم إلغاء تفعيل المعلومة بنجاح','info.index');
     }
 
-    public function sort($direction = 'up', $id = '')
+    public function sort(Info $info, $direction = 'up')
     {
-        $info = $this->checkModel(new Info,$id);
-        return $this->sortData(new Info,'info.index',$direction,$id);
+        return $this->sortData($info,'info.index',$direction);
     }
-
+    public function show(){
+        return abort(404);
+    }
 }

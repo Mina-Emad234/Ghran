@@ -21,7 +21,7 @@
 
                 <strong>تاريخ الرسالة : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{ date("g:i a F j, Y ", strtotime($contact->created_at))}}<br>
+                <span dir="ltr">{{$contact->created_at->diffForHumans()}}</span><br>
 
                 <strong>عنوان الرسالة : </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -34,16 +34,16 @@ class PostController extends Controller
         }])->withCount(['comments'=>function ($query){
             $query->where('active',1);
         }])->where(['active'=>1,'slug'=>$slug])->first();
-        if(!$blog)
-            return redirect()->back();
+
         return view('site.blog.show',compact('blog'));
     }
 
     public function getBlogTag($slug){
         $tag_data = Tag::with(['blogs'=>function($query){
             $query->where('active',1);
-        }])->where('slug',$slug)->first();
-        return view('site.blog.blog_tag',compact('tag_data'));
+        }])->where('slug',$slug)->first()->blogs()->paginate(10);
+        $tag=Tag::where('slug',$slug)->first();
+        return view('site.blog.blog_tag',compact('tag_data','tag'));
     }
 
     public function addComment($slug,CommentRequest $request){
@@ -80,17 +80,11 @@ class PostController extends Controller
             if(!$blog || !$comment)
                 return redirect()->back()->withInput()->with(['error'=>'حدث خطأ ما حاول مرة أخرى']);
 
-            if($request->has('parent_id')){
-                $parent=$request->parent_id;
-            }else{
-                $parent=null;
-            }
 
             $comment->update([
                 'writer'=>$request->writer,
                 'email'=>$request->email,
                 'body'=>$request->body,
-                'parent_id'=>$parent,
                 'blog_id'=>$request->blog_id,
             ]);
 

@@ -18,7 +18,7 @@ class CreateVideosTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->string('name',100);
             $table->string('author',50);
-            $table->string('video',100);
+            $table->string('videos',100);
             $table->string('image',100);
             $table->boolean('active');
             $table->integer('order');

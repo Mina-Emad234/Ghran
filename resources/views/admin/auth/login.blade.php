@@ -67,6 +67,9 @@
                 </div>
                 <input type="checkbox" id="chk2" name="remember_me" value="1"/>
                 <label for="chk2">تذكرني</label><br />
+                    <style>
+                        .grecaptcha-badge { visibility: hidden !important; }
+                    </style>
                     {!! RecaptchaV3::field('login') !!}
                     @error('g-recaptcha-response')
                     <p><strong>{{$message}}</strong></p>

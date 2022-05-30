@@ -60,7 +60,7 @@
                         <td>{{$contact->title}}</td>
                         <td>{{$contact->sender}}</td>
                         <td>{{$contact->email}}</td>
-                        <td>{{ date("g:i a F j, Y ", strtotime($contact->created_at))}}</td>
+                        <td><span dir="ltr">{{$contact->created_at->diffForHumans()}}</span></td>
                         <td class="align-center">
                             <a href="{{route('contact.read',$contact->id)}}"> <img title="قراءة محتوى الرسالة" src="{{asset('admins/images/balloon.gif')}}"  /></a>&nbsp;&nbsp; | &nbsp;&nbsp;
                             <a href="{{route('contact.delete',$contact->id)}}" onclick="return confirm('هل تريد حذف هذا العنصر؟')"><img src="{{asset('admins/images/del.png')}}" width="16" height="16" title="حذف" alt="حذف"  /></a>

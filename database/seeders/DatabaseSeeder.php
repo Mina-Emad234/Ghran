@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(SettingsSeeder::class);
-
+        $this->call(TagSeeder::class);
+        $this->call(PartnerSeeder::class);
+        $this->call(AlbumSeeder::class);
+        $this->call(PhotoSeeder::class);
+        $this->call(BlogTagSeeder::class);
+        $this->call(CourseSeeder::class);
     }
 }

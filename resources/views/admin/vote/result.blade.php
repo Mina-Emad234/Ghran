@@ -15,10 +15,10 @@
             <div class="title lightTextShadow">نتائج إستفتاء-->{{$vote->question}}</div>
 
             <div class="content">
-                <a href="{{route('v_question.create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
+                <a href="{{route('questions.create')}}" class="button sub inlineBlock rnd3 lightTextShadow">
                     <span>اضف إستفتاء<img src="{{asset('admins/images/plus-small.gif')}}" width="12" height="9" alt="New new" /></span>
                 </a>
-                <a href="{{route('v_question.index')}}" class="button sub inlineBlock rnd3 lightTextShadow">
+                <a href="{{route('questions.index')}}" class="button sub inlineBlock rnd3 lightTextShadow">
                     <span>الإستفتاءات</span>
                 </a>
 
@@ -42,10 +42,10 @@
 
                             <tr>
                                 <td class="align-center">{{$vote->answers_count}}</td>
-                                <td>{{\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>1])->count() * 100/$vote->answers_count}}%</td>
-                                <td>{{\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>2])->count() * 100/$vote->answers_count}}%</td>
-                                <td>{{\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>3])->count() * 100/$vote->answers_count}}%</td>
-                                <td>{{\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>4])->count() * 100/$vote->answers_count}}%</td>
+                                <td>{{$answer1 * 100/$vote->answers_count}}%</td>
+                                <td>{{$answer2 * 100/$vote->answers_count}}%</td>
+                                <td>{{$answer3 * 100/$vote->answers_count}}%</td>
+                                <td>{{$answer4 * 100/$vote->answers_count}}%</td>
 
                         </tbody>
                     </table>

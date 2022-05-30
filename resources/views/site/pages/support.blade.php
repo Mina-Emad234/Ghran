@@ -17,7 +17,7 @@
             <img class="img-responsive suport" src="{{asset('site/img/'.$image)}}"/>
 
             @foreach($support as $_support)
-                <h3>{{$_support->title}}</h3>
+                <h3 id="{{$_support->id}}">{{$_support->title}}</h3>
                 {!!$_support->body!!}
             @endforeach
         </div>

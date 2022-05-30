@@ -55,7 +55,11 @@
 
                     <td title="">
                         <a title="تعديل البيانات" class="tool boxStyle" href="{{route('roles.edit',$role->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
-                        <a title="حذف " class="tool boxStyle" href="{{route('roles.delete',$role->id)}}" class="delete_confirm"  onclick="return confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف"  /></a>
+                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                        <form method="post" action="{{route('roles.destroy',$role->id)}}" style="display: none">
+                            @csrf
+                            @method('delete')
+                        </form>
                     </td>
                 </tr>
                 @php
@@ -66,6 +70,9 @@
 
                 </tbody>
             </table>
+                <div class="pager">
+                    {!! $roles->links("pagination::bootstrap-4") !!}
+                </div>
         </div>
     </div><!-- Data Grid End -->
 </div><!-- Data Grid End -->

@@ -58,7 +58,7 @@
                     </div>
                     <div class="form-group">
                         <label>البريد الالكتروني</label>
-                        <input name="text"  value="{{old('email')}}" type="email" class="form-control" placeholder="ادخل البريد الالكتروني">
+                        <input name="email"  value="{{old('email')}}" type="text" class="form-control" placeholder="ادخل البريد الالكتروني">
                         @error('email')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -113,23 +113,23 @@
 
                 <div class="col-md-4">
                     <div class="arrow_box"><h3>معلومات الاتصال</h3></div>
-                    <p class="font"><strong>تلفــــــاكس</strong>&nbsp; {{$setting->val('Telefax')}}</p>
+                    <p class="font"><strong>تلفــــــاكس</strong>&nbsp; {{config()->get('app.telefax')}}</p>
 
-                    <p class="font"><strong>الجــــــــــــــوال</strong>&nbsp; {{$setting->val('Mobile')}}</p>
+                    <p class="font"><strong>الجــــــــــــــوال</strong>&nbsp; {{config()->get('app.mobile')}}</p>
 
-                    <p class="font"><strong>البريد الالكتروني</strong>&nbsp; {{$setting->val('Email')}}</p>
+                    <p class="font"><strong>البريد الالكتروني</strong>&nbsp; {{config()->get('app.email')}}</p>
 
                     <div class="arrow_box"><h3>شبكات التواصل الاجتماعي</h3></div>
 
                     <ul class="social-contact text-center">
 
-                            <li><a href="{{$setting->val('Facebook')}}" class="fa" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{config()->get('app.facebook')}}" class="fa" target="_blank"><i class="fa fa-facebook"></i></a></li>
 
-                            <li><a href="{{$setting->val('Twitter')}}" class="tw" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="{{config()->get('app.twitter')}}" class="tw" target="_blank"><i class="fa fa-twitter"></i></a></li>
 
-                            <li><a href="{{$setting->val('Youtube')}}" class="you" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                            <li><a href="{{config()->get('app.youtube')}}" class="you" target="_blank"><i class="fa fa-youtube"></i></a></li>
 
-                            <li><a href="{{$setting->val('Instagram')}}" class="ins" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="{{config()->get('app.instagram')}}" class="ins" target="_blank"><i class="fa fa-instagram"></i></a></li>
 
                     </ul>
 

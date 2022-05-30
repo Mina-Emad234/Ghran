@@ -17,9 +17,7 @@ class Comment extends Model
     public function _parent(){
         return $this->belongsTo(self::class,'parent_id','id');
     }
-    /*
-     * get parent from child
-     */
+
     public function _child(){
         return $this->hasMany(self::class,'parent_id','id');
     }

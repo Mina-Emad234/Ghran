@@ -58,35 +58,8 @@
             </div>
 
 
-            <aside>
-                <div class="col-md-4">
-                    <div class="sidebar">
+            @include('site.news.news')
 
-                        <div class="arrow_box no-margin"><h3>أخر الأخبار</h3></div>
-                        <ul class="news-menu margin-top-15">
-                            @php
-                                $all = \App\Models\Blog::where(['active'=>1,'category_id'=>2])->whereDate('created_at', \Carbon\Carbon::today())->latest()->limit(6)->get();
-                            @endphp
-                            @foreach ($all as $news)
-                                <li><a href="{{route('post.show',$news->slug)}}">
-                                        @if ($news->image != "" && file_exists("uploads/blogs/" . $news->image))
-                                            <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
-                                        @else
-                                            <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive"/>
-                                        @endif
-                                        <h5 style="font-size: 15px;font-weight: bold;line-height: 20px !important;text-align: center">{{strlen($news->title)>100?substr($news->title,0,strpos($news->title,' ',100)).'...': $news->title}}</h5>
-                                    </a></li>
-
-                            @endforeach
-                        </ul>
-                        <div class="clearfix"></div>
-
-
-
-                    </div>
-
-                </div>
-            </aside>
 
 
 

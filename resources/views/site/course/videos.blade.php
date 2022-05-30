@@ -4,7 +4,7 @@
     <!-- start slider -->
     <div class="banner-inner">
         <div class="container">
-            <h1 class="pull-right">فيديوهات الكورس</h1>
+            <h1 class="pull-right">{{$course->name}}</h1>
             <ul class="breadcrumb pull-left">
                 <li><a href="#">الرئيسية</a></li>
                 <li class="active">{{$course->name}}</li>

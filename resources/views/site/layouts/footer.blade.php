@@ -2,12 +2,10 @@
 
     <div class="footer-top">
         <div class="container">
-            @php
-                $image=\App\Models\SiteSection::with('image')->where('name','footer_logo')->first()->image->image;
-            @endphp
+
             <div class="col-md-9">
                 <img src="{{asset('site/img/'.$image)}}" class="img-responsive margin-bottom-15"/>
-                <p>تعد التنمية بمفهومها العام عملية واعية موجهة لصياغة بناء حضاري اجتماعي متكامل يؤكد فيه المجتمع هويته وذاتيته وإبداعه .</p>
+                {!!  $content !!}
             </div>
 
             <div class="col-md-3">
@@ -64,35 +62,37 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">عن الموقع</li>
-                    <li><a href="{{route('pages.about')}}">نبذه عنا</a></li>
-                    <li><a href="{{route('pages.members')}}">أعضاء اللجنة</a></li>
-                    <li><a href="{{route('pages.map')}}">خريطة الموقع</a></li>
-                    <li><a href="{{route('search.page')}}">البحث</a></li>
-                    <li><a href="{{route('pages.info')}}">معلومات</a></li>
+                    @foreach($about_links as $link)
+                        <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">المحتوى</li>
-                    <li><a href="{{route('home')}}">الرئيسية</a></li>
-                    <li><a href="{{route('post.index')}}">المنشورات</a></li>
-                    <li><a href="{{route('partners.index')}}">شركائنا</a></li>
-                    <li><a href="{{route('course_free.all')}}">الكورسات المجانية</a></li>
-                    <li><a href="{{route('course_payable.all')}}">الكورسات المدفوعة</a></li>
+                    @foreach($content_links as $link)
+                        <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                    @endforeach
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">المشاركة</li>
-                    <li><a href="{{route('scout.register')}}">التسجيل في الكشافة</a></li>
-                    <li><a href="{{route('media.register')}}">الانتساب للمركز الإعلامي</a></li>
-                    <li><a href="{{route('volunteer.register')}}">الانتساب للفريق التطوعي</a></li>
+                    @foreach($social_links as $link)
+                    @if(count($link->_child)>0)
+
+                            @foreach($link->_child as $child)
+                                <li><a href="{{url($child->link)}}">{{$child->name}}</a></li>
+                            @endforeach
+
+                    @endif
+                    @endforeach
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container text-center copyright"><p>جميع الحقوق محفوظة لجنة التنمية الاجتماعية الأهلية بغران © 2015</p></div>
+    <div class="container text-center copyright">{!!   $footer_content !!}</div>
 
 </footer>
 

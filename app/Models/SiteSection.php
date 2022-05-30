@@ -19,4 +19,8 @@ class SiteSection extends Model
     public function site_contents(){
         return $this->hasMany(SiteContent::class,'site_section_id','id');
     }
+
+    public function links(){
+        return $this->hasMany(SiteLink::class,'site_section_id','id');
+    }
 }

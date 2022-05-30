@@ -19,7 +19,7 @@ class CreateMediaTable extends Migration
             $table->string('identity',16);
             $table->string('mobile',11)->unique();
             $table->string('email',50)->unique();
-            $table->enum('course',['التصوير الفوتوغرافي','تصويــــر الفيديو','إدارة المواقع الالكترونية',
+            $table->enum('courses',['التصوير الفوتوغرافي','تصويــــر الفيديو','إدارة المواقع الالكترونية',
                                                     'المونتـــــــــاج','التصميـــــــــم','التمثيـــــــــل']);
             $table->boolean('read')->default(0);
         });

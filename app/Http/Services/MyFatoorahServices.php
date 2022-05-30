@@ -21,10 +21,10 @@ class MyFatoorahServices
     {
         $setting = new Setting();
         $this->request_client=$request_client;
-        $this->base_url= $setting->val('fatoorah_base_url');
+        $this->base_url= config()->get('app.fatoorah_base_url');
         $this->headers=[
             'Content-Type' => 'application/json',
-            'authorization'=>'Bearer ' . $setting->val('fatoorah_token')
+            'authorization'=>'Bearer ' .config()->get('app.fatoorah_token')
         ];
     }
 

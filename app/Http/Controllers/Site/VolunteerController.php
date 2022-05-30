@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\TeamRequest;
 use App\Mail\VolunteerMail;
 use App\Models\Team;
+use App\Traits\GhranTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class VolunteerController extends Controller
 {
+    use GhranTrait;
     public function registerPage()
     {
         return view('site.volunteer.send');
@@ -18,7 +20,7 @@ class VolunteerController extends Controller
     public function send(TeamRequest $request)
     {
         try {
-            $file_name = $this->upload($request->image,'uploads/volunteer');
+            $file_name = $this->upload($request->image,'uploads/volunteers');
             Team::create([
                 'name'=>$request->name,
                 'nationality'=>$request->nationality,
@@ -45,8 +47,8 @@ class VolunteerController extends Controller
             ]);
             $data=['name'=>$request->name];
             Mail::to($request->email)->send(new VolunteerMail($data));
-            setcookie('team_sent', $request->email, 2147483647,'/');
-            return redirect()->route('volunteer.register')->with(['team_success'=>'تم تسجيل البيانات بنجاح']);
+            setcookie('volunteer_sent', $request->email, 2147483647,'/');
+            return redirect()->route('volunteer.register')->with(['volunteer_success'=>'تم تسجيل البيانات بنجاح']);
         }catch (\Exception $ex){
             return redirect()->back()->withInput()->with(['team_error'=>'حدث خطأ ما حاول مرة أخرى']);
         }

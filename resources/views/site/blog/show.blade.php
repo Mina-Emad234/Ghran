@@ -34,56 +34,28 @@
                     </div>
                     <div>
                         {!! $blog->body !!}
-                        <span class='st_facebook_hcount' displayText='Facebook' st_title='{{$blog->title}}'
+                        <p><span class='st_facebook_hcount' displayText='Facebook' st_title='{{$blog->title}}'
                               st_image='{{'../../../uploads/blogs/'.$blog->image}}'></span>
                         <span class='st_twitter_hcount' displayText='Tweet' st_title='{{$blog->title}}'
                               st_image='{{'../../../uploads/blogs/'.$blog->image}}'></span>
                         <span class='st_googleplus_hcount' displayText='Google +' st_title='{{$blog->title}}'
                               st_image='{{'../../../uploads/blogs/'.$blog->image}}'></span>
-                        <span style="font-size: 15px; font-weight: bold; float: left"> <i class="date"> </i><span>تاريخ النشر {{ date(" F j, Y ", strtotime($blog->created_at))}}</span>.</a></span>
+                        <span style="font-size: 15px; font-weight: bold; float: left"> <i class="date"> </i><span>تاريخ النشر <span dir="ltr" class="number">{{$blog->created_at->diffForHumans()}}</span></span>.</a></span></p>
                     </div>
                     <div>
                         @if(!empty($blog->tags))
                         <h3>إقتراحات البحث</h3>
                         @foreach ($blog->tags as $tag)
-                        <span class="bg-primary" style="padding: 6px; border: 1px solid #333;border-radius: 50px"><a href="{{route('tag_blog.index',$tag->slug)}}">{{$tag->name}}</a></span>
-                            @endforeach
+                        <span dir="rtl" class="bg-primary" style="padding: 6px; border: 1px solid #333;border-radius: 50px;margin-right: 5px"><a href="{{route('tag_blog.index',$tag->slug)}}">{{$tag->name}}</a></span>
+                        @endforeach
                         @endif
                     </div>
                 </div>
 
             </div>
 
-            <aside>
-                <div class="col-md-4">
-                    <div class="sidebar">
+            @include('site.news.news')
 
-                        <div class="arrow_box no-margin"><h3>أخر الأخبار</h3></div>
-                        <ul class="news-menu margin-top-15">
-                            @php
-                                $all = \App\Models\Blog::where(['active'=>1,'category_id'=>2])->latest()->limit(6)->get();
-                            @endphp
-                            @forelse ($all as $news)
-                            <li><a href="{{route('post.show',$news->slug)}}">
-                                    @if ($news->image != "" && file_exists("uploads/blogs/" . $news->image))
-                                    <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
-                                    @else
-                                    <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive"/>
-                                    @endif
-                                    <h5 style="font-size: 15px;font-weight: bold;line-height: 20px !important;text-align: center">{{strlen($news->title)>100?substr($news->title,0,strpos($news->title,' ',100)).'...': $news->title}}</h5>
-                                </a></li>
-                            @empty
-                                <li><h3 style="text-align: center">لا يوجد أخبار لعرضها حاليا</h3></li>
-                            @endforelse
-                        </ul>
-                        <div class="clearfix"></div>
-
-
-
-                    </div>
-
-                </div>
-            </aside>
 
 
 
@@ -115,7 +87,7 @@
                                             <div class="hero-unit container box-vote-content" style="width: 850px; margin-right: 100px">
                                                 <h4>{{$parent->writer}}</h4>
                                                 <p>{{$parent->body}}</p>
-                                                <span>تم نشر في {{ date(" F j, Y ", strtotime($parent->created_at))}}</span>
+                                                <span>تم نشر  <span dir="ltr" class="number">{{$parent->created_at->diffForHumans()}}</span></span>
                                                 <span style="padding-right: 200px"><a href='#comment_form' class='reply' id='{{$parent->id}}'>رد</a></span>
                                                 <span>
                                                      @if(isset($_COOKIE['comment_email']))
@@ -128,7 +100,7 @@
                                                     <div class="hero-unit container box-vote-content" style="width: 850px0">
                                                         <h4>{{$child->writer}}</h4>
                                                         <p>{{$child->body}}</p>
-                                                        <span>تم نشر في {{ date(" F j, Y ", strtotime($child->created_at))}}</span>
+                                                        <span>تم نشر  <span dir="ltr" class="number">{{$child->created_at->diffForHumans()}}</span></span>
                                                         <span style="padding-right: 200px"><a href='#comment_form' class='child_reply' id='child'>رد</a></span>
                                                         <span>
                                                             @if(isset($_COOKIE['comment_email']))

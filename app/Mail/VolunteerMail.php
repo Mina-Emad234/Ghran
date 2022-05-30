@@ -28,6 +28,6 @@ class VolunteerMail extends Mailable
      */
     public function build()
     {
-        return $this->view('site.volunteer.team_mail');
+        return $this->view('site.volunteer.volunteer_mail');
     }
 }

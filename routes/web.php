@@ -32,17 +32,15 @@ Route::group(['namespace'=>'\App\Http\Controllers\Site'],function(){
 
     Route::group(['prefix'=>'search'],function(){
         Route::get('/','SearchController@searchPage')->name('search.page');
-        Route::post('/search_data','SearchController@search')->name('search');
+        Route::get('/search_data/{search?}','SearchController@search')->name('search');
     });
 
     Route::group(['prefix'=>'album_categories'],function(){
         Route::get('/','AlbumController@index')->name('album_cat.index');
-        Route::get('photos/{album_id}','AlbumController@photos')->name('album_cat.photos');
+        Route::get('photos/{slug}','AlbumController@photos')->name('album_cat.photos');
     });
 
-    Route::group(['prefix'=>'partners'],function(){
-        Route::get('/','PartnerController@index')->name('partners.index');
-    });
+        Route::get('/our_partners','PartnerController@index')->name('partners.front.index');
 
     Route::group(['prefix'=>'pages'],function(){
         Route::get('about','PagesController@about')->name('pages.about');

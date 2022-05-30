@@ -17,7 +17,7 @@
             <div class="owl-carousel" id="partners">
                 @foreach ($albums as $album)
                 <div class="col-3 margin-bottom-30">
-                    <a href="{{route('album_cat.photos',$album->id)}}">
+                    <a href="{{route('album_cat.photos',$album->slug)}}">
                         <img src="{{'../../../uploads/albums/'.$album->image}}" class="img-responsive"/>
                         <h4 class="text-center">{{$album->name}}</h4>
                     </a>

@@ -2035,7 +2035,7 @@
 ;(function($, window, document, undefined) {
 
 	/**
-	 * Creates the video plugin.
+	 * Creates the videos plugin.
 	 * @class The Video Plugin
 	 * @param {Owl} carousel - The Owl Carousel
 	 */
@@ -2048,7 +2048,7 @@
 		this._core = carousel;
 
 		/**
-		 * Cache all video URLs.
+		 * Cache all videos URLs.
 		 * @protected
 		 * @type {Object}
 		 */
@@ -2085,7 +2085,7 @@
 				}
 			}, this),
 			'prepared.owl.carousel': $.proxy(function(e) {
-				var $element = $(e.content).find('.owl-video');
+				var $element = $(e.content).find('.owl-videos');
 				if ($element.length) {
 					$element.css('display', 'none');
 					this.fetch($element, $(e.content));
@@ -2099,7 +2099,7 @@
 		// volunteer event handlers
 		this._core.$element.on(this._handlers);
 
-		this._core.$element.on('click.owl.video', '.owl-video-play-icon', $.proxy(function(e) {
+		this._core.$element.on('click.owl.videos', '.owl-videos-play-icon', $.proxy(function(e) {
 			this.play(e);
 		}, this));
 	};
@@ -2115,10 +2115,10 @@
 	};
 
 	/**
-	 * Gets the video ID and the type (YouTube/Vimeo only).
+	 * Gets the videos ID and the type (YouTube/Vimeo only).
 	 * @protected
-	 * @param {jQuery} target - The target containing the video data.
-	 * @param {jQuery} item - The item containing the video.
+	 * @param {jQuery} target - The target containing the videos data.
+	 * @param {jQuery} item - The item containing the videos.
 	 */
 	Video.prototype.fetch = function(target, item) {
 
@@ -2140,7 +2140,7 @@
 			}
 			id = id[6];
 		} else {
-			throw new Error('Missing video URL.');
+			throw new Error('Missing videos URL.');
 		}
 
 		this._videos[url] = {
@@ -2150,16 +2150,16 @@
 			height: height
 		};
 
-		item.attr('data-video', url);
+		item.attr('data-videos', url);
 
 		this.thumbnail(target, this._videos[url]);
 	};
 
 	/**
-	 * Creates video thumbnail.
+	 * Creates videos thumbnail.
 	 * @protected
-	 * @param {jQuery} target - The target containing the video data.
-	 * @param {Object} tags - The video tags object.
+	 * @param {jQuery} target - The target containing the videos data.
+	 * @param {Object} tags - The videos tags object.
 	 * @see `fetch`
 	 */
 	Video.prototype.thumbnail = function(target, video) {
@@ -2173,19 +2173,19 @@
 			lazyClass = '',
 			settings = this._core.settings,
 			create = function(path) {
-				icon = '<div class="owl-video-play-icon"></div>';
+				icon = '<div class="owl-videos-play-icon"></div>';
 
 				if (settings.lazyLoad) {
-					tnLink = '<div class="owl-video-tn ' + lazyClass + '" ' + srcType + '="' + path + '"></div>';
+					tnLink = '<div class="owl-videos-tn ' + lazyClass + '" ' + srcType + '="' + path + '"></div>';
 				} else {
-					tnLink = '<div class="owl-video-tn" style="opacity:2;background-image:url(' + path + ')"></div>';
+					tnLink = '<div class="owl-videos-tn" style="opacity:2;background-image:url(' + path + ')"></div>';
 				}
 				target.after(tnLink);
 				target.after(icon);
 			};
 
-		// wrap video content into owl-video-wrapper div
-		target.wrap('<div class="owl-video-wrapper"' + dimensions + '></div>');
+		// wrap videos content into owl-videos-wrapper div
+		target.wrap('<div class="owl-videos-wrapper"' + dimensions + '></div>');
 
 		if (this._core.settings.lazyLoad) {
 			srcType = 'data-src';
@@ -2217,18 +2217,18 @@
 	};
 
 	/**
-	 * Stops the current video.
+	 * Stops the current videos.
 	 * @public
 	 */
 	Video.prototype.stop = function() {
 		this._core.trigger('stop', null, 'video');
-		this._playing.find('.owl-video-frame').remove();
-		this._playing.removeClass('owl-video-playing');
+		this._playing.find('.owl-videos-frame').remove();
+		this._playing.removeClass('owl-videos-playing');
 		this._playing = null;
 	};
 
 	/**
-	 * Starts the current video.
+	 * Starts the current videos.
 	 * @public
 	 * @param {Event} ev - The event arguments.
 	 */
@@ -2241,7 +2241,7 @@
 
 		var target = $(ev.target || ev.srcElement),
 			item = target.closest('.' + this._core.settings.itemClass),
-			video = this._videos[item.attr('data-video')],
+			video = this._videos[item.attr('data-videos')],
 			width = video.width || '100%',
 			height = video.height || this._core.$stage.height(),
 			html, wrap;
@@ -2250,21 +2250,21 @@
 			html = '<iframe width="' + width + '" height="' + height + '" src="http://www.youtube.com/embed/'
 				+ video.id + '?autoplay=2&v=' + video.id + '" frameborder="0" allowfullscreen></iframe>';
 		} else if (video.type === 'vimeo') {
-			html = '<iframe src="http://player.vimeo.com/video/' + video.id + '?autoplay=2" width="' + width
+			html = '<iframe src="http://player.vimeo.com/videos/' + video.id + '?autoplay=2" width="' + width
 				+ '" height="' + height
 				+ '" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 		}
 
-		item.addClass('owl-video-playing');
+		item.addClass('owl-videos-playing');
 		this._playing = item;
 
-		wrap = $('<div style="height:' + height + 'px; width:' + width + 'px" class="owl-video-frame">'
+		wrap = $('<div style="height:' + height + 'px; width:' + width + 'px" class="owl-videos-frame">'
 			+ html + '</div>');
 		target.after(wrap);
 	};
 
 	/**
-	 * Checks whether an video is currently in full screen mode or not.
+	 * Checks whether an videos is currently in full screen mode or not.
 	 * @todo Bad style because looks like a readonly method but changes members.
 	 * @protected
 	 * @returns {Boolean}
@@ -2307,7 +2307,7 @@
 	Video.prototype.destroy = function() {
 		var handler, property;
 
-		this._core.$element.off('click.owl.video');
+		this._core.$element.off('click.owl.videos');
 
 		for (handler in this._handlers) {
 			this._core.$element.off(handler, this._handlers[handler]);

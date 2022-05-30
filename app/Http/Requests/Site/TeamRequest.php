@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Site;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Symfony\Component\Intl\Countries;
 
 class TeamRequest extends FormRequest
 {
@@ -26,7 +28,7 @@ class TeamRequest extends FormRequest
     {
         return [
             'name'=>'required|max:50',
-            'nationality'=> 'required|string|size:2|alpha',
+            'nationality'=> ['required',  Rule::in(Countries::getCountryCodes())],
             'gender'=>'required|in:male,female',
             'city'=>'required|max:50',
             'age'=>'required|numeric|between:18,40',

@@ -2,7 +2,7 @@
 @section('content')
 
     <div id="middleContent">
-        <a href="{{route('v_question.index')}}"
+        <a href="{{route('questions.index')}}"
            class="button sub inlineBlock rnd3 lightTextShadow">
             <span>قائمة الإستفتاءات </span>
         </a>
@@ -16,7 +16,7 @@
 
 
             <div class="content">
-                <form method="POST" action="{{route('v_question.store')}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('questions.store')}}" enctype="multipart/form-data">
                     @csrf
                     <fieldset class="form boxStyle">
                         <legend class="boxStyle">إضافة إستفتاء جديد</legend>

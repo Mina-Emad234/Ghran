@@ -13,4 +13,11 @@ class Scout extends Model
         'mobile', 'email', 'parent_name', 'parent_job',
         'parent_tel', 'parent_mobile', 'parent_email', 'read'];
     public $timestamps = false;
+
+    protected $appends=['image_url'];
+
+    public function getImageUrlAttribute(): string
+    {
+        return asset('uploads/scouts/'.$this->image);
+    }
 }

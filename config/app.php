@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'ar_JO',
 
     /*
     |--------------------------------------------------------------------------
@@ -230,8 +230,20 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'RecaptchaV3'=>\Lunaweb\RecaptchaV3\RecaptchaV3::class
+        'RecaptchaV3'=>\Lunaweb\RecaptchaV3\RecaptchaV3::class,
+        'Currency'=>\App\Facades\Currency::class,
 
     ],
+    'api_key'=>env('API_KEY'),
+    'currency'=>'SAR',
+    'email'=>'info@tanmiyahergah.com',
+    'mobile'=>'0552077724',
+    'telefax'=>'0114801860',
+    'facebook'=>'https://www.facebook.com/',
+    'youtube'=>'https://www.youtube.com/',
+    'instagram'=>'https://www.instagram.com/',
+    'twitter'=>'https://www.twitter.com/',
+    'fatoorah_base_url'=>'https://apitest.myfatoorah.com',
+    'fatoorah_token'=>'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL',
 
 ];

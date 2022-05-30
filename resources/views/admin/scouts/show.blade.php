@@ -13,7 +13,7 @@
                 <label class="label">صورة المشترك</label>
                 <p style="margin-right: 50px">
                     @if ($scout->image != "" && file_exists("uploads/scouts/" . $scout->image))
-                        <img src="{{'../../../uploads/scouts/'. $scout->image}}" width="160" height="130" class="imgPreview rnd10" />
+                        <img src="{{asset('uploads/scouts/'. $scout->image)}}" width="160" height="130" class="imgPreview rnd10" />
                     @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="160" height="130" class="imgPreview rnd10" />
                     @endif

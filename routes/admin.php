@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -19,225 +20,149 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         Route::post('login','LoginController@postLogin')->name('login');
     });
     Route::group(['middleware'=>'auth:admin'], function () {
-        Route::get('logout','LoginController@logout')->name("admin.logout");
+        Route::post('logout','LoginController@logout')->name("admin.logout");
         Route::get('home','DashboardController@index')->name("admin.home");
-        ################## blog category ################
-        Route::group(['prefix'=>'blog_categories','middleware'=>'can:categories'], function () {
-            Route::get('/','BlogCategoryController@index')->name('category.index');
-            Route::get('create','BlogCategoryController@create')->name('category.create');
-            Route::post('store','BlogCategoryController@store')->name('category.store');
-            Route::get('edit/{id}','BlogCategoryController@edit')->name('category.edit');
-            Route::post('update/{id}','BlogCategoryController@update')->name('category.update');
-            Route::get('delete/{id}','BlogCategoryController@delete')->name('category.delete');
+        ##################### categories #####################
+        Route::resource('blog/categories','BlogCategoriesController',['middleware'=>'can:categories']);
+        ##################### blogs #####################
+        Route::group(['middleware'=>'can:blogs'], function () {
+            Route::get('category/blogs/{slug}','BlogsController@CategoryBlogs')->name('blogs.cats');
+            Route::get('blogs/activate/{blog}','BlogsController@activate')->name('blogs.activate');
+            Route::get('blogs/deactivate/{blog}','BlogsController@deactivate')->name('blogs.deactivate');
+            Route::resource('blogs','BlogsController');
         });
-
-        ######################## blog ########################
-        Route::group(['prefix'=>'blogs','middleware'=>'can:blogs'], function () {
-            Route::get('/','BlogController@index')->name('blog.index');
-            Route::get('get_category_blogs/{cat_id}','BlogController@getCategoryBlog')->name('cat.blogs');
-            Route::get('create','BlogController@create')->name('blog.create');
-            Route::post('store','BlogController@store')->name('blog.store');
-            Route::get('show/{id}','BlogController@show')->name('blog.show');
-            Route::get('edit/{id}','BlogController@edit')->name('blog.edit');
-            Route::post('update/{id}','BlogController@update')->name('blog.update');
-            Route::get('delete/{id}','BlogController@delete')->name('blog.delete');
-            Route::get('activate/{id}','BlogController@activate')->name('blog.activate');
-            Route::get('deactivate/{id}','BlogController@deactivate')->name('blog.deactivate');
-        });
-        ##################### comment #####################
+        ##################### comments #####################
         Route::group(['prefix'=>'comments','middleware'=>'can:comments'], function () {
-            Route::get('/{blog_id?}','CommentController@index')->name('comment.index');
-            Route::get('delete/{id}','CommentController@delete')->name('comment.delete');
-            Route::get('activate/{id}','CommentController@activate')->name('comment.activate');
-            Route::get('deactivate/{id}','CommentController@deactivate')->name('comment.deactivate');
+            Route::get('/{blog_slug?}','CommentsController@index')->name('comments.index');
+            Route::get('delete/{comment}','CommentsController@delete')->name('comments.delete');
+            Route::get('activate/{comment}','CommentsController@activate')->name('comments.activate');
+            Route::get('deactivate/{comment}','CommentsController@deactivate')->name('comments.deactivate');
         });
         ######################## info ########################
-        Route::group(['prefix'=>'information','middleware'=>'can:infos'], function () {
-            Route::get('/','InfoController@index')->name('info.index');
-            Route::get('create','InfoController@create')->name('info.create');
-            Route::post('store','InfoController@store')->name('info.store');
-            Route::get('edit/{id}','InfoController@edit')->name('info.edit');
-            Route::post('update/{id}','InfoController@update')->name('info.update');
-            Route::get('delete/{id}','InfoController@delete')->name('info.delete');
-            Route::get('activate/{id}','InfoController@activate')->name('info.activate');
-            Route::get('deactivate/{id}','InfoController@deactivate')->name('info.deactivate');
-            Route::get('sort/{direction}/{id}','InfoController@sort')->name('info.sort');
+        Route::group(['middleware'=>'can:info'], function () {
+            Route::get('info/activate/{info}','InfoController@activate')->name('info.activate');
+            Route::get('info/deactivate/{info}','InfoController@deactivate')->name('info.deactivate');
+            Route::get('info/sort/{info}/{direction}','InfoController@sort')->name('info.sort');
+            Route::resource('info','InfoController');
         });
-        ######################## tag ########################
-        Route::group(['prefix'=>'tags','middleware'=>'can:tags'], function () {
-            Route::get('get_blog_tags/{blog_id}','TagController@getBlogTags')->name('blog.tags');
-            Route::get('/','TagController@index')->name('tag.index');
-            Route::get('create','TagController@create')->name('tag.create');
-            Route::post('store','TagController@store')->name('tag.store');
-            Route::get('edit/{id}','TagController@edit')->name('tag.edit');
-            Route::post('update/{id}','TagController@update')->name('tag.update');
-            Route::get('delete/{id}','TagController@delete')->name('tag.delete');
-            Route::get('activate/{id}','TagController@activate')->name('tag.activate');
-            Route::get('deactivate/{id}','TagController@deactivate')->name('tag.deactivate');
-            Route::get('sort/{direction}/{id}','TagController@sort')->name('tag.sort');
+        ######################## tags ########################
+        Route::group(['middleware'=>'can:tags'], function () {
+            Route::get('tags/blogs/{slug}','TagsController@getBlogTags')->name('tags.blogs');
+            Route::get('tags/activate/{tag}','TagsController@activate')->name('tags.activate');
+            Route::get('tags/deactivate/{tag}','TagsController@deactivate')->name('tags.deactivate');
+            Route::resource('tags','TagsController');
         });
         ######################## v_question ########################
-        Route::group(['prefix'=>'v_questions','middleware'=>'can:votes'], function () {
-            Route::get('/','VoteQuestionController@index')->name('v_question.index');
-            Route::get('create','VoteQuestionController@create')->name('v_question.create');
-            Route::post('store','VoteQuestionController@store')->name('v_question.store');
-            Route::get('edit/{id}','VoteQuestionController@edit')->name('v_question.edit');
-            Route::post('update/{id}','VoteQuestionController@update')->name('v_question.update');
-            Route::get('delete/{id}','VoteQuestionController@delete')->name('v_question.delete');
-            Route::get('activate/{id}','VoteQuestionController@activate')->name('v_question.activate');
-            Route::get('deactivate/{id}','VoteQuestionController@deactivate')->name('v_question.deactivate');
-            Route::get('sort/{direction}/{id}','VoteQuestionController@sort')->name('v_question.sort');
-            Route::get('result/{question_id?}','VoteQuestionController@result')->name('v_question.result');
+        Route::group(['middleware'=>'can:votes'], function () {
+            Route::get('votes/questions/activate/{vote}','VoteQuestionsController@activate')->name('questions.activate');
+            Route::get('votes/questions/deactivate/{vote}','VoteQuestionsController@deactivate')->name('questions.deactivate');
+            Route::get('votes/questions/sort/{vote}/{direction}','VoteQuestionsController@sort')->name('questions.sort');
+            Route::get('votes/questions/result/{question_id?}','VoteQuestionsController@result')->name('results.index');
+            Route::resource('votes/questions','VoteQuestionsController');
         });
-        ######################## admin ########################
-        Route::group(['prefix'=>'admins','middleware'=>'can:users'], function () {
-            Route::get('/','AdminController@index')->name('admin.index');
-            Route::get('create','AdminController@create')->name('admin.create');
-            Route::post('store','AdminController@store')->name('admin.store');
-            Route::get('edit/{id}','AdminController@edit')->name('admin.edit');
-            Route::post('update/{id}','AdminController@update')->name('admin.update');
-            Route::get('delete/{id}','AdminController@delete')->name('admin.delete');
-            Route::get('activate/{id}','AdminController@activate')->name('admin.activate');
-            Route::get('deactivate/{id}','AdminController@deactivate')->name('admin.deactivate');
+        ######################## admins ########################
+        Route::group(['middleware'=>'can:admins'], function () {
+            Route::get('admins/activate/{admin}','AdminsController@activate')->name('admins.activate');
+            Route::get('admins/profile/edit','AdminsController@profileEdit')->name('admins.profile');
+            Route::get('admins/deactivate/{admin}','AdminsController@deactivate')->name('admins.deactivate');
+            Route::resource('admins','AdminsController');
         });
         ######################## contact ########################
-        Route::group(['prefix'=>'contact_submitters','middleware'=>'can:contacts'], function () {
-            Route::get('/','ContactController@index')->name('contact.index');
-            Route::get('read/{id}','ContactController@read')->name('contact.read');
-            Route::get('open_file/{email}/{file}','ContactController@open_file')->name('contact.open');
-            Route::get('delete/{id}','ContactController@delete')->name('contact.delete');
+        Route::group(['prefix'=>'users/contacts','middleware'=>'can:contacts'], function () {
+            Route::get('/','ContactsController@index')->name('contact.index');
+            Route::get('read/{contact}','ContactsController@read')->name('contact.read');
+            Route::get('open_file/{email}/{file}','ContactsController@open_file')->name('contact.open');
+            Route::get('delete/{contact}','ContactsController@delete')->name('contact.delete');
         });
-        ######################## list_mail ########################
-        Route::group(['prefix'=>'list_mails','middleware'=>'can:mails'], function () {
-            Route::get('/','ListMailController@index')->name('list_mail.index');;
-            Route::get('delete/{id}','ListMailController@delete')->name('list_mail.delete');
+        ######################## mails ########################
+        Route::group(['prefix'=>'mails/list','middleware'=>'can:mails'], function () {
+            Route::get('/','ListMailsController@index')->name('mails.index');;
+            Route::get('delete/{mail}','ListMailsController@delete')->name('mails.delete');
         });
-        ######################## course ########################
-        Route::group(['prefix'=>'courses','middleware'=>'can:courses'], function () {
-            Route::get('/','CourseController@index')->name('course.index');
-            Route::get('payable','CourseController@payable')->name('course.payable');
-            Route::get('create','CourseController@create')->name('course.create');
-            Route::post('store','CourseController@store')->name('course.store');
-            Route::get('edit/{id}','CourseController@edit')->name('course.edit');
-            Route::post('update/{id}','CourseController@update')->name('course.update');
-            Route::get('delete/{id}','CourseController@delete')->name('course.delete');
-            Route::get('activate/{id}','CourseController@activate')->name('course.activate');
-            Route::get('deactivate/{id}','CourseController@deactivate')->name('course.deactivate');
+        ######################## courses ########################
+        Route::group(['middleware'=>'can:courses'], function () {
+            Route::get('courses/payable','CoursesController@payable')->name('courses.payable');
+            Route::get('courses/activate/{course}','CoursesController@activate')->name('courses.activate');
+            Route::get('courses/deactivate/{course}','CoursesController@deactivate')->name('courses.deactivate');
+            Route::resource('courses','CoursesController');
         });
-        ######################## video ########################
-        Route::group(['prefix'=>'videos','middleware'=>'can:courses'], function () {
-            Route::get('/','VideoController@index')->name('video.index');
-            Route::get('get_course_videos/{course_id}','VideoController@getCourseVideos')->name('get_course.videos');
-            Route::get('create','VideoController@create')->name('video.create');
-            Route::post('store','VideoController@store')->name('video.store');
-            Route::get('show/{id}','VideoController@show')->name('video.show');
-            Route::get('edit/{id}','VideoController@edit')->name('video.edit');
-            Route::post('update/{id}','VideoController@update')->name('video.update');
-            Route::get('delete/{id}','VideoController@delete')->name('video.delete');
-            Route::get('activate/{id}','VideoController@activate')->name('video.activate');
-            Route::get('deactivate/{id}','VideoController@deactivate')->name('video.deactivate');
-            Route::get('sort/{direction}/{id}','VideoController@sort')->name('video.sort');
+        ######################## videos ########################
+        Route::group(['middleware'=>'can:courses'], function () {
+            Route::get('courses/videos/{course}','VideosController@getCourseVideos')->name('courses.videos.index');
+            Route::get('videos/activate/{video}','VideosController@activate')->name('videos.activate');
+            Route::get('videos/deactivate/{video}','VideosController@deactivate')->name('videos.deactivate');
+            Route::get('videos/sort/{video}/{direction}','VideosController@sort')->name('videos.sort');
+            Route::resource('videos','VideosController');
         });
         ######################## scouts_applicants ########################
-        Route::group(['prefix'=>'scouts_applicants','middleware'=>'can:socials'], function () {
-            Route::get('/','ScoutController@index')->name('scouts.index');
-            Route::get('read/{id}','ScoutController@read')->name('scouts.read');
-            Route::get('delete/{id}','ScoutController@delete')->name('scouts.delete');
+        Route::group(['prefix'=>'scouts/applicants','middleware'=>'can:socials'], function () {
+            Route::get('/','ScoutsController@index')->name('scouts.index');
+            Route::get('read/{scout}','ScoutsController@read')->name('scouts.read');
+            Route::get('delete/{scout}','ScoutsController@delete')->name('scouts.delete');
         });
         ######################## media_center_applicants ########################
-        Route::group(['prefix'=>'media_center_applicants','middleware'=>'can:socials'], function () {
-            Route::get('/','MediaController@index')->name('media.index');
-            Route::get('read/{id}','MediaController@read')->name('media.read');
-            Route::get('delete/{id}','MediaController@delete')->name('media.delete');
+        Route::group(['prefix'=>'media/center/applicants','middleware'=>'can:socials'], function () {
+            Route::get('/','MediaApplicantsController@index')->name('media.index');
+            Route::get('read/{applicant}','MediaApplicantsController@read')->name('media.read');
+            Route::get('delete/{applicant}','MediaApplicantsController@delete')->name('media.delete');
         });
         ######################## volunteer_applicants ########################
-        Route::group(['prefix'=>'volunteer_applicants','middleware'=>'can:socials'], function () {
-            Route::get('/','VolunteerController@index')->name('volunteer.index');
-            Route::get('read/{id}','VolunteerController@read')->name('volunteer.read');
-            Route::get('delete/{id}','VolunteerController@delete')->name('volunteer.delete');
+        Route::group(['prefix'=>'volunteers','middleware'=>'can:socials'], function () {
+            Route::get('/','VolunteersController@index')->name('volunteer.index');
+            Route::get('read/{volunteer}','VolunteersController@read')->name('volunteer.read');
+            Route::get('delete/{volunteer}','VolunteersController@delete')->name('volunteer.delete');
         });
         ################## albums ################
-        Route::group(['prefix'=>'albums','middleware'=>'can:photo_category'], function () {
-            Route::get('/','AlbumController@index')->name('album.index');
-            Route::get('create','AlbumController@create')->name('album.create');
-            Route::post('store','AlbumController@store')->name('album.store');
-            Route::get('edit/{id}','AlbumController@edit')->name('album.edit');
-            Route::post('update/{id}','AlbumController@update')->name('album.update');
-            Route::get('delete/{id}','AlbumController@delete')->name('album.delete');
-        });
+        Route::resource('albums','AlbumsController',['middleware'=>'can:photo_category']);
         ######################## photo ########################
-        Route::group(['prefix'=>'photos','middleware'=>'can:photos'], function () {
-            Route::get('/','PhotoController@index')->name('photo.index');
-            Route::get('get_album_photos/{album_id}','PhotoController@getAlbumPhotos')->name('get.album.photos');
-            Route::get('create','PhotoController@create')->name('photo.create');
-            Route::post('store','PhotoController@store')->name('photo.store');
-            Route::get('delete/{id}','PhotoController@delete')->name('photo.delete');
-            Route::get('activate/{id}','PhotoController@activate')->name('photo.activate');
-            Route::get('deactivate/{id}','PhotoController@deactivate')->name('photo.deactivate');
-            Route::get('sort/{direction}/{id}','PhotoController@sort')->name('photo.sort');
+        Route::group(['middleware'=>'can:photos'], function () {
+            Route::get('album/photos/{slug}','PhotosController@getAlbumPhotos')->name('album.photos');
+            Route::get('photos/activate/{photo}','PhotosController@activate')->name('photos.activate');
+            Route::get('photos/deactivate/{photo}','PhotosController@deactivate')->name('photos.deactivate');
+            Route::resource('photos','PhotosController');
         });
-
-        ######################## partner ########################
-        Route::group(['prefix'=>'partners','middleware'=>'can:partner'], function () {
-            Route::get('/','PartnerController@index')->name('partner.index');
-            Route::get('create','PartnerController@create')->name('partner.create');
-            Route::post('store','PartnerController@store')->name('partner.store');
-            Route::get('edit/{id}','PartnerController@edit')->name('partner.edit');
-            Route::post('update/{id}','PartnerController@update')->name('partner.update');
-            Route::get('delete/{id}','PartnerController@delete')->name('partner.delete');
-            Route::get('activate/{id}','PartnerController@activate')->name('partner.activate');
-            Route::get('deactivate/{id}','PartnerController@deactivate')->name('partner.deactivate');
-            Route::get('sort/{direction}/{id}','PartnerController@sort')->name('partner.sort');
+        ######################## partners ########################
+        Route::group(['middleware'=>'can:partners'], function () {
+            Route::get('partners/activate/{partner}','PartnersController@activate')->name('partners.activate');
+            Route::get('partners/deactivate/{partner}','PartnersController@deactivate')->name('partners.deactivate');
+            Route::get('partners/sort/{partner}/{direction}','PartnersController@sort')->name('partners.sort');
+            Route::resource('partners','PartnersController');
         });
-        ######################## setting ########################
+        ######################## settings ########################
         Route::group(['prefix'=>'settings','middleware'=>'can:settings'], function () {
-            Route::get('/','SettingController@index')->name('setting.index');
-            Route::get('edit/{id}','SettingController@edit')->name('setting.edit');
-            Route::post('update/{id}','SettingController@update')->name('setting.update');
+            Route::get('/','SettingsController@index')->name('settings.index');
+            Route::get('edit/{setting}','SettingsController@edit')->name('settings.edit');
+            Route::post('update/{setting}','SettingsController@update')->name('settings.update');
         });
         ######################## roles ########################
-        Route::group(['prefix' => 'roles','middleware'=>'can:roles'], function () {
-            Route::get('/', 'RoleController@index')->name('roles.index');
-            Route::get('/create', 'RoleController@create')->name('roles.create');
-            Route::post('/store', 'RoleController@store')->name('roles.store');
-            Route::get('/edit/{id}', 'RoleController@edit')->name('roles.edit');
-            Route::post('/update/{id}', 'RoleController@update')->name('roles.update');
-            Route::get('/delete/{id}', 'RoleController@delete')->name('roles.delete');
-        });
+        Route::resource('roles','RolesController',['middleware'=>'can:roles']);
         ######################## media_center_applicants ########################
         Route::group(['prefix'=>'course_applicants','middleware'=>'can:courses'], function () {
-            Route::get('/{course_id?}','CourseApplicantController@index')->name('c_applicant.index');
-            Route::get('read/{id}','CourseApplicantController@read')->name('c_applicant.read');
-            Route::get('delete/{id}','CourseApplicantController@delete')->name('c_applicant.delete');
+            Route::get('/{course_id?}','CourseApplicantsController@index')->name('course.applicants.index');
+            Route::get('read/{applicant}','CourseApplicantsController@read')->name('course.applicants.read');
+            Route::get('delete/{applicant}','CourseApplicantsController@delete')->name('course.applicants.delete');
         });
-        ################## site_sections ################
-        Route::group(['prefix'=>'site_sections','middleware'=>'can:site_section'], function () {
-            Route::get('/','SiteSectionController@index')->name('site_section.index');
-            Route::get('create','SiteSectionController@create')->name('site_section.create');
-            Route::post('store','SiteSectionController@store')->name('site_section.store');
-            Route::get('edit/{id}','SiteSectionController@edit')->name('site_section.edit');
-            Route::post('update/{id}','SiteSectionController@update')->name('site_section.update');
-            Route::get('delete/{id}','SiteSectionController@delete')->name('site_section.delete');
-        });
-
+        ################## site-sections ################
+        Route::resource('site/sections','SiteSectionsController',['middleware'=>'can:site-sections','as'=>'site']);
         ######################## site_image ########################
-        Route::group(['prefix'=>'site_images','middleware'=>'can:site_image'], function () {
-            Route::get('/','SiteImageController@index')->name('site_image.index');
-            Route::get('create','SiteImageController@create')->name('site_image.create');
-            Route::post('store','SiteImageController@store')->name('site_image.store');
+        Route::group(['prefix'=>'site/images','middleware'=>'can:site-images'], function () {
+            Route::get('/','SiteImagesController@index')->name('site.images.index');
+            Route::get('create','SiteImagesController@create')->name('site.images.create');
+            Route::post('store','SiteImagesController@store')->name('site.images.store');
         });
 
         ######################## site_content ########################
-        Route::group(['prefix'=>'site_contents','middleware'=>'can:site_content'], function () {
-            Route::get('/','SiteContentController@index')->name('site_content');
-            Route::get('create','SiteContentController@create')->name('site_content.create');
-            Route::post('store','SiteContentController@store')->name('site_content.store');
-            Route::get('show/{id}','SiteContentController@show')->name('site_content.show');
-            Route::get('edit/{id}','SiteContentController@edit')->name('site_content.edit');
-            Route::post('update/{id}','SiteContentController@update')->name('site_content.update');
-            Route::get('delete/{id}','SiteContentController@delete')->name('site_content.delete');
-            Route::get('activate/{id}','SiteContentController@activate')->name('site_content.activate');
-            Route::get('deactivate/{id}','SiteContentController@deactivate')->name('site_content.deactivate');
+        Route::group(['middleware'=>'can:site-content'], function () {
+            Route::get('site/content/activate/{content}','SiteContentController@activate')->name('site.content.activate');
+            Route::get('site/content/deactivate/{content}','SiteContentController@deactivate')->name('site.content.deactivate');
+            Route::resource('site/content','SiteContentController',['as'=>'site']);
+        });
+
+        ######################## site_link ########################
+        Route::group(['middleware'=>'can:site-links'], function () {
+            Route::get('site/links/activate/{link}','SiteLinksController@activate')->name('site.links.activate');
+            Route::get('site/links/deactivate/{link}','SiteLinksController@deactivate')->name('site.links.deactivate');
+            Route::resource('site/links','SiteLinksController',['as'=>'site']);
         });
     });
 });

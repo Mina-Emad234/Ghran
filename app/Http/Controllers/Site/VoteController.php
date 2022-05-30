@@ -10,12 +10,9 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
-//    public function voteResult(){
-//
-//    }
 
     public function votePrevious(){
-        $votes = VoteQuestion::get();
+        $votes = VoteQuestion::all();
         return view('site.vote.previous_votes',compact('votes'));
     }
 
@@ -36,7 +33,13 @@ class VoteController extends Controller
         }
     }
     public function voteResult($question_id=''){
-        $vote = VoteQuestion::withCount('answers')->whereId($question_id)->first();
-        return view('site.vote.result',compact('vote'));
+
+            $vote = VoteQuestion::withCount('answers')->whereId($question_id)->first();
+
+        $answer1=VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>1])->count();
+        $answer2=VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>2])->count();
+        $answer3=VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>3])->count();
+        $answer4=VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>4])->count();
+        return view('site.vote.result',compact('vote','answer1','answer2','answer3','answer4'));
     }
 }

@@ -27,13 +27,9 @@
                         <h3 class="title">روابط مهمة</h3>
 
                         <ul class="menu" style="list-style: none">
-                            <li><a href="{{route('contact.register')}}">اتصل بنا</a></li>
-                            <li><a href="{{route('pages.support')}}">ادعمنا</a></li>
-                            <li><a href="{{route('partners.index')}}">شركاؤنا</a></li>
-                            <li><a href="{{route('pages.programs')}}">برامجنا</a></li>
-                            <li><a href="{{route('pages.members')}}">أعضاء اللجنة</a></li>
-                            <li><a href="{{route('pages.about')}}">عن اللجنة</a></li>
-
+                            @foreach($links as $link)
+                                    <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div><!-- Menu End -->
                 </div><!-- Sitmap End -->

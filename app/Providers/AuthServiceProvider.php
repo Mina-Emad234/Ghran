@@ -24,6 +24,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        Gate::before(function ($auth,$ability){
+            if($auth->email=='mina@gmail.com'){
+                return true;
+            }
+        });
 
         foreach (config('global.permissions') as $ability => $value){
             Gate::define($ability,function ($auth) use ($ability){

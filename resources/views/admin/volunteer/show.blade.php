@@ -11,79 +11,79 @@
                 <br /><br /><br />
                 <strong> الاســـم :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->name}}<br>
+                {{$volunteer->name}}<br>
 
 
                 <strong> الجنسية  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->nationality}}<br>
+                {{$volunteer->nationality}}<br>
 
 
                 <strong> الجنس :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->gender}}<br>
+                {{$volunteer->gender}}<br>
 
 
                 <strong> المدينة  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->city}}<br>
+                {{$volunteer->city}}<br>
 
                 <strong> العمر  :</strong><br>
-                {{$team->age}}<br>
+                {{$volunteer->age}}<br>
 
 
                 <strong> رقم الجوال :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->mobile}}<br>
+                {{$volunteer->mobile}}<br>
 
 
                 <strong> العنوان  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->address}}<br>
+                {{$volunteer->address}}<br>
 
 
                 <strong> الحالة الاجتماعية  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->marital_status}}<br>
+                {{$volunteer->marital_status}}<br>
 
 
                 <strong> البريد الالكتروني :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->email}}<br>
+                {{$volunteer->email}}<br>
 
 
                 <strong> المؤهل العلمي  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->qualification}}<br>
+                {{$volunteer->qualification}}<br>
 
 
                 <strong> التخصص  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->major}}<br>
+                {{$volunteer->major}}<br>
 
 
                 <strong> جهة العمل  :</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->job}}<br>
+                {{$volunteer->job}}<br>
 
 
                 <strong> المهارات الراغب بالتطوع بها</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->skills}}<br>
+                {{$volunteer->skills}}<br>
 
                 <strong> المشاركة في اعمال تطوعية سابقة</strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->voluntary}}<br>
+                {{$volunteer->voluntary}}<br>
 
                 <strong>فترة العمل المناسبة </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->favor_time}}<br>
+                {{$volunteer->favor_time}}<br>
 
                 <strong>صورة بطاقة الأحوال </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <p style="margin-right: 50px">
-                    @if ($team->image != "" && file_exists("uploads/volunteer/" . $team->image))
-                        <img src="{{'../../../uploads/volunteer/'. $team->image}}" width="160" height="130" class="imgPreview rnd10" />
+                    @if ($volunteer->image != "" && file_exists("uploads/volunteers/" . $volunteer->image))
+                        <img src="{{asset('uploads/volunteers/'. $volunteer->image)}}" width="160" height="130" class="imgPreview rnd10" />
                     @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="160" height="130" class="imgPreview rnd10" />
                     @endif
@@ -91,29 +91,29 @@
 
                 <strong>اسم ولي الأمر </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->parent_name}}<br>
+                {{$volunteer->parent_name}}<br>
 
                 <strong>مهنة ولي الأمر </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->parent_job}}<br>
+                {{$volunteer->parent_job}}<br>
 
                 <strong>بريد إلكتروني ولي الأمر </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->parent_email}}<br>
+                {{$volunteer->parent_email}}<br>
 
 
                 <strong>هاتف ولي الأمر </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->parent_tel}}<br>
+                {{$volunteer->parent_tel}}<br>
 
                 <strong>جوال ولي الامر </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->parent_mobile}}<br>
+                {{$volunteer->parent_mobile}}<br>
 
 
                 <strong>الأيام المناسبة </strong><br>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{$team->fav_days}}<br>
+                {{$volunteer->fav_days}}<br>
 
             </div>
         </div><!-- Data Grid End -->

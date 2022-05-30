@@ -12,7 +12,15 @@ class Album extends Model
     protected $fillable=['name','slug','image'];
     public $timestamps=false;
 
+    protected $appends=['image_url'];
+
     public function photos(){
         return $this->hasMany(Photo::class,'album_id','id');
     }
+
+    public function getImageUrlAttribute(): string
+    {
+        return asset('uploads/albums/'.$this->image);
+    }
+
 }

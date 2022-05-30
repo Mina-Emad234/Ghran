@@ -42,6 +42,41 @@ return [
             'visibility' => 'public',
         ],
 
+        'photos' => [
+            'driver' => 'local',
+            'root' => public_path().'/uploads/photos',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'public_uploads' => [
+            'driver' => 'local',
+            'root' => public_path().'/uploads/contacts',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'v_images' => [
+            'driver' => 'local',
+            'root' => public_path().'/uploads/v_images',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'v_videos' => [
+            'driver' => 'local',
+            'root' => public_path().'/uploads/v_videos',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'blogs' => [
+            'driver' => 'local',
+            'root' => public_path().'/uploads/blogs',
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

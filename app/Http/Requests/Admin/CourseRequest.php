@@ -28,7 +28,7 @@ class CourseRequest extends FormRequest
             'description'=>'required|max:1000',
             'duration'=>'required|numeric',
             'licence'=>'required|max:100',
-            'price'=>'required_with:course_payable|numeric',
+            'price'=>'required_with:course_payable|nullable|numeric',
             'image'=>'required_without:id|mimes:jpg,gif,jpeg,png|max:4000',
             'g-recaptcha-response' => 'required'
 

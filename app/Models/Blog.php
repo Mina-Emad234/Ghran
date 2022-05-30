@@ -12,6 +12,8 @@ class Blog extends Model
     protected $fillable=['category_id','title', 'slug','body','image','active'];
     public $timestamps = true;
 
+    protected $appends=['image_url'];
+
     public function category(){
         return $this->belongsTo(BlogCategory::class,'category_id','id');
     }
@@ -22,5 +24,9 @@ class Blog extends Model
         return $this->belongsToMany(Tag::class,'blog_tag','blog_id','tag_id','id','id');
     }
 
+    public function getImageUrlAttribute(): string
+    {
+        return asset('uploads/blogs/'.$this->image);
+    }
 
 }

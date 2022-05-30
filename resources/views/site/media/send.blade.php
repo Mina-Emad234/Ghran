@@ -81,22 +81,22 @@
                     <label>المجال الاعلامي</label>
                     <div class="form-group">
                         <label class="checkbox-inline">
-                            <input type="radio" value="التصوير الفوتوغرافي" id="inlineCheckbox1" name="course" @if(old('course')=='التصوير الفوتوغرافي') checked @endif>التصوير الفوتوغرافي
+                            <input type="radio" value="التصوير الفوتوغرافي" id="inlineCheckbox1" name="course" @if(old('courses')=='التصوير الفوتوغرافي') checked @endif>التصوير الفوتوغرافي
                         </label>
                         <label class="checkbox-inline">
-                            <input type="radio" value="المونتـــــــــاج" id="inlineCheckbox2" name="course" @if(old('course')=='المونتـــــــــاج') checked @endif> المونتـــــــــاج
+                            <input type="radio" value="المونتـــــــــاج" id="inlineCheckbox2" name="course" @if(old('courses')=='المونتـــــــــاج') checked @endif> المونتـــــــــاج
                         </label>
                         <label class="checkbox-inline">
-                            <input type="radio" value="إدارة المواقع الالكترونية" id="inlineCheckbox3" name="course" @if(old('course')=='إدارة المواقع الالكترونية') checked @endif> إدارة المواقع الالكترونية
+                            <input type="radio" value="إدارة المواقع الالكترونية" id="inlineCheckbox3" name="course" @if(old('courses')=='إدارة المواقع الالكترونية') checked @endif> إدارة المواقع الالكترونية
                         </label><br>
                         <label class="checkbox-inline">
-                            <input type="radio" value="تصويــــر الفيديو" id="inlineCheckbox4" name="course" @if(old('course')=='تصويــــر الفيديو') checked @endif>تصويــــر الفيديو
+                            <input type="radio" value="تصويــــر الفيديو" id="inlineCheckbox4" name="course" @if(old('courses')=='تصويــــر الفيديو') checked @endif>تصويــــر الفيديو
                         </label>
                         <label class="checkbox-inline">
-                            <input type="radio" value="التصميـــــــــم" id="inlineCheckbox5" name="course" @if(old('course')=='التصميـــــــــم') checked @endif>التصميـــــــــم
+                            <input type="radio" value="التصميـــــــــم" id="inlineCheckbox5" name="course" @if(old('courses')=='التصميـــــــــم') checked @endif>التصميـــــــــم
                         </label>
                         <label class="checkbox-inline">
-                            <input type="radio" value="التمثيـــــــــل" id="inlineCheckbox6" name="course" @if(old('course')=='التمثيـــــــــل') checked @endif>التمثيـــــــــل
+                            <input type="radio" value="التمثيـــــــــل" id="inlineCheckbox6" name="course" @if(old('courses')=='التمثيـــــــــل') checked @endif>التمثيـــــــــل
                         </label>
                         <br>
                     </div>
@@ -117,36 +117,8 @@
                 </div>
             </div>
 
-            <aside>
-                <div class="col-md-4">
-                    <div class="sidebar">
+            @include('site.news.news')
 
-                        <div class="arrow_box no-margin"><h3>أخر الأخبار</h3></div>
-                        <ul class="news-menu margin-top-15">
-                            @php
-                                $all = \App\Models\Blog::where(['active'=>1,'category_id'=>2])->latest()->limit(6)->get();
-                            @endphp
-                            @forelse ($all as $news)
-                                <li><a href="{{route('post.show',$news->slug)}}">
-                                        @if ($news->image != "" && file_exists("uploads/blogs/" . $news->image))
-                                            <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
-                                        @else
-                                            <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive"/>
-                                        @endif
-                                        <h5 style="font-size: 15px;font-weight: bold;line-height: 20px !important;text-align: center">{{strlen($news->title)>100?substr($news->title,0,strpos($news->title,' ',100)).'...': $news->title}}</h5>
-                                    </a></li>
-                                @empty
-                                    <li><h3 style="text-align: center">لا يوجد أخبار لعرضها حاليا</h3></li>
-                            @endforelse
-                        </ul>
-                        <div class="clearfix"></div>
-
-
-
-                    </div>
-
-                </div>
-            </aside>
 
         </div>
 

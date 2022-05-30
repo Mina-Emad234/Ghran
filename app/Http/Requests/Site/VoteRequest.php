@@ -32,6 +32,7 @@ class VoteRequest extends FormRequest
     public function messages()
     {
         return [
+            'required'=>'حدث خطأ ما حول مرة أخرى',
             'g-recaptcha-response.required'=>'حدث خطأ ما حول مرة أخرى',
         ];
     }

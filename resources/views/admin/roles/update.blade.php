@@ -16,6 +16,7 @@
             <div class="content">
                 <form method="POST" action="{{route('roles.update',$role->id)}}" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <fieldset class="form boxStyle">
                         <input type="hidden" name="id" value="{{$role->id}}">
                         <legend class="boxStyle">تحديث الصلاحية</legend>

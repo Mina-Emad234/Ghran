@@ -8,14 +8,12 @@
         </div>
         <div class="pull-left">
             <ul class="social-header">
-                @php
-                    $setting=new \App\Models\Setting();
-                @endphp
 
-                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Facebook')}}"><i class="fa fa-facebook"></i></a></li>
-                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Twitter')}}"><i class="fa fa-twitter"></i></a></li>
-                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Youtube')}}"><i class="fa fa-youtube"></i></a></li>
-                    <li><a rel="nofollow" target="_blank" href="{{$setting->val('Instagram')}}"><i class="fa fa-instagram"></i></a></li>
+
+                    <li><a rel="nofollow" target="_blank" href="{{config()->get('app.facebook')}}"><i class="fa fa-facebook"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{config()->get('app.twitter')}}"><i class="fa fa-twitter"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{config()->get('app.youtube')}}"><i class="fa fa-youtube"></i></a></li>
+                    <li><a rel="nofollow" target="_blank" href="{{config()->get('app.instagram')}}"><i class="fa fa-instagram"></i></a></li>
 
             </ul>
         </div>
@@ -25,11 +23,9 @@
 
 <div class="middel-nav">
     <div class="container">
-        @php
-            $image=\App\Models\SiteSection::with('image')->where('name','header_logo')->first()->image->image;
-        @endphp
+
         <a href="#" class="logo"><img src="{{asset('site/img/'.$image)}}"/></a>
-        <form action="{{route('search')}}" method="post" >
+        <form action="{{route('search')}}" method="get" >
             @csrf
             <div class="col-sm-4 pull-left margin-top-30 search">
                 <div class="input-group">
@@ -61,22 +57,23 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{route('home')}}">الرئيسية</a></li>
-                <li><a href="{{route('post.index')}}">المنشورات</a></li>
-                <li><a href="{{route('album_cat.index')}}">الاستوديو</a></li>
-                <li><a href="{{route('pages.about')}}">عن اللجنة</a></li>
-                <li><a href="{{route('pages.programs')}}">برامجنا</a></li>
-                <li class="dropdown">
-                    <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">تطـوع معنـا <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{route('scout.register')}}">التسجيل في الكشافة</a></li>
-                        <li><a href="{{route('media.register')}}">الانتساب للمركز الإعلامي</a></li>
-                        <li><a href="{{route('volunteer.register')}}">الانتساب للفريق التطوعي</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{route('partners.index')}}">شركاؤنا</a></li>
-                <li><a href="{{route('pages.support')}}">ادعمنا</a></li>
-                <li><a href="{{route('contact.register')}}" class="last">اتصل بنا</a></li>
+
+                @foreach($links as $link)
+
+
+                @if(count($link->_child)==0 && $link->parent_id == NULL)
+                        <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                    @elseif(count($link->_child)>0)
+                        <li class="dropdown">
+                            <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{$link->name}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                @foreach($link->_child as $child)
+                                <li><a href="{{url($child->link)}}">{{$child->name}}</a></li>
+                                    @endforeach
+                            </ul>
+                        </li>
+                    @endif
+            @endforeach
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->

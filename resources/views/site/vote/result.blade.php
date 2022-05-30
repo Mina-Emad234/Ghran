@@ -14,13 +14,13 @@
             <div class="box-vote-content text">
 
                     <!-- النتائج هي النسبة المئوية × 1.4 -->
-                <p><span class="answer">{{$vote->answer1}}</span> <span class="precent">{{number_format(\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>1])->count()*100/$vote->answers_count,2)}}%</span><span class="indicator"></span></p>
+                <p><span class="answer">{{$vote->answer1}}</span> <span class="precent">{{$answer1 * 100/$vote->answers_count}}%</span><span class="indicator"></span></p>
 
-                <p><span class="answer">{{$vote->answer2}}</span> <span  class="precent">{{number_format(\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>2])->count()*100/$vote->answers_count,2)}}%</span><span class="indicator"></span></p>
+                <p><span class="answer">{{$vote->answer2}}</span> <span  class="precent">{{$answer2 * 100/$vote->answers_count}}%</span><span class="indicator"></span></p>
 
-                <p><span class="answer">{{$vote->answer3}}</span> <span  class="precent">{{number_format(\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>3])->count()*100/$vote->answers_count,2)}}%</span><span class="indicator"></span></p>
+                <p><span class="answer">{{$vote->answer3}}</span> <span  class="precent">{{$answer3 * 100/$vote->answers_count}}%</span><span class="indicator"></span></p>
 
-                <p><span class="answer">{{$vote->answer4}}</span> <span  class="precent">{{number_format(\App\Models\VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>4])->count()*100/$vote->answers_count,2)}}%</span><span class="indicator"></span></p>
+                <p><span class="answer">{{$vote->answer4}}</span> <span  class="precent">{{$answer4 * 100/$vote->answers_count}}%</span><span class="indicator"></span></p>
 
 
             </div>

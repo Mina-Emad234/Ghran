@@ -11,4 +11,13 @@ class Contact extends Model
     protected $table='contacts';
     protected $fillable=['sender', 'email', 'title', 'content', 'file', 'read'];
     public $timestamps=true;
+    protected $appends=['file_url'];
+
+    public function getFileUrlAttribute(): string
+    {
+        if($this->file == null)
+            return 'No File Exists';
+
+            return asset('uploads/contacts/'.$this->email .'/'.$this->file);
+    }
 }
