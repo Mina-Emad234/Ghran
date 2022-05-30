@@ -14,7 +14,7 @@
             @endif
         <div class="block">
             <div class="content">
-                <form accept-charset="utf-8" method="post" action="{{route('admins.update',$admin->id)}}" title="">
+                <form method="post" action="{{route('admins.update',$admin->id)}}">
                     @csrf
                     @method('put')
                     <fieldset class="form boxStyle">
@@ -27,11 +27,12 @@
                         @enderror
                         <br>
                         <label for="email" class="label">البريد الإلكترونى :</label>
-                        <input type="email" id="email" class="textBox med rnd5" value="{{old('email',$admin->email)}}" name="email"/>
+                        <input type="text" id="email" class="textBox med rnd5" value="{{old('email',$admin->email)}}" name="email"/>
                         @error('email')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
+
                         @if($admin->role->name !== 'admin')
                         <label for="role" class="label">الصلاحية :</label>
                         <select size="1" id="role" name="role_id" class="select med rnd5">
@@ -39,11 +40,14 @@
                                 <option value="{{$role->id}}" @if($role->id == $admin->role_id||$role->id==old('role_id')) selected @endif>{{$role->name}}</option>
                             @endforeach
                         </select>
-                        @endif
+
                         @error('role_id')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br />
+                        @else
+                            <input type="hidden" name="role_id" value="{{$admin->role_id}}">
+                        @endif
                         <label for="password" class="label">كلمة المرور :</label>
                         <input type="password" id="password"  class="textBox med rnd5" value="{{old('password')}}" name="password"/>
                         @error('password')
