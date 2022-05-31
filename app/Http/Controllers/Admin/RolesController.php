@@ -64,7 +64,5 @@ class RolesController extends Controller
         $role->save();
         return $role;
     }
-    public function show(){
-        return abort(404);
-    }
+
 }

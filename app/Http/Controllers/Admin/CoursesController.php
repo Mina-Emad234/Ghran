@@ -122,7 +122,4 @@ class CoursesController extends Controller
         return $this->modelActivation($course,0,'تم إلغاء تفعيل الكورس بنجاح','courses.index');
     }
 
-    public function show(){
-        return abort(404);
-    }
 }

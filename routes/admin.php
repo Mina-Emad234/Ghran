@@ -23,7 +23,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         Route::post('logout','LoginController@logout')->name("admin.logout");
         Route::get('home','DashboardController@index')->name("admin.home");
         ##################### categories #####################
-        Route::resource('blog/categories','BlogCategoriesController',['middleware'=>'can:categories']);
+        Route::resource('blog/categories','BlogCategoriesController',['middleware'=>'can:categories'])->except(['show']);
         ##################### blogs #####################
         Route::group(['middleware'=>'can:blogs'], function () {
             Route::get('category/blogs/{slug}','BlogsController@CategoryBlogs')->name('blogs.cats');
@@ -43,14 +43,14 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('info/activate/{info}','InfoController@activate')->name('info.activate');
             Route::get('info/deactivate/{info}','InfoController@deactivate')->name('info.deactivate');
             Route::get('info/sort/{info}/{direction}','InfoController@sort')->name('info.sort');
-            Route::resource('info','InfoController');
+            Route::resource('info','InfoController')->except(['show']);
         });
         ######################## tags ########################
         Route::group(['middleware'=>'can:tags'], function () {
             Route::get('tags/blogs/{slug}','TagsController@getBlogTags')->name('tags.blogs');
             Route::get('tags/activate/{tag}','TagsController@activate')->name('tags.activate');
             Route::get('tags/deactivate/{tag}','TagsController@deactivate')->name('tags.deactivate');
-            Route::resource('tags','TagsController');
+            Route::resource('tags','TagsController')->except(['show']);
         });
         ######################## v_question ########################
         Route::group(['middleware'=>'can:votes'], function () {
@@ -58,14 +58,14 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('votes/questions/deactivate/{vote}','VoteQuestionsController@deactivate')->name('questions.deactivate');
             Route::get('votes/questions/sort/{vote}/{direction}','VoteQuestionsController@sort')->name('questions.sort');
             Route::get('votes/questions/result/{question_id?}','VoteQuestionsController@result')->name('results.index');
-            Route::resource('votes/questions','VoteQuestionsController');
+            Route::resource('votes/questions','VoteQuestionsController')->except(['show']);
         });
         ######################## admins ########################
         Route::group(['middleware'=>'can:admins'], function () {
             Route::get('admins/activate/{admin}','AdminsController@activate')->name('admins.activate');
             Route::get('admins/profile/edit','AdminsController@profileEdit')->name('admins.profile');
             Route::get('admins/deactivate/{admin}','AdminsController@deactivate')->name('admins.deactivate');
-            Route::resource('admins','AdminsController');
+            Route::resource('admins','AdminsController')->except(['show']);
         });
         ######################## contact ########################
         Route::group(['prefix'=>'users/contacts','middleware'=>'can:contacts'], function () {
@@ -84,7 +84,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('courses/payable','CoursesController@payable')->name('courses.payable');
             Route::get('courses/activate/{course}','CoursesController@activate')->name('courses.activate');
             Route::get('courses/deactivate/{course}','CoursesController@deactivate')->name('courses.deactivate');
-            Route::resource('courses','CoursesController');
+            Route::resource('courses','CoursesController')->except(['show']);
         });
         ######################## videos ########################
         Route::group(['middleware'=>'can:courses'], function () {
@@ -113,20 +113,20 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('delete/{volunteer}','VolunteersController@delete')->name('volunteer.delete');
         });
         ################## albums ################
-        Route::resource('albums','AlbumsController',['middleware'=>'can:photo_category']);
+        Route::resource('albums','AlbumsController',['middleware'=>'can:photo_category'])->except(['show']);
         ######################## photo ########################
         Route::group(['middleware'=>'can:photos'], function () {
             Route::get('album/photos/{slug}','PhotosController@getAlbumPhotos')->name('album.photos');
             Route::get('photos/activate/{photo}','PhotosController@activate')->name('photos.activate');
             Route::get('photos/deactivate/{photo}','PhotosController@deactivate')->name('photos.deactivate');
-            Route::resource('photos','PhotosController');
+            Route::resource('photos','PhotosController')->except(['edit', 'update', 'show']);
         });
         ######################## partners ########################
         Route::group(['middleware'=>'can:partners'], function () {
             Route::get('partners/activate/{partner}','PartnersController@activate')->name('partners.activate');
             Route::get('partners/deactivate/{partner}','PartnersController@deactivate')->name('partners.deactivate');
             Route::get('partners/sort/{partner}/{direction}','PartnersController@sort')->name('partners.sort');
-            Route::resource('partners','PartnersController');
+            Route::resource('partners','PartnersController')->except(['show']);
         });
         ######################## settings ########################
         Route::group(['prefix'=>'settings','middleware'=>'can:settings'], function () {
@@ -135,7 +135,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::post('update/{setting}','SettingsController@update')->name('settings.update');
         });
         ######################## roles ########################
-        Route::resource('roles','RolesController',['middleware'=>'can:roles']);
+        Route::resource('roles','RolesController',['middleware'=>'can:roles'])->except(['show']);
         ######################## media_center_applicants ########################
         Route::group(['prefix'=>'course_applicants','middleware'=>'can:courses'], function () {
             Route::get('/{course_id?}','CourseApplicantsController@index')->name('course.applicants.index');
@@ -143,7 +143,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('delete/{applicant}','CourseApplicantsController@delete')->name('course.applicants.delete');
         });
         ################## site-sections ################
-        Route::resource('site/sections','SiteSectionsController',['middleware'=>'can:site-sections','as'=>'site']);
+        Route::resource('site/sections','SiteSectionsController',['middleware'=>'can:site-sections','as'=>'site'])->except(['show']);
         ######################## site_image ########################
         Route::group(['prefix'=>'site/images','middleware'=>'can:site-images'], function () {
             Route::get('/','SiteImagesController@index')->name('site.images.index');
@@ -155,14 +155,14 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         Route::group(['middleware'=>'can:site-content'], function () {
             Route::get('site/content/activate/{content}','SiteContentController@activate')->name('site.content.activate');
             Route::get('site/content/deactivate/{content}','SiteContentController@deactivate')->name('site.content.deactivate');
-            Route::resource('site/content','SiteContentController',['as'=>'site']);
+            Route::resource('site/content','SiteContentController',['as'=>'site'])->except(['show']);
         });
 
         ######################## site_link ########################
         Route::group(['middleware'=>'can:site-links'], function () {
             Route::get('site/links/activate/{link}','SiteLinksController@activate')->name('site.links.activate');
             Route::get('site/links/deactivate/{link}','SiteLinksController@deactivate')->name('site.links.deactivate');
-            Route::resource('site/links','SiteLinksController',['as'=>'site']);
+            Route::resource('site/links','SiteLinksController',['as'=>'site'])->except(['show']);
         });
     });
 });

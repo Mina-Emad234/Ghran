@@ -93,7 +93,5 @@ class TagsController extends Controller
         return $this->modelActivation($tag,0,'تم إلغاء تفعيل كلمة البحث بنجاح','tags.index');
     }
 
-    public function show(){
-        return abort(404);
-    }
+
 }

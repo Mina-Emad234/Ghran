@@ -111,7 +111,5 @@ class VoteQuestionsController extends Controller
         $answer4=VoteResult::where(['vote_question_id'=>$vote->id,'answer'=>4])->count();
         return view('admin.vote.result',compact('vote','answer1','answer2','answer3','answer4'));
     }
-    public function show(){
-        return abort(404);
-    }
+
 }

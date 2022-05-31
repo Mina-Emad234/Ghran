@@ -101,7 +101,5 @@ class AdminsController extends Controller
         return $this->modelActivation($admin,0, "تم إلغاء تفعيل مسؤول بنجاح",'admins.index');
     }
 
-    public function show(){
-        return abort(404);
-    }
+
 }

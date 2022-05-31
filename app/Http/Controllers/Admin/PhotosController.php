@@ -70,17 +70,4 @@ class PhotosController extends Controller
     public function deactivate(Photo $photo){
         return $this->modelActivation($photo,0,'تم إلغاء تفعيل الصورة بنجاح','photos.index');
     }
-
-
-    public function show(){
-        return abort(404);
-    }
-
-    public function edit(){
-        return abort(404);
-    }
-
-    public function update(){
-        return abort(404);
-    }
 }

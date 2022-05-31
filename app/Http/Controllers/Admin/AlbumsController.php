@@ -69,7 +69,4 @@ class AlbumsController extends Controller
             return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
         }
     }
-    public function show(){
-        return abort(404);
-    }
 }

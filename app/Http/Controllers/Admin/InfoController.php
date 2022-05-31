@@ -81,7 +81,5 @@ class InfoController extends Controller
     {
         return $this->sortData($info,'info.index',$direction);
     }
-    public function show(){
-        return abort(404);
-    }
+
 }

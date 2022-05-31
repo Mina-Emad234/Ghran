@@ -81,8 +81,6 @@ class PartnersController extends Controller
         return $this->sortData($partner,'partners.index',$direction);
     }
 
-    public function show(){
-        return abort(404);
-    }
+
 
 }
