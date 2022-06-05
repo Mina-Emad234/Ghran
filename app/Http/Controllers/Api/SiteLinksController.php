@@ -18,11 +18,11 @@ class SiteLinksController extends Controller
      */
     public function index()
     {
-        $links = SiteLink::orderByDesc('id')->paginate(10);
+        $links = SiteLink::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->orderByDesc('id')->paginate(10);
         $i=0;
         foreach ($links as $link){
             unset($links[$i]);
-            $links->push(array_merge($link->toArray(),['show_link'=>url('/api/site/links/'.$link->id)]));
+            $links->push(array_merge($link->toArray(),['show_link'=>url('/api/site/links_api/'.$link->id)]));
             $i++;
         }
         return $links;
@@ -43,7 +43,7 @@ class SiteLinksController extends Controller
                 'site_section_id' => $request->site_section_id,
                 'parent_id' => $request->parent_id,
                 'link' => $request->link,
-                'active' => $request->active
+                'status' => $request->status
                 ]);
                 return response($link);
             }else{
@@ -60,9 +60,9 @@ class SiteLinksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SiteLink $link)
+    public function show(int $id)
     {
-        return response($link);
+        return response(SiteLink::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id));
     }
 
     /**
@@ -72,9 +72,10 @@ class SiteLinksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SiteLinksRequest $request, SiteLink $link)
+    public function update(SiteLinksRequest $request, int $id)
     {
         try {
+            $link = SiteLink::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id);
             if($request->has('id') && $request->id == $link->id) {
                 if($request->has('site_section_id') && !SiteSection::where('section_type', 'pages')->find($request->site_section_id)) {
                     $link->update($request->except('site_section_id'));
@@ -93,9 +94,10 @@ class SiteLinksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiteLink $link)
+    public function destroy(int $id)
     {
         try {
+            $link = SiteLink::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id);
             $link->delete();
             return response(['message'=>'تم حذف الرابط بنجاح']);
         }catch (\Exception $e){

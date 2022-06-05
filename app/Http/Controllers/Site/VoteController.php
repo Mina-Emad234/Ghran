@@ -18,7 +18,7 @@ class VoteController extends Controller
 
     public function voteAnswer($id,VoteRequest $request){
         try {
-            $vote = VoteQuestion::where('active',1)->find($id);
+            $vote = VoteQuestion::where('status',1)->find($id);
             if(!$vote || !in_array($request->answer,['1','2','3','4']))
                 return redirect()->back()->withInput()->with(['vote_error'=>'حدث خطأ ما حاول مرة أخرى']);
 

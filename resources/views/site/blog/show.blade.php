@@ -24,8 +24,8 @@
                         <h4>{{$blog->title}}.</h4>
                     </div>
                     <div >
-                        @if ($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
-                        <img class="img-responsive suport"  src="{{'../../../uploads/blogs/'.$blog->image}}"
+                        @if ($blog->image != "" && file_exists("uploads/blogs/" . $blog->category->name.'/'.$blog->image))
+                        <img class="img-responsive suport"  src="{{'../../../uploads/blogs/'.$blog->category->name.'/'.$blog->image}}"
                              width="516" height="233"/>
                         @else
                         <img class="img-responsive suport"  src="{{asset('admins/images/no-img.png')}}" width="516"

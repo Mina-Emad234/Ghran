@@ -23,7 +23,10 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         Route::post('logout','LoginController@logout')->name("admin.logout");
         Route::get('home','DashboardController@index')->name("admin.home");
         ##################### categories #####################
-        Route::resource('blog/categories','BlogCategoriesController',['middleware'=>'can:categories'])->except(['show']);
+        Route::group(['middleware'=>'can:categories'], function () {
+            Route::get('blog/categories/restore/{id}','BlogCategoriesController@restore')->name('categories.restore');
+            Route::resource('blog/categories','BlogCategoriesController')->except(['show']);
+        });
         ##################### blogs #####################
         Route::group(['middleware'=>'can:blogs'], function () {
             Route::get('category/blogs/{slug}','BlogsController@CategoryBlogs')->name('blogs.cats');
@@ -113,6 +116,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('delete/{volunteer}','VolunteersController@delete')->name('volunteer.delete');
         });
         ################## albums ################
+        Route::get('albums/activate/{album}','AlbumsController@activate')->name('albums.activate');
+        Route::get('albums/deactivate/{album}','AlbumsController@deactivate')->name('albums.deactivate');
         Route::resource('albums','AlbumsController',['middleware'=>'can:photo_category'])->except(['show']);
         ######################## photo ########################
         Route::group(['middleware'=>'can:photos'], function () {
@@ -133,6 +138,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
             Route::get('/','SettingsController@index')->name('settings.index');
             Route::get('edit/{setting}','SettingsController@edit')->name('settings.edit');
             Route::post('update/{setting}','SettingsController@update')->name('settings.update');
+            Route::delete('destroy/{setting}','SettingsController@destroy')->name('settings.destroy');
+            Route::get('restore/{id}','SettingsController@restore')->name('settings.restore');
         });
         ######################## roles ########################
         Route::resource('roles','RolesController',['middleware'=>'can:roles'])->except(['show']);
@@ -144,6 +151,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         });
         ################## site-sections ################
         Route::resource('site/sections','SiteSectionsController',['middleware'=>'can:site-sections','as'=>'site'])->except(['show']);
+        Route::get('site/sections/restore{id}','SiteSectionsController@restore')->name('site.sections.restore');
+
         ######################## site_image ########################
         Route::group(['prefix'=>'site/images','middleware'=>'can:site-images'], function () {
             Route::get('/','SiteImagesController@index')->name('site.images.index');
@@ -155,7 +164,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin'], function () {
         Route::group(['middleware'=>'can:site-content'], function () {
             Route::get('site/content/activate/{content}','SiteContentController@activate')->name('site.content.activate');
             Route::get('site/content/deactivate/{content}','SiteContentController@deactivate')->name('site.content.deactivate');
-            Route::resource('site/content','SiteContentController',['as'=>'site'])->except(['show']);
+            Route::resource('site/content','SiteContentController',['as'=>'site']);
         });
 
         ######################## site_link ########################

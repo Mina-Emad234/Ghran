@@ -12,7 +12,7 @@ class Scout extends Model
     protected $fillable=['name', 'image', 'school', 'grade', 'age', 'interests', 'address',
         'mobile', 'email', 'parent_name', 'parent_job',
         'parent_tel', 'parent_mobile', 'parent_email', 'read'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $appends=['image_url'];
 

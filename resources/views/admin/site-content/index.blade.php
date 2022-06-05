@@ -45,7 +45,7 @@
                     <td>{{$content->site_section->name}}</td>
 
                     <td title="">
-                        @if ($content->active == 0)
+                        @if ($content->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('site.content.activate',$content->id)}}"><img
@@ -63,6 +63,7 @@
                             <form method="post" action="{{route('site.content.destroy',$content->id)}}" style="display: none">
                             @csrf
                             @method('delete')
+                            </form>
                     </td>
                 </tr>
                 @php

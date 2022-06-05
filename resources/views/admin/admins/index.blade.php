@@ -51,7 +51,7 @@
                     <td>{{$admin->email}}</td>
                     <td>{{$admin->role->name}}</td>
                     <td>
-                        @if ($admin->active == 0)
+                        @if ($admin->status == 0)
 
                             <a title="تفعيل " class="tool boxStyle"
                                href="{{route('admins.activate',$admin->id)}}"><img

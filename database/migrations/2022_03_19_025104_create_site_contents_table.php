@@ -18,7 +18,7 @@ class CreateSiteContentsTable extends Migration
             $table->string('title',100);
             $table->unsignedBigInteger('site_section_id');
             $table->text('body');
-            $table->boolean('active');
+            $table->boolean('status');
             $table->foreign('site_section_id')->references('id')->on('site_sections')->cascadeOnDelete();
             $table->timestamps();
         });

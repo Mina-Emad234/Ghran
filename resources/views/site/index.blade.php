@@ -59,6 +59,29 @@
     <script src="{{asset('site/js/html5shiv.min.js')}}"></script>
     <script src="{{asset('site/js/respond.min.js')}}"></script>
     <![endif]-->
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#inputImage').change(function(){
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+            $('#preview-image').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+
+    });
+
+
+
+</script>
 @stack('scripts')
+
 </body>
 </html>

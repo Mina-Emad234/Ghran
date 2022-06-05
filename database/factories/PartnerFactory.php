@@ -19,7 +19,7 @@ class PartnerFactory extends Factory
         return [
             'name'=>$this->faker->name,
             'image'=>$this->faker->image(public_path('uploads/partners'),400,300,null,false,true) ,
-            'active'=>1,
+            'status'=>1,
             'order'=>$order++,
         ];
     }

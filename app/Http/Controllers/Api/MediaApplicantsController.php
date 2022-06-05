@@ -22,7 +22,7 @@ class MediaApplicantsController extends Controller
         $i=0;
         foreach ($media_applicants as $media_applicant){
             unset($media_applicants[$i]);
-            $media_applicants->push(array_merge($media_applicant->toArray(),['link'=>url('/api/media/applicants/'.$media_applicant->id)]));
+            $media_applicants->push(array_merge($media_applicant->toArray(),['link'=>url('/api/media/members_api/'.$media_applicant->id)]));
             $i++;
         }
         return $media_applicants;

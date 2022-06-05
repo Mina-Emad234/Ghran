@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteImageRequest;
+use App\Models\Photo;
 use App\Models\SiteImage;
 use App\Models\SiteSection;
 use App\Traits\GhranTrait;
@@ -15,7 +16,7 @@ class SiteImagesController extends Controller
     use GhranTrait;
     public function index()
     {
-        $site_images = SiteImage::with('site_section')->get();
+        $site_images = SiteImage::with('site_section')->whereIn('site_section_id',SiteSection::pluck('id')->toArray())->get();
         return view('admin.site-images.index',compact('site_images'));
     }
 
@@ -48,5 +49,6 @@ class SiteImagesController extends Controller
             return redirect()->back()->withInput()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
         }
     }
+
 
 }

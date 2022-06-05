@@ -15,7 +15,7 @@ class SiteSectionsController extends Controller
     use GhranTrait;
     public function index()
     {
-        $sections = SiteSection::orderByDesc('id')->paginate(10);
+        $sections = SiteSection::withTrashed()->orderByDesc('id')->paginate(10);
         return view('admin.site-sections.index',compact('sections'));
     }
 
@@ -58,6 +58,15 @@ class SiteSectionsController extends Controller
     public function destroy(SiteSection $section){
         try {
             $section->delete();
+            return redirect()->route('site.sections.index')->with(['success_msg'=>'تم حذف القسم بنجاح']);
+        }catch (Exception $ex){
+            return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
+        }
+    }
+
+    public function restore($id){
+        try {
+            SiteSection::withTrashed()->findOrFail($id)->restore();
             return redirect()->route('site.sections.index')->with(['success_msg'=>'تم حذف القسم بنجاح']);
         }catch (Exception $ex){
             return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);

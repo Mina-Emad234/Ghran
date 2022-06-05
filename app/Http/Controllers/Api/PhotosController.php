@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\PhotosRequest;
+use App\Models\Album;
 use App\Models\Photo;
 use App\Traits\GhranTrait;
 use Exception;
@@ -23,7 +24,7 @@ class PhotosController extends Controller
         $i=0;
         foreach ($photos as $photo){
             unset($photos[$i]);
-            $photos->push(array_merge($photo->toArray(),['link'=>url('/api/photos/'.$photo->id)]));
+            $photos->push(array_merge($photo->toArray(),['link'=>url('/api/photos_api/'.$photo->id)]));
             $i++;
         }
         return response($photos);
@@ -41,13 +42,14 @@ class PhotosController extends Controller
             $photos=[];
             foreach($request->photos as $photo)
             {
-                $folder = 'uploads/photos';
+                $album_name = Album::find($request->album_id)->name;
+                $folder = 'uploads/photos/'.$album_name;
                 $file_extension= $photo->getClientOriginalExtension();
                 $file_name=random_int(100000,1000000000).'.'.$file_extension;
                 $photo->move($folder,$file_name);
                 $insert['photo'] = $file_name;
                 $insert['album_id'] = $request->album_id;
-                $insert['active'] = 1;
+                $insert['status'] = 1;
                 $insert['order'] = Photo::max('order')+1;
                 $new=Photo::create($insert);
                 array_push($photos,$new);
@@ -91,7 +93,10 @@ class PhotosController extends Controller
     public function destroy(Photo $photo)
     {
         try{
-            $this->deleteWithImage('uploads/photos/'.$photo->photo,$photo);
+
+            $photo->load('album');
+            $this->deleteWithImage('uploads/photos/'.$photo->album->name.'/'.$photo->photo,$photo);
+
             return response(['message'=>'تم حذف الصورة بنجاح']);
         }catch (Exception $ex){
             return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);
@@ -100,11 +105,11 @@ class PhotosController extends Controller
 
     public function activation(Photo $photo)
     {
-        if($photo->active == 0){
-            $photo->update(['active'=>1]);
+        if($photo->status == 0){
+            $photo->update(['status'=>1]);
             return ['message'=>'تم تفعيل التعليق بنجاح'];
         }else{
-            $photo->update(['active'=>0]);
+            $photo->update(['status'=>0]);
             return ['message'=>'تم إلغاء تفعيل التعليق بنجاح'];
         }
     }

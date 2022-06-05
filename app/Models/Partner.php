@@ -9,7 +9,7 @@ class Partner extends Model
 {
     use HasFactory;
     protected $table = 'partners';
-    protected $fillable =['name', 'image', 'active', 'order'];
+    protected $fillable =['name', 'image', 'status', 'order'];
     public $timestamps = true;
 
     protected $appends=['image_url'];

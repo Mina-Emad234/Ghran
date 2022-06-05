@@ -71,9 +71,7 @@
                         .grecaptcha-badge { visibility: hidden !important; }
                     </style>
                     {!! RecaptchaV3::field('login') !!}
-                    @error('g-recaptcha-response')
-                    <p><strong>{{$message}}</strong></p>
-                    @enderror
+
                 <div class="center">
                     <input id="submit" type="submit" name="login" value="أدخل" class="button inlineBlock sml rnd5 drkTextShadow" />
                 </div>

@@ -60,7 +60,7 @@
                             <td><span dir="ltr">{{$comment->created_at->diffForHumans()}}</span></td>
 
                             <td class="align-center">
-                                @if ($comment->active == 0)
+                                @if ($comment->status == 0)
 
                                     <a title="تفعيل " class="tool boxStyle"
                                        href="{{route('comments.activate',$comment->id)}}"><img

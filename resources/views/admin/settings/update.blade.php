@@ -7,7 +7,7 @@
             <span>قائمة الإعدادات</span>
         </a>
         <div class="block">
-            <div align="center" class="title lightTextShadow"> {{$setting->key}} </div>
+            <div align="center" class="title lightTextShadow">{{ucfirst(trim(substr($setting->key,4),'.'))}}</div>
             <br />
 
             @if(session()->has('error_msg'))

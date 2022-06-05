@@ -37,8 +37,8 @@
 
                 <label class="label">الصورة</label>
                 <p style="margin-right: 50px">
-                    @if ($video->image != "" && file_exists("uploads/v_images/" . $video->image))
-                        <img src="{{'../../../uploads/v_images/'. $video->image}}" width="160" height="130" class="imgPreview rnd10" />
+                    @if ($video->image != "" && file_exists("uploads/v_images/" .$video->course->name.'/'. $video->image))
+                        <img src="{{'../../../uploads/v_images/'.$video->course->name.'/'. $video->image}}" width="160" height="130" class="imgPreview rnd10" />
                     @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="160" height="130" class="imgPreview rnd10" />
                     @endif
@@ -48,9 +48,9 @@
                     $array=explode('.', $video->video);
                 @endphp
                 <label class="label">الفيديو الحالية</label><br>
-                @if ($video->video != "" && file_exists("uploads/v_videos/" . $video->video))
+                @if ($video->video != "" && file_exists("uploads/v_videos/" .$video->course->name.'/'. $video->video))
                     <video width="400" height="200" controls>
-                        <source src="{{'../../../uploads/v_videos/'. $video->video}}" type='video/{{strtolower(end($array))}}'>
+                        <source src="{{'../../../uploads/v_videos/'.$video->course->name.'/'. $video->video}}" type='video/{{strtolower(end($array))}}'>
                             Your browser does not support the video tag.
                     </video>
                         @endif

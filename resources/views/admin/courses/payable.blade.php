@@ -65,7 +65,7 @@
                     </td>
 
                     <td>
-                        @if ($course->active == 0)
+                        @if ($course->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('courses.activate',$course->id)}}"><img

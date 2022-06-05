@@ -17,9 +17,11 @@ class BlogTagSeeder extends Seeder
      */
     public function run()
     {
-        $images = glob(public_path('uploads/blogs/*.*'));
-        foreach ($images as $image) {
-            unlink($image);
+        foreach(\DB::table('blog_categories')->pluck('name')->toArray() as $category) {
+            $images = glob(public_path('uploads/blogs/' .$category.'/*.*'));
+            foreach ($images as $image) {
+                unlink($image);
+            }
         }
         DB::table('blog_tag')->truncate();
         Schema::disableForeignKeyConstraints();

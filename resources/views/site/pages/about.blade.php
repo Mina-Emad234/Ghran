@@ -20,9 +20,15 @@
 
             <div class="col-md-8">
                 <div class="content">
-                    @foreach($about as $_about)
+                    @if($about)
+                    @forelse($about->site_contents as $_about)
                     {!! $_about->body !!}
-                    @endforeach
+                    @empty
+                        <h3>لا يوجد محتوي</h3>
+                    @endforelse
+                    @else
+                        <h3>لا يوجد محتوي</h3>
+                    @endif
 
                     <div class="clearfix"></div>
 

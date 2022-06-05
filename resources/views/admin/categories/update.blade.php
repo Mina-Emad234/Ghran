@@ -24,6 +24,7 @@
                     @error('name')
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                     @enderror
+                    <br>
                     <label class="label">الصورة الحالية</label>
                     <p style="margin-right: 50px">
                         @if ($category->image != "" && file_exists("uploads/categories/" . $category->image))
@@ -34,12 +35,17 @@
                     </p>
 
                     <label for="image" class="label">الصورة</label>
+
                     <div class="fileUpload">
-                        <input id="file" type="file" name="image"   />
+                        <input id="inputImage" type="file" name="image"   />
                         <span class="button rnd5 drkTextShadow">جلب الملف</span>
                         @error('image')
                         <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
+                    </div>
+                    <br />
+                    <div class="col-md-12 mb-2">
+                        <img id="preview-image" width="200px" style="margin: 10px">
                     </div>
                     <br />
                     {!! RecaptchaV3::field('categories') !!}

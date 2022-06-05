@@ -51,6 +51,19 @@
                     </td>
 
                     <td title="">
+                        @if ($album->status == 0)
+
+                            <a  title="تفعيل " class="tool boxStyle"
+                                href="{{route('albums.activate',$album->id)}}"><img
+                                    alt="تفعيل"
+                                    src="{{asset('admins/images/icons/active.png')}}"></a>
+                        @else
+                            <a  title="الغاء تفعيل " class="tool boxStyle"
+                                href="{{route('albums.deactivate',$album->id)}}"><img
+                                    alt="الغاء تفعيل"
+                                    src="{{asset('admins/images/icons/deactive.png')}}"></a>
+                        @endif
+
                         <a title="تعديل البيانات" class="tool boxStyle" href="{{route('albums.edit',$album->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
                         <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
                         <form method="post" action="{{route('albums.destroy',$album->id)}}" style="display: none">

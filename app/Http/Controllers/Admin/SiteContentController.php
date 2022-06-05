@@ -17,7 +17,7 @@ class SiteContentController extends Controller
     use GhranTrait;
     public function index()
    {
-        $contents = SiteContent::with('site_section')->orderBy('id','desc')->paginate(10);
+        $contents = SiteContent::with('site_section')->orderBy('id','desc')->whereIn('site_section_id',SiteSection::pluck('id')->toArray())->paginate(10);
         return view('admin.site-content.index',compact('contents'));
     }
 

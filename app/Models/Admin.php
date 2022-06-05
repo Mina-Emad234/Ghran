@@ -8,7 +8,7 @@ class Admin extends Authenticatable
 {
     protected $table="admins";
     protected $primaryKey = 'id';
-    protected $fillable=['name','email','password','active','login_attempts','created_at','updated_at'];
+    protected $fillable=['name','email','password','status','login_attempts','created_at','updated_at'];
     protected $fidden=['password','remember_token'];
     public $timestamps=true;
 
@@ -19,7 +19,7 @@ class Admin extends Authenticatable
 
     public function hasAbility($permissions)//get permission from provider & check it
     {
-        $role=$this->role;//get & check relation
+        $role=$this->role;//get & check relation if user has role
         if(!$role){
             return false;
         }

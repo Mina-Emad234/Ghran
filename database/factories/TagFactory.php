@@ -19,7 +19,7 @@ class TagFactory extends Factory
         return [
             'name'=>$this->faker->sentence(1),
             'slug'=>$this->faker->slug(),
-            'active'=>1,
+            'status'=>1,
             'order'=>$order++,
         ];
     }

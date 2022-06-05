@@ -23,8 +23,8 @@
 
                 <label class="label">الصورة</label>
                 <p style="margin-right: 50px">
-                    @if ($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
-                        <img src="{{'../../../uploads/blogs/'. $blog->image}}" width="160" height="130" class="imgPreview rnd10" />
+                    @if ($blog->image != "" && file_exists("uploads/blogs/" .$blog->category->name.'/'. $blog->image))
+                        <img src="{{'../../../uploads/blogs/'.$blog->category->name.'/'. $blog->image}}" width="160" height="130" class="imgPreview rnd10" />
                     @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="160" height="130" class="imgPreview rnd10" />
                     @endif

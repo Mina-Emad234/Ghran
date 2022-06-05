@@ -45,7 +45,13 @@
                     $counter = $row + 1;
                 @endphp
                 @foreach($videos as $video)
-
+                @php
+                    if(isset($course)){
+                        $course_name = $course->name;
+                    } else{
+                        $course_name = $video->course->name;
+                    }
+                @endphp
                 <tr @if($counter % 2 == 1)
                          class='odd'
                     @endif >
@@ -56,8 +62,8 @@
                     <td>{{$video->course->name}}</td>
                     @endif
                     <td>
-                        @if($video->image != "" && file_exists("uploads/v_images/" . $video->image))
-                        <img src="{{'../../../uploads/v_images/'.$video->image}}" width="80" height="50" />
+                        @if($video->image != "" && file_exists("uploads/v_images/" .$course_name.'/'. $video->image))
+                        <img src="{{'../../../uploads/v_images/'.$course_name.'/'.$video->image}}" width="80" height="50" />
                         @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                         @endif
@@ -68,7 +74,7 @@
                         <a href="{{route('videos.sort',['direction'=>'down','video'=>$video->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                     </td>
                     <td>
-                        @if ($video->active == 0)
+                        @if ($video->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('videos.activate',$video->id)}}"><img

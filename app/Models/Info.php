@@ -9,6 +9,6 @@ class Info extends Model
 {
     use HasFactory;
     protected $table='infos';
-    protected $fillable=['body','active','order'];
+    protected $fillable=['body','status','order'];
     public $timestamps=true;
 }

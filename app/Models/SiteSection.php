@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SiteSection extends Model
 {
+    use softDeletes;
     protected $table='site_sections';
     protected $fillable=['name','slug','section_type'];
-    public $timestamps=false;
+    public $timestamps=true;
 
 
     public function image(){

@@ -22,7 +22,7 @@
             <div class="col-md-8">
                 <div class="content">
                     <video width='100%' height='50%' controls>
-                        <source src="{{'../../../uploads/v_videos/'.$video->video}}" type="video/{{strtolower(end($array))}}">
+                        <source src="{{'../../../uploads/v_videos/'.$video->course->name.'/'.$video->video}}" type="video/{{strtolower(end($array))}}">
                         Your browser does not support the video tag.
                     </video>
                     <h3 style="text-align: center">By: {{$video->author}}</h3>

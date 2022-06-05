@@ -29,7 +29,7 @@ trait GhranTrait
     }
 
     public function checkActive($request){
-        if($request->has('active')){
+        if($request->has('status')){
             return $active=true;
         }else{
             return $active=false;
@@ -38,7 +38,7 @@ trait GhranTrait
 
     public function modelActivation($model,$value,string $msg,$route){
         try {
-            $model->update(['active'=>$value]);
+            $model->update(['status'=>$value]);
             return redirect()->route($route)->with(['success_msg' => $msg]);
         }catch (\Exception $ex) {
             return redirect()->back()->withInput()->with(['error_msg' => "حدث خطأ ما من فضلك حاول مرة أخرى"]);

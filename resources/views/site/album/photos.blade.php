@@ -26,10 +26,10 @@
                         <div class="row row-centered">
                             <div class="row-md-12 col-centered">
                                 <div>
-                                    @if($photo->photo != "" && file_exists("uploads/photos/" . $photo->photo))
-                                    <img src="{{'../../../uploads/photos/'.$photo->photo}}" class="img-responsive" />
+                                    @if($photo->photo != "" && file_exists("uploads/photos/" .$photos->name.'/'. $photo->photo))
+                                    <img src="{{'../../../uploads/photos/'.$photos->name.'/'.$photo->photo}}" class="img-responsive" />
                                     @else
-                                    <img src="{{asset('admins/images/no-img.png')}}" class="img-circle img-responsive" />
+                                    <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive" />
                                     @endif
                                 </div>
                             </div>

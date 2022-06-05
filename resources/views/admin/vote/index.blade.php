@@ -65,7 +65,7 @@
                                     <a href="{{route('questions.sort',['direction'=>'down','vote'=>$vote->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                                 </td>
                                 <td>
-                                    @if($vote->active == 1)
+                                    @if($vote->status == 1)
                                         <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('questions.deactivate',$vote->id)}}"><img alt="" src="{{asset('admins/images/minus-circle.gif')}}"></a>
                                     @else
                                         <a  title="تفعيل " class="tool boxStyle" href="{{route('questions.activate',$vote->id)}}"><img alt="" src="{{asset('admins/images/icons/active.png')}}"></a>

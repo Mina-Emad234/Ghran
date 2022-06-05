@@ -20,7 +20,7 @@ class CreateCommentsTable extends Migration
             $table->string('writer',50);
             $table->string('email',100);
             $table->text('body');
-            $table->boolean('active')->default(0);
+            $table->boolean('status')->default(0);
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
             $table->timestamps();

@@ -20,7 +20,8 @@ class AlbumFactory extends Factory
         return [
             'name'=>$this->faker->sentence(1),
             'slug'=>$this->faker->slug(),
-            'image'=>$this->faker->image(public_path('uploads/albums'),400,300,null,false,true) ,
+            'image'=>$this->faker->image(public_path('uploads/albums'),400,300,null,false,true),
+            'status'=>1,
         ];
     }
 }

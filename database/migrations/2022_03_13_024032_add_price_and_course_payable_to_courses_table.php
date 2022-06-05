@@ -15,7 +15,7 @@ class AddPriceAndCoursePayableToCoursesTable extends Migration
     {
         Schema::table('courses', function (Blueprint $table) {
             $table->integer('price')->nullable()->after('image');
-            $table->boolean('course_payable')->default(0)->after('active');
+            $table->boolean('course_payable')->default(0)->after('status');
         });
     }
 
@@ -27,7 +27,8 @@ class AddPriceAndCoursePayableToCoursesTable extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            //
+            $table->dropColumn('price');
+            $table->dropColumn('course_payable');
         });
     }
 }

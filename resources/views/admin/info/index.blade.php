@@ -55,7 +55,7 @@
                                     <a href="{{route('info.sort',['info'=>$info->id,'direction'=>'down',])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                                 </td>
                                 <td>
-                                    @if($info->active == 1)
+                                    @if($info->status == 1)
                                         <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('info.deactivate',$info->id)}}"><img alt="" src="{{asset('admins/images/icons/deactive.png')}}"></a>
                                     @else
                                         <a  title="تفعيل " class="tool boxStyle" href="{{route('info.activate',$info->id)}}"><img alt="" src="{{asset('admins/images/icons/active.png')}}"></a>

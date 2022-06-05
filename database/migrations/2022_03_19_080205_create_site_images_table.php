@@ -18,6 +18,7 @@ class CreateSiteImagesTable extends Migration
             $table->unsignedBigInteger('site_section_id');
             $table->string('image',100);
             $table->foreign('site_section_id')->references('id')->on('site_sections')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

@@ -46,50 +46,53 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('auth/logout', [UsersController::class,'logout']);
     Route::post('auth/all/logout', [UsersController::class,'logoutAllDevices']);
     ##############################################################
-    Route::apiResource('tags',TagsController::class);
+    Route::apiResource('tags_api',TagsController::class);
     ##############################################################
-    Route::apiResource('blogs/categories',BlogCategoriesController::class);
+    Route::apiResource('blog_categories_api',BlogCategoriesController::class);
+    Route::get('blog_categories_api/{id}/restore',[BlogCategoriesController::class,'restore']);
     ##############################################################
-    Route::apiResource('comments',CommentsController::class);
-    Route::get('comments/{comment}/activation',[CommentsController::class,'activation']);
+    Route::apiResource('comments_api',CommentsController::class);
+    Route::get('comments_api/{comment}/activation',[CommentsController::class,'activation']);
     ##############################################################
-    Route::apiResource('blogs',BlogsController::class);
+    Route::apiResource('blogs_api',BlogsController::class);
     ##############################################################
-    Route::apiResource('albums',AlbumsController::class);
+    Route::apiResource('albums_api',AlbumsController::class);
     ##############################################################
-    Route::get('photos/{photo}/activation',[PhotosController::class,'activation']);
-    Route::apiResource('photos',PhotosController::class);
+    Route::get('photos_api/{photo}/activation',[PhotosController::class,'activation']);
+    Route::apiResource('photos_api',PhotosController::class);
     ##############################################################
-    Route::apiResource('courses',CoursesController::class);
+    Route::apiResource('courses_api',CoursesController::class);
     ##############################################################
-    Route::apiResource('videos',VideosController::class);
+    Route::apiResource('videos_api',VideosController::class);
     ##############################################################
-    Route::apiResource('course/applicants',ApplicantsController::class);
+    Route::apiResource('course/applicants_api',ApplicantsController::class);
     ##############################################################
-    Route::apiResource('info',InformationController::class);
+    Route::apiResource('info_api',InformationController::class);
     ##############################################################
-    Route::apiResource('vote',VoteController::class);
+    Route::apiResource('vote_api',VoteController::class);
     Route::post('vote/answer/add/{vote}',[VoteController::class,'addAnswer']);
     ##############################################################
-    Route::apiResource('contacts',ContactsController::class);
+    Route::apiResource('contacts_api',ContactsController::class);
     ##############################################################
-    Route::apiResource('mails',MailsController::class);
+    Route::apiResource('mails_api',MailsController::class);
     ##############################################################
-    Route::apiResource('media/applicants',MediaApplicantsController::class);
+    Route::apiResource('media/members_api',MediaApplicantsController::class);
     ##############################################################
-    Route::apiResource('partners',PartnersController::class);
+    Route::apiResource('partners_api',PartnersController::class);
     ##############################################################
-    Route::apiResource('scouts',ScoutsController::class);
+    Route::apiResource('scouts_api',ScoutsController::class);
     ##############################################################
-    Route::apiResource('volunteers',VolunteersController::class);
+    Route::apiResource('volunteers_api',VolunteersController::class);
     ##############################################################
-    Route::apiResource('settings',SettingsController::class);
+    Route::get('settings_api/restore/{id}',[SettingsController::class,'restore']);
+    Route::apiResource('settings_api',SettingsController::class);
     ##############################################################
-    Route::apiResource('sections',SectionsController::class);
+    Route::apiResource('sections_api',SectionsController::class);
+    Route::get('sections_api/{id}/restore',[SectionsController::class,'restore']);
     ##############################################################
-    Route::apiResource('site/images',SiteImagesController::class);
+    Route::apiResource('site/images_api',SiteImagesController::class);
     ##############################################################
-    Route::apiResource('site/links',SiteLinksController::class);
+    Route::apiResource('site/links_api',SiteLinksController::class);
     ##############################################################
-    Route::apiResource('site/contents',SiteContentsController::class);
+    Route::apiResource('site/contents_api',SiteContentsController::class);
 });

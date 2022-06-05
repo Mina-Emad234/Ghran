@@ -19,7 +19,8 @@
             <div class="col-md-8">
                 <div class="content">
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        @foreach($programs as $program)
+                       @if($programs)
+                        @forelse($programs->site_contents as $program)
                             <div dir="rtl" class="panel panel-default" id="{{$program->id}}">
                                 <div class="panel-heading" role="tab" id="heading{{$program->id}}">
                                     <h4 class="panel-title acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$program->id}}" aria-expanded="true" aria-controls="collapse{{$program->id}}">{{$program->title}}</h4>
@@ -34,7 +35,13 @@
                                 </div>
                             </div>
 
-                        @endforeach
+                            @empty
+                                <h3>لا يوجد محتوي</h3>
+                            @endforelse
+                            @else
+                                <h3>لا يوجد محتوي</h3>
+                            @endif
+
                     </div>
 
                 </div>

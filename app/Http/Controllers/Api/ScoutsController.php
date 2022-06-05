@@ -23,7 +23,7 @@ class ScoutsController extends Controller
         $i=0;
         foreach ($scouts as $scout){
             unset($scouts[$i]);
-            $scouts->push(array_merge($scout->toArray(),['link'=>url('/api/scouts/'.$scout->id)]));
+            $scouts->push(array_merge($scout->toArray(),['link'=>url('/api/scouts_api/'.$scout->id)]));
             $i++;
         }
         return $scouts;

@@ -10,7 +10,7 @@ class VoteResult extends Model
     use HasFactory;
     protected $table='vote_results';
     protected $fillable=['vote_question_id','answer'];
-    public $timestamps=false;
+    public $timestamps=true;
 
     public function question(){
         return $this->belongsTo(VoteQuestion::class,'vote_question_id','id');

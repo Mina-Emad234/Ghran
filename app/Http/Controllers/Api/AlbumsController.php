@@ -7,6 +7,7 @@ use App\Http\Requests\Api\AlbumsRequest;
 use App\Models\Album;
 use App\Traits\GhranTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Exception;
 
@@ -24,7 +25,7 @@ class AlbumsController extends Controller
         $i=0;
         foreach ($albums as $album){
             unset($albums[$i]);
-            $albums->push(array_merge($album->toArray(),['link'=>url('/api/albums/'.$album->id)]));
+            $albums->push(array_merge($album->toArray(),['link'=>url('/api/albums_api/'.$album->id)]));
             $i++;
         }
         return $albums;
@@ -43,8 +44,12 @@ class AlbumsController extends Controller
             $album = Album::create([
                 'name'=>$request->name,
                 'slug'=>str_replace(' ','-',$request->name),
-                'image'=>$file_name
+                'image'=>$file_name,
+                'status' => $request->status,
             ]);
+            if(!File::isDirectory(public_path('uploads/photos/'.$request->name))) {
+                File::makeDirectory(public_path('uploads/photos/' . $request->name));
+            }
             return $album;
         }catch (Exception $ex){
             return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);
@@ -80,6 +85,9 @@ class AlbumsController extends Controller
                 if ($request->has('name')) {
                     $data['slug'] = str_replace(' ', '-', $request->name);
                 }
+                if(File::isDirectory(public_path('uploads/photos/'.$album->name))) {
+                    rename(public_path('uploads/photos/' . $album->name), public_path('uploads/photos/' . $request->name));
+                }
                 $album->update($data);
 
                 return response($album);
@@ -98,9 +106,12 @@ class AlbumsController extends Controller
     public function destroy(Album $album)
     {
         try{
+            $album->load('photos');
             foreach($album->photos as $photo){
-                storage::disk('photos')->delete($photo->photo);
+                unlink(public_path('uploads/photos/'.$album->name.'/'.$photo->photo));
             }
+            File::deleteDirectory(public_path('uploads/photos/'.$album->name));
+
             $this->deleteWithImage('uploads/albums/'.$album->image,$album);
             return response(['message'=>'تم حذف الألبوم بنجاح']);
         }catch (Exception $ex){

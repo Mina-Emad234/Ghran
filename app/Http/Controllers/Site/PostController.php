@@ -16,33 +16,44 @@ class PostController extends Controller
 {
     public function index($slug=''){
         if(empty($slug)) {
-            $blogs = Blog::where('active', 1)->latest()->limit(25)->get();
+            $blogs = Blog::with('category')->where('status', 1)->latest()->limit(25)->get();
             return view('site.blog.blog_index',compact('blogs'));
         }else{
             $category = BlogCategory::with(['blogs'=>function($query){
-                $query->where('active', 1)->latest()->limit(25);
+                $query->where('status', 1)->latest()->limit(25);
             }])->where('slug',$slug)->first();
-            return view('site.blog.blog_index',compact('category'));
+            if(!$category)
+                return abort('404');
+            $blogs = $category->blogs()->where('status',1)->get();
+            return view('site.blog.blog_index',compact('category','blogs'));
         }
     }
 
     public function show($slug){
-        $blog = Blog::with(['category','tags','comments'=>function ($query) {
-        $query->where(['active'=> 1,'parent_id'=>null]);
+        $blog = Blog::with(['category','tags'=>function ($query) {
+            $query->where('status', 1);
+        },'comments'=>function ($query) {
+        $query->where(['status'=> 1,'parent_id'=>null]);
         },'comments._child'=>function ($query) {
-            $query->where('active', 1);
+            $query->where('status', 1);
         }])->withCount(['comments'=>function ($query){
-            $query->where('active',1);
-        }])->where(['active'=>1,'slug'=>$slug])->first();
+            $query->where('status',1);
+        }])->where(['status'=>1,'slug'=>$slug])->first();
+        if(!$blog || !$blog->category)
+            return abort('404');
 
         return view('site.blog.show',compact('blog'));
     }
 
     public function getBlogTag($slug){
+        $tag=Tag::where(['slug'=>$slug,'status'=>1])->first();
+        if(!$tag)
+            return abort('404');
         $tag_data = Tag::with(['blogs'=>function($query){
-            $query->where('active',1);
-        }])->where('slug',$slug)->first()->blogs()->paginate(10);
-        $tag=Tag::where('slug',$slug)->first();
+            $query->where('status',1);
+        }])->where('slug',$slug)->where('status',1)->first()->blogs()->where('status',1)->paginate(10);
+
+
         return view('site.blog.blog_tag',compact('tag_data','tag'));
     }
 

@@ -20,11 +20,11 @@ class SiteImagesController extends Controller
      */
     public function index()
     {
-        $images = SiteImage::orderByDesc('id')->paginate(10);
+        $images = SiteImage::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->orderByDesc('id')->paginate(10);
         $i=0;
         foreach ($images as $image){
             unset($images[$i]);
-            $images->push(array_merge($image->toArray(),['link'=>url('/api/site/images/'.$image->id)]));
+            $images->push(array_merge($image->toArray(),['link'=>url('/api/site/images_api/'.$image->id)]));
             $i++;
         }
         return $images;

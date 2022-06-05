@@ -9,13 +9,20 @@
 
                 <span class="diver"></span>
             </div>
-            @if(isset($blogs) && count($blogs) > 0 ||isset($category->blogs) && count($category->blogs) > 0 )
+            @if(isset($blogs) && count($blogs) > 0 || isset($category->blogs) && count($category->blogs) > 0 )
             <div class="owl-carousel" id="partners">
-                @foreach ($category->blogs??$blogs as $blog)
+                @foreach ($blogs as $blog)
                     <div class="col-3 margin-bottom-30">
                         <div class="partner-box">
-                            @if ($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
-                                <img src="{{'../../../uploads/blogs/'.$blog->image}}" class="img-responsive" />
+                            @php
+                            if(isset($category)){
+                                $cat = $category->name;
+                            }else{
+                                $cat = $blog->category->name;
+                            }
+                            @endphp
+                            @if ($blog->image != "" && file_exists("uploads/blogs/" .$cat.'/'. $blog->image))
+                                <img src="{{'../../../uploads/blogs/'.$cat.'/'.$blog->image}}" class="img-responsive" />
                             @else
                                 <img src="{{asset('admins/images/no-img.png')}}" />
                             @endif

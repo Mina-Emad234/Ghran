@@ -10,7 +10,7 @@ class Team extends Model
     use HasFactory;
     protected $table = 'teams';
     protected $guarded = [];
-    public $timestamps = false;
+    public $timestamps = true;
     protected $appends=['image_url'];
 
     public function getImageUrlAttribute(): string

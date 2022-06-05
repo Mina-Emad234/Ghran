@@ -18,6 +18,7 @@ class CreateVoteResultsTable extends Migration
             $table->unsignedBigInteger('vote_question_id');
             $table->enum('answer',[1,2,3,4]);
             $table->foreign('vote_question_id')->references('id')->on('vote_questions')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

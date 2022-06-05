@@ -58,7 +58,7 @@
                         <a href="{{route('partners.sort',['direction'=>'down','partner'=>$partner->id])}}" ><img src="{{asset('admins/images/down.png')}}" title="أسفل" alt="down"/></a>
                     </td>
                     <td title="">
-                        @if ($partner->active == 0)
+                        @if ($partner->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('partners.activate',$partner->id)}}"><img

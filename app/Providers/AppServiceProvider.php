@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         //configurations
         $configs = Cache::get('configs');
         if(!$configs){
-            $configs = Setting::all();
+            $configs = Setting::get();
             Cache::put('configs',$configs);
         }
         foreach ($configs as $config){
@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer(
             'site.news.news', function ($view) {
-                $view->with(['all_news'=>Blog::where(['active'=>1,'category_id'=>2])->latest()->limit(6)->get(),]);
+                $view->with(['all_news'=>Blog::with('category')->where(['status'=>1,'category_id'=>2])->latest()->limit(6)->get(),]);
             }
         );
 
@@ -60,8 +60,8 @@ class AppServiceProvider extends ServiceProvider
             'site.layouts.header', function ($view) {
                 $view->with([
                     'setting'=> new Setting(),
-                    'image'=> SiteSection::with('image')->where('name','header_logo')->first()->image->image,
-                    'links'=> SiteSection::with('links')->where('name','header_links')->first()->links,
+                    'image'=> SiteSection::with('image')->where('name','header_logo')->first(),
+                    'links'=> SiteSection::with(['links'=>function($query){$query->where(['status'=>1]);}])->where('name','header_links')->first(),
                 ]);
             }
         );
@@ -69,12 +69,12 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(
             'site.layouts.footer', function ($view) {
                 $view->with([
-                    'image'=> SiteSection::with('image')->where('name','footer_logo')->first()->image->image,
-                    'content'=> SiteSection::with('site_contents')->where(['name'=>'footer_top'])->first()->site_contents->first()->body,
-                    'about_links'=> SiteSection::with('links')->where('name','footer_about_links')->first()->links,
-                    'content_links'=> SiteSection::with('links')->where('name','footer_content_links')->first()->links,
-                    'social_links'=> SiteSection::with('links')->where('name','header_links')->first()->links,
-                    'footer_content'=> SiteSection::with('site_contents')->where(['name'=>'footer_bottom'])->first()->site_contents->first()->body,
+                    'image'=> SiteSection::with('image')->where('name','footer_logo')->first(),
+                    'content'=> SiteSection::with(['site_contents'=>function($query){$query->where(['status'=>1]);}])->where(['name'=>'footer_top'])->first(),
+                    'about_links'=> SiteSection::with(['links'=>function($query){$query->where(['status'=>1]);}])->where('name','footer_about_links')->first(),
+                    'content_links'=> SiteSection::with(['links'=>function($query){$query->where(['status'=>1]);}])->where('name','footer_content_links')->first(),
+                    'social_links'=> SiteSection::with(['links'=>function($query){$query->where(['status'=>1]);}])->where('name','header_links')->first(),
+                    'footer_content'=> SiteSection::with(['site_contents'=>function($query){$query->where(['status'=>1]);}])->where(['name'=>'footer_bottom'])->first(),
                 ]);
             }
         );

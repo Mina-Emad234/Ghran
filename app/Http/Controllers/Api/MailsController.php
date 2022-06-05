@@ -20,7 +20,7 @@ class MailsController extends Controller
         $i=0;
         foreach ($mails as $mail){
             unset($mails[$i]);
-            $mails->push(array_merge($mail->toArray(),['link'=>url('/api/mails/'.$mail->id)]));
+            $mails->push(array_merge($mail->toArray(),['link'=>url('/api/mails_api/'.$mail->id)]));
             $i++;
         }
         return $mails;

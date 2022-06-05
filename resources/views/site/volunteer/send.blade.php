@@ -183,11 +183,14 @@
 
                     <div class="form-group">
                         <label for="exampleInputFile">صورة بطاقة الأحوال</label>
+                        <div class="col-md-12 mb-2">
+                            <img id="preview-image" width="200px" style="margin: 10px">
+                        </div>
                         <p class="help-block">هنا يوضع مكان للملاحظة من أجل الملفات المرفقة</p>
                         <div class="form-inline">
                             <div class="fileUpload btn btn-success">
                                 <span>تحميل الملف</span>
-                                <input name="image" id="uploadBtn" type="file" value="{{old('image')}}" class="upload">
+                                <input name="image" id="inputImage" type="file" value="{{old('image')}}" class="upload">
                             </div>
                             @error('image')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

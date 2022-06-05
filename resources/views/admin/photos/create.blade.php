@@ -26,11 +26,17 @@
 
                     <label for="image" class="label">الصور</label>
                     <div class="fileUpload">
-                        <input id="file" type="file" name="photos[]" multiple/>
+                        <input id="images" type="file" name="photos[]" multiple/>
                         <span class="button rnd5 drkTextShadow">جلب الصور</span>
                         @error('photos')
                         <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <div class="mt-1 text-center">
+                            <div class="images-preview-div"> </div>
+                        </div>
                     </div>
                     <br />
                     <label class="label">قسم الصور :</label>
@@ -58,3 +64,26 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script >
+        $(function() {
+// Multiple images preview with JavaScript
+            var previewImages = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).attr('width',200).attr('style', "margin:10px").appendTo(imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#images').on('change', function() {
+                previewImages(this, 'div.images-preview-div');
+            });
+        });
+    </script>
+@endpush

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\VideosRequest;
 use App\Models\Course;
 use App\Models\Video;
 use App\Traits\GhranTrait;
+use Illuminate\Support\Facades\File;
 use PHPUnit\Exception;
 
 class VideosController extends Controller
@@ -23,7 +24,7 @@ class VideosController extends Controller
         $i=0;
         foreach ($videos as $video){
             unset($videos[$i]);
-            $videos->push(array_merge($video->toArray(),['link'=>url('/api/videos/'.$video->id)]));
+            $videos->push(array_merge($video->toArray(),['link'=>url('/api/videos_api/'.$video->id)]));
             $i++;
         }
         return response($videos);
@@ -37,10 +38,10 @@ class VideosController extends Controller
      */
     public function store(VideosRequest $request)
     {
-        try{
-            $video_name = $this->upload($request->video,'uploads/v_videos');
-            $file_name = $this->upload($request->image,'uploads/v_images');
+        try
             $course = Course::where('course_payable',0)->find($request->course_id);
+            $video_name = $this->upload($request->video,'uploads/v_videos/'.$course->name);
+            $file_name = $this->upload($request->image,'uploads/v_images/'.$course->name);
             if(!$course)
                 return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى لا يمكن إضافة الفيديو لتلك الدورة']);
             $video = Video::create([
@@ -49,7 +50,7 @@ class VideosController extends Controller
                 'course_id'=>$course->id,
                 'image'=>$file_name,
                 'video'=>$video_name,
-                'active'=>$request->active,
+                'status'=>$request->status,
                 'order'=>Video::max('order') + 1
             ]);
             return $video;
@@ -81,11 +82,31 @@ class VideosController extends Controller
     {
         try {
             if($request->has('id') && $request->id == $video->id) {
-                $this->updateUpload($request, 'video', 'uploads/v_videos/', $video->video, $video);
-                $this->updateUpload($request, 'image', 'uploads/v_images/', $video->image, $video);
                 $data = $request->except('image', 'video');
+                $video->load('course');
+                $course = Course::where('course_payable',0)->find($request->course_id);
                 if ($request->has('course_id')) {
-                    $course = Course::where('course_payable', 0)->find($request->course_id);
+                    if($video->course->id == $course->id){
+                        $this->updateUpload($request,'video','uploads/v_videos/'.$course->name,$video->video,$video);
+                        $this->updateUpload($request,'image','uploads/v_images/'.$course->name,$video->image,$video);
+                    }else{
+                        if($request->has('image') && $request->has('video')) {
+                            if (file_exists('uploads/v_videos/' . $course->name . '/' . $video->video) && $video->video != '') {
+                                unlink('uploads/v_videos/' . $course->name . '/' . $video->video);
+                                $video = $this->upload($request->video, 'uploads/v_videos/' . $course->name );
+                                $data['video'] = $video;
+                            }
+
+                            if (file_exists('uploads/v_images/' . $course->name . '/' . $video->image) && $video->image != '') {
+                                unlink('uploads/v_images/' . $course->name . '/' . $video->image);
+                                $image = $this->upload($request->image, 'uploads/v_images/' . $course->name );
+                                $data['image'] = $image;
+                            }
+                        }else{
+                            File::move('uploads/v_videos/' . $video->course->name . '/' . $video->video,'uploads/v_videos/' .$course->name.'/'.$video->video);
+                            File::move('uploads/v_images/' . $video->course->name . '/' . $video->image,'uploads/v_images/' .$course->name.'/'.$video->image);
+                        }
+                    }
                     if (!$course)
                         return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى لا يمكن إضافة الفيديو لتلك الدورة']);
                     $data['course_id'] = $course->id;
@@ -107,10 +128,11 @@ class VideosController extends Controller
     public function destroy(Video $video)
     {
         try{
-            if(file_exists('uploads/v_videos/'.$video->video)){
-                unlink('uploads/v_videos/'.$video->video);
+            $video->load('course');
+            if(file_exists('uploads/v_videos/'.$video->course->name.'/'.$video->video)){
+                unlink('uploads/v_videos/'.$video->course->name.'/'.$video->video);
             }
-            $this->deleteWithImage('uploads/v_images/'.$video->image,$video);
+            $this->deleteWithImage('uploads/v_images/'.$video->course->name.'/'.$video->image,$video);
             return response(['message'=>'تم حذف الفيديو بنجاح']);
         }catch (Exception $ex){
             return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);

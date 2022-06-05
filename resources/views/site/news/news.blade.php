@@ -7,8 +7,8 @@
             <ul class="news-menu margin-top-15">
                 @forelse ($all_news as $news)
                     <li><a href="{{route('post.show',$news->slug)}}">
-                            @if ($news->image != "" && file_exists("uploads/blogs/" . $news->image))
-                                <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
+                            @if ($news->image != "" && file_exists("uploads/blogs/" .$news->category->name.'/'. $news->image))
+                                <img src="{{'../../../uploads/blogs/'.$news->category->name.'/'.$news->image}}" class="img-responsive" />
                             @else
                                 <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive"/>
                             @endif

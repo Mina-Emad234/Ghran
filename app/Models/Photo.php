@@ -9,7 +9,7 @@ class Photo extends Model
 {
     use HasFactory;
     protected $table ='photos';
-    protected $fillable = ['photo', 'album_id', 'active', 'order'];
+    protected $fillable = ['photo', 'album_id', 'status', 'order'];
     public $timestamps = true;
     protected $appends=['photo_url'];
 
@@ -20,6 +20,6 @@ class Photo extends Model
 
     public function getPhotoUrlAttribute(): string
     {
-        return asset('uploads/photos/'.$this->photo);
+        return asset('uploads/photos/'.$this->album->name.'/'.$this->photo);
     }
 }

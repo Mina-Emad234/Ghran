@@ -41,6 +41,7 @@
                     $counter = $row + 1;
                 @endphp
                 @foreach($blogs as $blog)
+                    @if($blog->category)
 
                 <tr @if($counter % 2 == 1)
                          class='odd'
@@ -53,15 +54,15 @@
                     <td><a href="{{route('comments.index',$blog->slug)}}">{{$blog->comments_count}} تعليقات</a></td>
                     <td><a href="{{route('tags.blogs',$blog->slug)}}">{{$blog->tags_count}} كلمات بحث</a></td>
                     <td>
-                        @if($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
-                        <img src="{{'../../../uploads/blogs/'.$blog->image}}" width="80" height="50" />
+                        @if($blog->image != "" && file_exists("uploads/blogs/" .$blog->category->name.'/'. $blog->image))
+                        <img src="{{'../../../uploads/blogs/'.$blog->category->name.'/'.$blog->image}}" width="80" height="50" />
                         @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                         @endif
                     </td>
 
                     <td title="">
-                        @if ($blog->active == 0)
+                        @if ($blog->status == 0)
 
                         <a  title="تفعيل " class="tool boxStyle"
                            href="{{route('blogs.activate',$blog->id)}}"><img
@@ -85,6 +86,7 @@
                 @php
                 $counter++
                 @endphp
+                @endif
                 @endforeach
 
 

@@ -23,7 +23,8 @@
         <div class="col-md-8">
             <div class="content">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    @foreach($members as $member)
+                    @if($members)
+                    @forelse($members->site_contents as $member)
                         <div dir="rtl" class="panel panel-default" id="{{$member->id}}">
                             <div class="panel-heading" role="tab" id="heading{{$member->id}}">
                                 <h4 class="panel-title acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$member->id}}" aria-expanded="true" aria-controls="collapse{{$member->id}}">{{$member->title}}</h4>
@@ -37,12 +38,15 @@
                                 </div>
                             </div>
                         </div>
+                        @empty
+                            <h3>لا يوجد محتوى</h3>
+                        @endforelse
+                    @else
+                        <h3>لا يوجد محتوى</h3>
+                        @endif
+                </div>
 
-                    @endforeach
-                </div>
-                <div align="center">
-                    {!! $members->appends(['sort' => 'science-stream'])->links("pagination::bootstrap-4") !!}
-                </div>
+
             </div>
 
 

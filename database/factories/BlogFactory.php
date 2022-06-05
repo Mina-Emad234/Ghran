@@ -18,13 +18,15 @@ class BlogFactory extends Factory
      */
     public function definition()
     {
+        $cat_id = BlogCategory::inRandomOrder()->first()->id;
+        $cat_name = BlogCategory::find($cat_id)->name;
         return [
-            'category_id'=>BlogCategory::inRandomOrder()->first()->id,
+            'category_id'=>$cat_id,
             'title'=>$this->faker->sentence(2),
             'slug'=>$this->faker->slug(),
             'body'=>$this->faker->paragraph(8),
-            'image'=>$this->faker->image(public_path('uploads/blogs'),500,350,null,false,true) ,
-            'active'=>1,
+            'image'=>$this->faker->image(public_path('uploads/blogs/'.$cat_name),500,350),
+            'status'=>1,
         ];
     }
 }

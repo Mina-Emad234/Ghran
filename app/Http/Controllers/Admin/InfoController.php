@@ -31,7 +31,7 @@ class InfoController extends Controller
             $add = Info::create([
                     'body'=>$request->body,
                     'order'=>Info::max('order') + 1,
-                    'active'=>$active
+                    'status'=>$active
                 ]);
             return redirect()->route('info.index')->with(['success_msg'=>'تم إضافة معلومة بنجاح']);
         }catch (Exception $ex){
@@ -50,7 +50,7 @@ class InfoController extends Controller
             $active = $this->checkActive($request);
 
             $data['body']=$request->body;
-            $data['active']=$active;
+            $data['status']=$active;
             $update = $info->update($data);
 
             return redirect()->route('info.index')->with(['success_msg'=>'تم تحديث المعلومة بنجاح']);
@@ -74,7 +74,7 @@ class InfoController extends Controller
     }
 
     public function deactivate(Info $info){
-        return $this->modelActivation($info,1,'تم إلغاء تفعيل المعلومة بنجاح','info.index');
+        return $this->modelActivation($info,0,'تم إلغاء تفعيل المعلومة بنجاح','info.index');
     }
 
     public function sort(Info $info, $direction = 'up')

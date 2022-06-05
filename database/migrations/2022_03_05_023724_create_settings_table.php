@@ -18,6 +18,7 @@ class CreateSettingsTable extends Migration
             $table->string('key')->unique();
             $table->text('value');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -88,11 +88,14 @@
 
                     <div class="form-group">
                         <label for="exampleInputFile">ملفات مرفقة</label>
+                        <div class="col-md-12 mb-2">
+                            <img id="preview-image" width="200px" style="margin: 10px">
+                        </div>
                         <p class="help-block">الملفات المسموح بها هي الصور والفيديوهات والنصوص</p>
                         <div class="form-inline">
                             <div class="fileUpload btn btn-success">
                                 <span>تحميل الملف</span>
-                                <input  id="uploadBtn" name="file" type="file" class="upload">
+                                <input  id="inputImage" name="file" type="file" class="upload">
                             </div>
                         </div>
                         @error('file')
@@ -113,24 +116,30 @@
 
                 <div class="col-md-4">
                     <div class="arrow_box"><h3>معلومات الاتصال</h3></div>
+                    @if(!empty(config()->get('app.telefax')))
                     <p class="font"><strong>تلفــــــاكس</strong>&nbsp; {{config()->get('app.telefax')}}</p>
-
+                    @endif
+                    @if(!empty(config()->get('app.mobile')))
                     <p class="font"><strong>الجــــــــــــــوال</strong>&nbsp; {{config()->get('app.mobile')}}</p>
-
+                    @endif
+                    @if(!empty(config()->get('app.mobile')))
                     <p class="font"><strong>البريد الالكتروني</strong>&nbsp; {{config()->get('app.email')}}</p>
-
+                    @endif
                     <div class="arrow_box"><h3>شبكات التواصل الاجتماعي</h3></div>
 
                     <ul class="social-contact text-center">
-
+                        @if(!empty(config()->get('app.facebook')))
                             <li><a href="{{config()->get('app.facebook')}}" class="fa" target="_blank"><i class="fa fa-facebook"></i></a></li>
-
+                        @endif
+                        @if(!empty(config()->get('app.twitter')))
                             <li><a href="{{config()->get('app.twitter')}}" class="tw" target="_blank"><i class="fa fa-twitter"></i></a></li>
-
+                        @endif
+                        @if(!empty(config()->get('app.youtube')))
                             <li><a href="{{config()->get('app.youtube')}}" class="you" target="_blank"><i class="fa fa-youtube"></i></a></li>
-
+                        @endif
+                        @if(!empty(config()->get('app.instagram')))
                             <li><a href="{{config()->get('app.instagram')}}" class="ins" target="_blank"><i class="fa fa-instagram"></i></a></li>
-
+                        @endif
                     </ul>
 
 

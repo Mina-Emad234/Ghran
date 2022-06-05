@@ -10,7 +10,7 @@ class Video extends Model
 {
     use HasFactory;
     protected $table = 'videos';
-    protected $fillable = ['course_id', 'name', 'author', 'video', 'image', 'active', 'order'];
+    protected $fillable = ['course_id', 'name', 'author', 'video', 'image', 'status', 'order'];
     public $timestamps = true;
     protected $appends=['image_url','video_url'];
 
@@ -20,11 +20,11 @@ class Video extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return asset('uploads/v_images/'.$this->image);
+        return asset('uploads/v_images/'.$this->course.'/'.$this->image);
     }
 
     public function getVideoUrlAttribute(): string
     {
-        return asset('uploads/v_videos/'.$this->video);
+        return asset('uploads/v_videos/'.$this->course.'/'.$this->video);
     }
 }

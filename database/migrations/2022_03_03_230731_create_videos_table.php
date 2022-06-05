@@ -20,7 +20,7 @@ class CreateVideosTable extends Migration
             $table->string('author',50);
             $table->string('videos',100);
             $table->string('image',100);
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();

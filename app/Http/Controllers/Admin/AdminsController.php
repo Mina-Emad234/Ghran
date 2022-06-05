@@ -10,6 +10,7 @@ use App\Traits\GhranTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminsController extends Controller
 {
@@ -35,8 +36,9 @@ class AdminsController extends Controller
             $admin->email=$request->email;
             $admin->password=bcrypt($request->password);
             $admin->role_id=$request->role_id;
-            $admin->active=$active;
+            $admin->status=$active;
             $admin->save();
+
             return redirect()->route('admins.index')->with(['success_msg' =>"تم إضافة مسؤول بنجاح"]);
 
         }catch (\Exception $ex) {
@@ -66,7 +68,7 @@ class AdminsController extends Controller
                     $admin->password = bcrypt($request->password);
                 }
                 $admin->role_id=$request->role_id;
-                $admin->active=$active;
+                $admin->status=$active;
                 if($active){
                     $admin->login_attempts=0;
                 }
@@ -91,7 +93,7 @@ class AdminsController extends Controller
     {
         try {
 
-            $admin->update(['active' => 1, 'login_attempts' => 0]);
+            $admin->update(['status' => 1, 'login_attempts' => 0]);
             return redirect()->route('admins.index')->with(['success_msg' => "تم تفعيل مسؤول بنجاح"]);
         } catch (\Exception $ex) {
             return redirect()->back()->withInput()->with(['error_msg' => "حدث خطأ ما من فضلك حاول مرة أخرى"]);

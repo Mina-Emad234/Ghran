@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PartnerController extends Controller
 {
     public function index(){
-        $partners = Partner::where('active',1)->get();
+        $partners = Partner::where('status',1)->get();
         return view('site.partner.index',compact('partners'));
     }
 }

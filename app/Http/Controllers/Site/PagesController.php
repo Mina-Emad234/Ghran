@@ -14,38 +14,42 @@ class PagesController extends Controller
     public function about()
     {
         $about= SiteSection::with(['site_contents'=>function($query){
-            $query->where(['active'=>1]);
-        }])->where('name','about')->first()->site_contents;
+            $query->where(['status'=>1]);
+        }])->where('name','about')->first();
         return view('site.pages.about',compact('about'));
     }
     public function programs()
     {
-        $programs = SiteSection::where(['name'=>'programs'])->first()->site_contents()->get();
+        $programs = SiteSection::with(['site_contents'=>function($query){
+            $query->where('status',1);
+        }])->where(['name'=>'programs'])->first();
         return view('site.pages.programs',compact('programs'));
     }
     public function support()
     {
         $support = SiteSection::with(['site_contents'=>function($query){
-            $query->where(['active'=>1]);
-        }])->where(['name'=>'support','section_type'=>'pages'])->first()->site_contents;
-        $image=SiteSection::with('image')->where('name','support')->first()->image->image;
+            $query->where(['status'=>1]);
+        }])->where(['name'=>'support','section_type'=>'pages'])->first();
+        $image=SiteSection::with('image')->where('name','support')->first();
         return view('site.pages.support',compact('image','support'));
     }
     public function members()
     {
-        $members = SiteSection::where(['name'=>'members'])->first()->site_contents()->paginate(10);
+        $members = SiteSection::with(['site_contents'=>function($query){
+            $query->where(['status'=>1]);
+        }])->where(['name'=>'members'])->first();
         return view('site.pages.members',compact('members'));
     }
 
     public function info()
     {
-        $infos = Info::where('active',1)->get();
+        $infos = Info::where('status',1)->get();
         return view('site.pages.info',compact('infos'));
     }
 
     public function sitemap()
     {
-        $links = \App\Models\SiteSection::where('name','sitemap_links')->first()->links;
+        $links = SiteSection::with(['links'=>function($query){$query->where(['status'=>1]);}])->where(['name'=>'sitemap_links'])->first();
         $categories = BlogCategory::get();
         return view('site.pages.sitemap',compact('categories','links'));
     }

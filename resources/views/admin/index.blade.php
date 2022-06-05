@@ -27,7 +27,6 @@
     @include('admin.layouts.footer')
 </div><!-- container End -->
 <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="{{asset('admins/js/clearinput.js')}}"></script>
 <script type="text/javascript" src="{{asset('admins/js/jquery.easyTooltip.js')}}"></script>
 <script type="text/javascript" src="{{asset('admins/js/jquery.tablesorter.js')}}"></script>
@@ -45,6 +44,29 @@
         </script>
         <script type="text/javascript" src="{{asset('admins/js/ie6update.js')}}"></script>
     <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#inputImage').change(function(){
+        let reader = new FileReader();
+
+        reader.onload = (e) => {
+            $('#preview-image').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+
+    });
+
+
+
+</script>
 <script>
     jQuery(document).ready(function() {
         jQuery("#operation").change(function() {

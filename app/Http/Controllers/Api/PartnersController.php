@@ -23,7 +23,7 @@ class PartnersController extends Controller
         $i=0;
         foreach ($partners as $partner){
             unset($partners[$i]);
-            $partners->push(array_merge($partner->toArray(),['link'=>url('/api/partners/'.$partner->id)]));
+            $partners->push(array_merge($partner->toArray(),['link'=>url('/api/partners_api/'.$partner->id)]));
             $i++;
         }
         return $partners;
@@ -42,7 +42,7 @@ class PartnersController extends Controller
             $partner = Partner::create([
                 'name'=>$request->name,
                 'image'=>$file_name,
-                'active'=>$request->active,
+                'status'=>$request->status,
                 'order'=>Partner::max('order') + 1
             ]);
             return response($partner);

@@ -16,7 +16,7 @@ class CommentsController extends Controller
         $i=0;
         foreach ($comments as $comment){
             unset($comments[$i]);
-            $comments->push(array_merge($comment->toArray(),['link'=>url('/api/comments/'.$comment->id)]));
+            $comments->push(array_merge($comment->toArray(),['link'=>url('/api/comments_api/'.$comment->id)]));
             $i++;
         }
         return $comments;
@@ -30,13 +30,13 @@ class CommentsController extends Controller
 
     public function activation(Comment $comment)
     {
-        if($comment->_parent()->exists() && $comment->load('_parent')->active == 0){
+        if($comment->_parent()->exists() && $comment->load('_parent')->status == 0){
             return ['parent_comment'=>$comment->_parent,'error_message'=>'يجب تفعيل التعليق الرئيسي أولا'];
-        }elseif($comment->active == 0){
-            $comment->update(['active'=>1]);
+        }elseif($comment->status == 0){
+            $comment->update(['status'=>1]);
             return ['message'=>'تم تفعيل التعليق بنجاح'];
         }else{
-            $comment->update(['active'=>0]);
+            $comment->update(['status'=>0]);
             return ['message'=>'تم إلغاء تفعيل التعليق بنجاح'];
         }
     }
@@ -66,7 +66,7 @@ class CommentsController extends Controller
         try{
             if($request->has('id') && $request->id == $comment->id) {
 
-                $comment->update($request->except('active', 'blog_id', 'parent_id'));
+                $comment->update($request->except('status', 'blog_id', 'parent_id'));
                 return $comment;
             }
         }catch (Exception $ex){

@@ -50,7 +50,7 @@
                                 <td>{{$tag->name}}</td>
                                 <td><span dir="ltr">{{$tag->created_at->diffForHumans()}}</span></td>
                                 <td>
-                                    @if($tag->active == 1)
+                                    @if($tag->status == 1)
                                         <a  title="الغاء تفعيل " class="tool boxStyle" href="{{route('tags.deactivate',$tag->id)}}"><img alt="" src="{{asset('admins/images/icons/deactive.png')}}"></a>
                                     @else
                                         <a  title="تفعيل " class="tool boxStyle" href="{{route('tags.activate',$tag->id)}}"><img alt="" src="{{asset('admins/images/icons/active.png')}}"></a>

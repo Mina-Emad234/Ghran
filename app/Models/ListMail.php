@@ -10,5 +10,5 @@ class ListMail extends Model
     use HasFactory;
     protected $table='list_mails';
     protected $fillable=['name', 'email'];
-    public $timestamps=false;
+    public $timestamps=true;
 }

@@ -17,14 +17,14 @@ class SectionsController extends Controller
      */
     public function index()
     {
-        $sections = SiteSection::orderBy('id','desc')->paginate(10);
+        $sections = SiteSection::withTrashed()->orderBy('id','desc')->paginate(10);
         $i=0;
         foreach ($sections as $section){
             unset($sections[$i]);
-            $sections->push(array_merge($section->toArray(),['link'=>url('/api/sections/'.$section->id)]));
+            $sections->push(array_merge($section->toArray(),['link'=>url('/api/sections_api/'.$section->id)]));
             $i++;
         }
-        return $sections;
+        return response($sections);
     }
 
     /**
@@ -52,9 +52,9 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SiteSection $section)
+    public function show($id)
     {
-        return response($section);
+        return response(SiteSection::findOrFail($id));
     }
 
     /**
@@ -64,9 +64,10 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SectionsRequest $request, SiteSection $section)
+    public function update(SectionsRequest $request, $id)
     {
         try{
+            $section=SiteSection::findOrFail($id);
             if($request->has('id') && $request->id == $section->id) {
 
                 $section->update($request->all());
@@ -83,11 +84,22 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiteSection $section)
+
+    public function destroy($id)
     {
         try{
-            $section->delete();
-            return response(['message'=>'تم حذف قسم الموقع بنجاح']);
+            SiteSection::findOrFail($id)->delete();
+            return response(['message'=>'تم حذف القسم بنجاح']);
+        }catch (Exception $ex){
+            return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);
+        }
+    }
+
+    public function restore($id)
+    {
+        try{
+            SiteSection::withTrashed()->findOrFail($id)->restore();
+            return response(['message'=>'تم إسترجاع القسم بنجاح']);
         }catch (Exception $ex){
             return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);
         }

@@ -20,7 +20,7 @@ class CreateVoteQuestionsTable extends Migration
             $table->string('answer2',100);
             $table->string('answer3',100);
             $table->string('answer4',100);
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->timestamps();
         });

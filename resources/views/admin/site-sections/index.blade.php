@@ -43,12 +43,16 @@
                     <td>{{$section->name}}</td>
                     <td>{{$section->section_type}}</td>
                     <td title="">
+                        @if($section->trashed())
+                            <a title="إسترجاع البيانات" class="tool boxStyle" href="{{route('site.sections.restore',$section->id)}}"  ><img src="{{asset('admins/images/icons/restore.png')}}" alt="إسترجاع" width="20" /></a>
+                        @else
                         <a title="تعديل البيانات" class="tool boxStyle" href="{{route('site.sections.edit',$section->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
-                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر سيؤدي ه1ا إلى وجود أعطال في الواجهة الأمامية للمستخدم؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
                         <form method="post" action="{{route('site.sections.destroy',$section->id)}}" style="display: none">
                         @csrf
                         @method('delete')
                         </form>
+                        @endif
                     </td>
                 </tr>
                 @php

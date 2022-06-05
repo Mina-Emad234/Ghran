@@ -26,7 +26,7 @@ class BlogRequest extends FormRequest
         return [
             'category_id'=>'required|exists:blog_categories,id',
             'title'=>'required|max:150|unique:blogs,title,'.$this->id,
-            'body'=>'required|max:3000',
+            'body'=>'required|min:150:max:3000',
             'image'=>'required_without:id|mimes:jpg,jpeg,gif,png|max:4000',
             'tags'=>'array|min:1',
             'tags.*'=>'numeric|exists:tags,id',
@@ -43,6 +43,7 @@ class BlogRequest extends FormRequest
             'tags.exists'=>'هذه الكلمة غير موجود',
             'title.max'=>' الحد الأقصى 150 حرف',
             'body.max'=>' الحد الأقصى 3000 حرف',
+            'body.min'=>' الحد الادنى 150 حرف',
             'unique'=>'هذا العنوان موجود بالفعل من فضلك ضع عنوانًا غير موجود من قبل',
             'image.max'=>"حجم الملف لا يجب أن يكون أكبر من 4 ميجا",
             'image.mimes'=>"نوع الملف غير مسموح به",

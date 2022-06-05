@@ -27,9 +27,11 @@
                         <h3 class="title">روابط مهمة</h3>
 
                         <ul class="menu" style="list-style: none">
-                            @foreach($links as $link)
+                            @if($links)
+                            @foreach($links->links as $link)
                                     <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
                             @endforeach
+                            @endif
                         </ul>
                     </div><!-- Menu End -->
                 </div><!-- Sitmap End -->

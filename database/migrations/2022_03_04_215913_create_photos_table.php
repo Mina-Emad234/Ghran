@@ -17,7 +17,7 @@ class CreatePhotosTable extends Migration
             $table->id();
             $table->string('photo',100);
             $table->unsignedBigInteger('album_id');
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
             $table->timestamps();

@@ -34,7 +34,7 @@
                                 @endif
                             >
                                 <td class="align-center">{{$counter}}</td>
-                                <td style="max-width: 350px">{{$setting->key}}</td>
+                                <td style="max-width: 350px">{{ucfirst(trim(substr($setting->key,4),'.'))}}</td>
                                 <td>
                                     @if(strlen($setting->value)>50)
                                         {{substr($setting->value,0,50).'.....'}}
@@ -43,7 +43,16 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a title="تعديل البيانات" class="tool boxStyle" href="{{route('settings.edit',$setting->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
+                                    @if($setting->trashed())
+                                        <a title="إسترجاع البيانات" class="tool boxStyle" href="{{route('settings.restore',$setting->id)}}"  ><img src="{{asset('admins/images/icons/restore.png')}}" alt="إسترجاع" width="20" /></a>
+                                    @else
+                                        <a title="تعديل البيانات" class="tool boxStyle" href="{{route('settings.edit',$setting->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
+                                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر، قد يؤثر هذا سلبيا على توقف خدمات معينة في الموقع مما يؤدي إلى حدوث أعطال؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                                        <form method="post" action="{{route('settings.destroy',$setting->id)}}" style="display: none">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                             @php

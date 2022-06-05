@@ -52,8 +52,8 @@
                         <div style="margin-right: 100px; font-weight: bold; font-size: 12px">{{$message}}</div>
                         @enderror
                         <br>
-                        <label for="active" class="label"> تفعيل </label>
-                        <input type="checkbox" id="active" class="textBox med rnd5" value="1" name="active" @if(old('active')==1) checked @endif/>
+                        <label for="status" class="label"> تفعيل </label>
+                        <input type="checkbox" id="status" class="textBox med rnd5" value="1" name="status" @if(old('status')==1) checked @endif/>
                         <br>
                         {!! RecaptchaV3::field('admin') !!}
                         @error('g-recaptcha-response')

@@ -17,11 +17,11 @@ class SiteContentsController extends Controller
      */
     public function index()
     {
-        $contents = SiteContent::orderByDesc('id')->paginate(10);
+        $contents = SiteContent::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->orderByDesc('id')->paginate(10);
         $i=0;
         foreach ($contents as $content){
             unset($contents[$i]);
-            $contents->push(array_merge($content->toArray(),['show_content'=>url('/api/site/contents/'.$content->id)]));
+            $contents->push(array_merge($content->toArray(),['show_content'=>url('/api/site/contents_api/'.$content->id)]));
             $i++;
         }
         return $contents;
@@ -41,7 +41,7 @@ class SiteContentsController extends Controller
                         'title' => $request->title,
                         'site_section_id' => $request->site_section_id,
                         'body' => $request->body,
-                        'active' => $request->active
+                        'active' => $request->status
                     ]);
                 return response($content);
             }else{
@@ -55,24 +55,25 @@ class SiteContentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SiteContent $content)
+    public function show(int $id)
     {
-        return response($content);
+        return response(SiteContent::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SiteContentsRequest $request, SiteContent $content)
+    public function update(SiteContentsRequest $request, int $id)
     {
         try {
+            $content=SiteContent::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id);
             if($request->has('id') && $request->id == $content->id) {
                 if($request->has('site_section_id') && !SiteSection::where('section_type', 'pages')->find($request->site_section_id)) {
                     $content->update($request->except('site_section_id'));
@@ -89,12 +90,13 @@ class SiteContentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiteContent $content)
+    public function destroy(int $id)
     {
         try {
+            $content=SiteContent::whereIn('site_section_id',SiteSection::pluck('id')->toArray())->findOrFail($id);
             $content->delete();
             return response(['message'=>'تم حذف المحتوى بنجاح']);
         }catch (\Exception $e){

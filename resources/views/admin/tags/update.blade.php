@@ -31,7 +31,7 @@
                         @enderror
                         <br />
                         <label for="chk1" class="label">تفعيل</label>
-                        <input type="checkbox" name="active" id="chk1" value="1" @if(old('active',$tag->active)==1) checked @endif/>
+                        <input type="checkbox" name="status" id="chk1" value="1" @if(old('active',$tag->status)==1) checked @endif/>
                         <br />
                         {!! RecaptchaV3::field('tags') !!}
                         @error('g-recaptcha-response')

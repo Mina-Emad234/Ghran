@@ -26,8 +26,8 @@
                 <div class="margin-bottom-30" dir="ltr">
                     <a href="{{route('video',$video->id)}}">
                         <div class="news-box">
-                            @if (!empty($course->image) && file_exists("uploads/v_images/" . $video->image))
-                                <img src="{{'../../../uploads/v_images/'.$video->image}}" class="img-responsive" width="400" />
+                            @if (!empty($course->image) && file_exists("uploads/v_images/" .$course->name.'/'. $video->image))
+                                <img src="{{'../../../uploads/v_images/'.$course->name.'/'.$video->image}}" class="img-responsive" width="400" />
                             @else
                                 <img src="{{asset('admins/images/no-img.png')}}" width="400"  class="img-responsive" />
                             @endif                            <h3>{{++$i . '_' . $video->name}}</h3>

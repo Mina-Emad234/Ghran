@@ -22,7 +22,7 @@ class SiteLinksController extends Controller
 
     public function create()
     {
-        $parents = SiteLink::where(['active'=>1,'parent_id'=>null,'link'=>null])->get();
+        $parents = SiteLink::where(['status'=>1,'parent_id'=>null,'link'=>null])->get();
         $sections = SiteSection::where('section_type','front links')->get();
         return view('admin.site-links.create',compact('sections','parents'));
     }
@@ -38,7 +38,7 @@ class SiteLinksController extends Controller
                     'site_section_id' => $request->site_section_id,
                     'parent_id' => $request->parent_id,
                     'link' => $request->link,
-                    'active' => $active
+                    'status' => $active
                 ]);
                 return redirect()->route('site.links.index')->with(['success_msg' => 'تم إضافة رابط بنجاح']);
             }

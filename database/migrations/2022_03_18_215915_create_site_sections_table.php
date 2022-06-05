@@ -18,6 +18,8 @@ class CreateSiteSectionsTable extends Migration
             $table->string('name',100);
             $table->enum('section_type',['images','pages','front links']);
             $table->unique(['name','section_type']);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

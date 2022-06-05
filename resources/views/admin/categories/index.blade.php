@@ -50,12 +50,16 @@
                     </td>
 
                     <td title="">
+                        @if($cat->trashed())
+                            <a title="إسترجاع البيانات" class="tool boxStyle" href="{{route('categories.restore',$cat->id)}}"  ><img src="{{asset('admins/images/icons/restore.png')}}" alt="إسترجاع" width="20" /></a>
+                        @else
                         <a  style="float: right" title="تعديل البيانات" class="tool boxStyle" href="{{route('categories.edit',$cat->id)}}"  ><img src="{{asset('admins/images/icons/Pencil.png')}}" alt="تعديل" /></a>
-                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
+                        <a title="حذف البيانات" class="tool boxStyle operation" onclick="confirm('هل تريد حذف هذا العنصر، قد يؤثر هذا سلبيا على واجهة المستخدم؟');"><img src="{{asset('admins/images/icons/Trash.png')}}" alt="حذف" /></a>
                         <form method="post" action="{{route('categories.destroy',$cat->id)}}" style="display: none">
                             @csrf
                             @method('delete')
                         </form>
+                        @endif
                     </td>
                 </tr>
                 @php

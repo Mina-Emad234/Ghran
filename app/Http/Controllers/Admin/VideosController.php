@@ -9,6 +9,7 @@ use App\Models\Video;
 use App\Traits\GhranTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use PHPUnit\Exception;
 
 class VideosController extends Controller
@@ -30,7 +31,7 @@ class VideosController extends Controller
 
     public function create()
     {
-        $courses=Course::where(['active'=>1,'course_payable'=>0])->get();
+        $courses=Course::where(['status'=>1,'course_payable'=>0])->get();
         return view('admin.videos.create',compact('courses'));
     }
 
@@ -38,9 +39,9 @@ class VideosController extends Controller
     {
         try{
             $active = $this->checkActive($request);
-            $video_name = $this->upload($request->video,'uploads/v_videos');
-            $file_name = $this->upload($request->image,'uploads/v_images');
             $course = Course::where('course_payable',0)->find($request->course_id);
+            $video_name = $this->upload($request->video,'uploads/v_videos/'.$course->name);
+            $file_name = $this->upload($request->image,'uploads/v_images/'.$course->name);
             if(!$course)
                 return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
 
@@ -50,7 +51,7 @@ class VideosController extends Controller
                 'course_id'=>$course->id,
                 'image'=>$file_name,
                 'video'=>$video_name,
-                'active'=>$active,
+                'status'=>$active,
                 'order'=>Video::max('order') + 1
             ]);
             return redirect()->route('videos.index')->with(['success_msg'=>'تم إضافة فيديو بنجاح']);
@@ -67,25 +68,46 @@ class VideosController extends Controller
 
     public function edit(Video $video)
     {
-        $courses=Course::where(['active'=>1,'course_payable'=>0])->get();
+        $courses=Course::where(['status'=>1,'course_payable'=>0])->get();
         return view('admin.videos.update',compact('video','courses'));
     }
 
     public function update(VideoRequest $request,Video $video)
     {
         try{
+            $video->load('course');
             $active = $this->checkActive($request);
             $course = Course::where('course_payable',0)->find($request->course_id);
             if(!$course)
                 return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
 
+            if($video->course->id == $course->id){
+                $this->updateUpload($request,'video','uploads/v_videos/'.$course->name,$video->video,$video);
+                $this->updateUpload($request,'image','uploads/v_images/'.$course->name,$video->image,$video);
+            }else{
+                if($request->has('image') && $request->has('video')) {
+                    if (file_exists('uploads/v_videos/' . $course->name . '/' . $video->video) && $video->video != '') {
+                        unlink('uploads/v_videos/' . $course->name . '/' . $video->video);
+                        $video = $this->upload($request->video, 'uploads/v_videos/' . $course->name );
+                        $data['video'] = $video;
+                    }
 
-            $this->updateUpload($request,'video','uploads/v_videos/',$video->video,$video);
-            $this->updateUpload($request,'image','uploads/v_images/',$video->image,$video);
+                    if (file_exists('uploads/v_images/' . $course->name . '/' . $video->image) && $video->image != '') {
+                        unlink('uploads/v_images/' . $course->name . '/' . $video->image);
+                        $image = $this->upload($request->image, 'uploads/v_images/' . $course->name );
+                        $data['image'] = $image;
+                    }
+                }else{
+                    File::move('uploads/v_videos/' . $video->course->name . '/' . $video->video,'uploads/v_videos/' .$course->name.'/'.$video->video);
+                    File::move('uploads/v_images/' . $video->course->name . '/' . $video->image,'uploads/v_images/' .$course->name.'/'.$video->image);
+                }
+            }
+
+
             $data['name'] = $request->name;
             $data['author'] = $request->author;
             $data['course_id'] = $course->id;
-            $data['active'] = $active;
+            $data['status'] = $active;
             $video->update($data);
             return redirect()->route('videos.index')->with(['success_msg' => 'تم تحديث الفيديو بنجاح']);
         }catch (Exception $ex){
@@ -95,11 +117,11 @@ class VideosController extends Controller
 
     public function destroy(Video $video){
         try{
-
-            if(file_exists('uploads/v_videos/'.$video->video)){
-                unlink('uploads/v_videos/'.$video->video);
+            $video->load('course');
+            if(file_exists('uploads/v_videos/'.$video->course->name.'/'.$video->video)){
+                unlink('uploads/v_videos/'.$video->course->name.'/'.$video->video);
             }
-            $this->deleteWithImage('uploads/v_images/'.$video->image,$video);
+            $this->deleteWithImage('uploads/v_images/'.$video->course->name.'/'.$video->image,$video);
 
             return redirect()->route('videos.index')->with(['success_msg'=>'تم حذف الفيديو بنجاح']);
         }catch (Exception $ex){

@@ -27,7 +27,7 @@ class AddRoleIdToAdminsTable extends Migration
     public function down()
     {
         Schema::table('admins', function (Blueprint $table) {
-            //
+            $table->dropConstrainedForeignId('role_id');
         });
     }
 }

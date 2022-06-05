@@ -10,14 +10,16 @@ class AlbumController extends Controller
 {
     public function index()
     {
-        $albums = Album::orderByDesc('id')->get();
+         $albums = Album::where('status',1)->orderByDesc('id')->get();
        return view('site.album.index',compact('albums'));
     }
     public function photos($slug)
     {
-        $photos = Album::with(['photos'=>function($query){
-            $query->where('active',1);
-        }])->where('slug',$slug)->first();
-        return view('site.album.photos',compact('photos'));
+            $photos = Album::with(['photos' => function ($query) {
+                $query->where('status', 1);
+            }])->where(['slug' => $slug, 'status' => 1])->first();
+            if(!$photos)
+                return abort('404');
+            return view('site.album.photos', compact('photos'));
     }
 }

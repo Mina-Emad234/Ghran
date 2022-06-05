@@ -62,24 +62,29 @@
                         <br />
                         <label class="label">الصورة الحالية</label>
                         <p style="margin-right: 50px">
-                            @if ($blog->image != "" && file_exists("uploads/blogs/" . $blog->image))
-                            <img src="{{'../../../uploads/blogs/'. $blog->image}}" width="160" height="130" class="imgPreview rnd10" />
+                            @if ($blog->image != "" && file_exists("uploads/blogs/" .$blog->category->name.'/'. $blog->image))
+                            <img src="{{'../../../uploads/blogs/'.$blog->category->name.'/'. $blog->image}}" width="160" height="130" class="imgPreview rnd10" />
                             @else
                             <img src="{{asset('admins/images/no-img.png')}}" width="160" height="130" class="imgPreview rnd10" />
                             @endif
                         </p>
                         <br />
                         <label for="image" class="label">الصورة</label>
+
                         <div class="fileUpload">
-                            <input id="file" type="file" name="image"   />
+                            <input id="inputImage" type="file" name="image"   />
                             <span class="button rnd5 drkTextShadow">جلب الملف</span>
                             @error('image')
                             <div style="font-weight: bold; font-size: 12px">{{$message}}</div>
                             @enderror
                         </div>
                         <br />
+                        <div class="col-md-12 mb-2">
+                            <img id="preview-image" width="200px" style="margin: 10px">
+                        </div>
+                        <br />
                         <label for="chk1" class="label">تفعيل</label>
-                        <input type="checkbox" name="active" id="chk1" value="1" @if($blog->active==1) checked @endif/>
+                        <input type="checkbox" name="status" id="chk1" value="1" @if($blog->status==1) checked @endif/>
                         <br />
                         {!! RecaptchaV3::field('blogs') !!}
                         @error('g-recaptcha-response')

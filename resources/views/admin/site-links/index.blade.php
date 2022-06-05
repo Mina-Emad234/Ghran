@@ -47,7 +47,7 @@
                     <td>{{$link->site_section->name}}</td>
 
                     <td title="">
-                        @if ($link->active == 0)
+                        @if ($link->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('site.links.activate',$link->id)}}"><img

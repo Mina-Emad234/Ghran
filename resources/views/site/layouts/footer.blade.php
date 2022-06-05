@@ -4,8 +4,16 @@
         <div class="container">
 
             <div class="col-md-9">
-                <img src="{{asset('site/img/'.$image)}}" class="img-responsive margin-bottom-15"/>
-                {!!  $content !!}
+                @if($image)
+                <img src="{{asset('site/img/'.$image->image->image)}}" class="img-responsive margin-bottom-15"/>
+                @else
+                <img src="{{asset('admins/images/no-img.png')}}" class="img-responsive margin-bottom-15" height="45" width="299"/>
+                @endif
+                    @if($content)
+                        @foreach($content->site_contents as $_content)
+                            {!! $_content->body !!}
+                        @endforeach
+                    @endif
             </div>
 
             <div class="col-md-3">
@@ -62,37 +70,54 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">عن الموقع</li>
-                    @foreach($about_links as $link)
-                        <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
-                    @endforeach
+                    @if($about_links)
+                        @foreach($about_links->links as $link)
+                            <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                        @endforeach
+                    @endif
+
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">المحتوى</li>
-                    @foreach($content_links as $link)
-                        <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
-                    @endforeach
+                    @if($content_links)
+                        @foreach($content_links->links as $link)
+                            <li><a href="{{url($link->link)}}">{{$link->name}}</a></li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                 <ul class="list-footer">
                     <li class="head">المشاركة</li>
-                    @foreach($social_links as $link)
+                    @if($social_links)
+                    @foreach($social_links->links as $link)
                     @if(count($link->_child)>0)
 
                             @foreach($link->_child as $child)
+                                @if($child->status == 1)
                                 <li><a href="{{url($child->link)}}">{{$child->name}}</a></li>
+                                @endif
                             @endforeach
 
                     @endif
                     @endforeach
+                    @endif
+
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container text-center copyright">{!!   $footer_content !!}</div>
+    <div class="container text-center copyright">
+        @if($footer_content)
+            @foreach($footer_content->site_contents as $_footer)
+                {!! $_footer->body !!}
+            @endforeach
+        @endif
+
+    </div>
 
 </footer>
 

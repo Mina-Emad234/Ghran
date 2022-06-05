@@ -30,6 +30,7 @@ class CreateScoutsTable extends Migration
             $table->string('parent_mobile',11);
             $table->string('parent_email',50);
             $table->boolean('read')->default(0);
+            $table->timestamps();
         });
     }
 

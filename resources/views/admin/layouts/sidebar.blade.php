@@ -8,8 +8,8 @@
             <span class="count rnd3">{{\App\Models\Contact::where('read',0)->count()}}</span></a>
         @endcan
         @can('comments')
-        <a href="{{route('comments.index')}}" title=" لديك {{\App\Models\Comment::where('active',0)->count()}} تعليقات جديدة"><img src="{{asset('admins/images/comment.png')}}" alt=""/>
-            <span class="count rnd3">{{\App\Models\Comment::where('active',0)->count()}}</span></a>
+        <a href="{{route('comments.index')}}" title=" لديك {{\App\Models\Comment::where('status',0)->count()}} تعليقات جديدة"><img src="{{asset('admins/images/comment.png')}}" alt=""/>
+            <span class="count rnd3">{{\App\Models\Comment::where('status',0)->count()}}</span></a>
         @endcan
         <a href="" class="operation" title="تسجيل الخروج"><img src="{{asset('admins/images/logout.png')}}" alt=""/></a>
         <form method="post" id="logout" action="{{route('admin.logout')}}" style="display: none">

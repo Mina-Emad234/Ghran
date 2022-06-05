@@ -8,12 +8,18 @@
         </div>
         <div class="pull-left">
             <ul class="social-header">
-
-
+                @if(!empty(config()->get('app.facebook')))
                     <li><a rel="nofollow" target="_blank" href="{{config()->get('app.facebook')}}"><i class="fa fa-facebook"></i></a></li>
+                @endif
+                @if(!empty(config()->get('app.twitter')))
                     <li><a rel="nofollow" target="_blank" href="{{config()->get('app.twitter')}}"><i class="fa fa-twitter"></i></a></li>
-                    <li><a rel="nofollow" target="_blank" href="{{config()->get('app.youtube')}}"><i class="fa fa-youtube"></i></a></li>
+               @endif
+                @if(!empty(config()->get('app.youtube')))
+                   <li><a rel="nofollow" target="_blank" href="{{config()->get('app.youtube')}}"><i class="fa fa-youtube"></i></a></li>
+                @endif
+                @if(!empty(config()->get('app.instagram')))
                     <li><a rel="nofollow" target="_blank" href="{{config()->get('app.instagram')}}"><i class="fa fa-instagram"></i></a></li>
+                @endif
 
             </ul>
         </div>
@@ -23,8 +29,11 @@
 
 <div class="middel-nav">
     <div class="container">
-
-        <a href="#" class="logo"><img src="{{asset('site/img/'.$image)}}"/></a>
+        @if($image)
+        <a href="#" class="logo"><img src="{{asset('site/img/'.$image->image->image)}}"/></a>
+        @else
+        <a href="#" class="logo"><img src="{{asset('admins/images/no-img.png')}}" height="90" width="460"/></a>
+        @endif
         <form action="{{route('search')}}" method="get" >
             @csrf
             <div class="col-sm-4 pull-left margin-top-30 search">
@@ -57,8 +66,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-
-                @foreach($links as $link)
+                @if($links)
+                     @foreach($links->links as $link)
 
 
                 @if(count($link->_child)==0 && $link->parent_id == NULL)
@@ -74,6 +83,7 @@
                         </li>
                     @endif
             @endforeach
+                @endif
             </ul>
         </div><!--/.nav-collapse -->
     </div><!--/.container -->

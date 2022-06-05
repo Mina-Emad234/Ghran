@@ -24,7 +24,7 @@ class VolunteersController extends Controller
         $i=0;
         foreach ($volunteers as $volunteer){
             unset($volunteers[$i]);
-            $volunteers->push(array_merge($volunteer->toArray(),['link'=>url('/api/volunteers/'.$volunteer->id)]));
+            $volunteers->push(array_merge($volunteer->toArray(),['link'=>url('/api/volunteers_api/'.$volunteer->id)]));
             $i++;
         }
         return $volunteers;

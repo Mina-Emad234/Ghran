@@ -17,6 +17,7 @@ class CreateListMailsTable extends Migration
             $table->id();
             $table->string('name',50);
             $table->string('email',50);
+            $table->timestamps();
         });
     }
 

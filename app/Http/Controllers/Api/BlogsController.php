@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\BlogsRequest;
 use App\Http\Resources\BlogResource;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Traits\GhranTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Exception;
+
 
 class BlogsController extends Controller
 {
@@ -22,7 +25,7 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::with('category','tags')->paginate(10);
+        $blogs = Blog::with(['category', 'tags'])->whereIn('category_id',BlogCategory::pluck('id')->toArray())->paginate(10);
         return BlogResource::collection($blogs);
     }
 
@@ -36,14 +39,15 @@ class BlogsController extends Controller
     {
         try{
         DB::beginTransaction();
-        $file_name = $this->upload($request->image,'uploads/blogs');
-        $blog = Blog::create([
+            $cat_name = BlogCategory::find($request->category_id)->name;
+            $file_name = $this->upload($request->image,'uploads/blogs/'.$cat_name);
+            $blog = Blog::create([
             'category_id' => $request->category_id,
             'title' => $request->title,
             'body' => $request->body,
             'slug' => str_replace(' ', '-', $request->title),
             'image' => $file_name,
-            'active' => $request->active,
+            'status' => $request->status,
         ]);
             $tags=explode(',',implode(',',$request->tags));
             $blog->tags()->attach($tags);
@@ -63,6 +67,8 @@ class BlogsController extends Controller
     public function show(Blog $blog)
     {
         $blog->load('category:id,name', 'tags:id,name','comments._child');
+        if(!$blog->category)
+            return response('حدت خطأ ما');
         return response($blog);
     }
 
@@ -79,7 +85,21 @@ class BlogsController extends Controller
             if($request->has('id') && $request->id == $blog->id) {
                 DB::beginTransaction();
                 $data = $request->except('image');
-                $this->updateUpload($request, "image", 'uploads/blogs', $blog->image, $blog);
+                $blog->load('category');
+                if($blog->category->id == $request->category_id){
+                    $this->updateUpload($request,'image','uploads/blogs/'. $blog->category->name.'/',$blog->image,$blog);
+                }else{
+                    $cat_name = BlogCategory::find($request->category_id)->name;
+                    if($request->has('image')) {
+                        if (file_exists('uploads/blogs/' . $blog->category->name . '/' . $blog->image) && $blog->image != '') {
+                            unlink('uploads/blogs/' . $blog->category->name . '/' . $blog->image);
+                            $file_name = $this->upload($request->image, 'uploads/blogs/' . $cat_name);
+                            $data['image'] = $file_name;
+                        }
+                    }else{
+                        File::move('uploads/blogs/' . $blog->category->name . '/' . $blog->image,'uploads/blogs/' .$cat_name.'/'.$blog->image);
+                    }
+                }
                 if ($request->has('title')) {
                     $data['slug'] = str_replace(' ', '-', $request->title);
                 }
@@ -105,7 +125,9 @@ class BlogsController extends Controller
     public function destroy(Blog $blog)
     {
         try{
-            $this->deleteWithImage('uploads/blogs/'.$blog->image,$blog);
+            $blog->load('category','tags');
+            $blog->tags()->detach();
+            $this->deleteWithImage('uploads/blogs/'.$blog->category->name.'/'.$blog->image,$blog);
             return response(['message'=>'تم حذف المنشور بنجاح']);
         }catch (Exception $ex){
             return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);

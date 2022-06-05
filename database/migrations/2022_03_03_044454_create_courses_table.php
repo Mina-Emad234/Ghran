@@ -20,7 +20,7 @@ class CreateCoursesTable extends Migration
             $table->integer('duration');
             $table->string('licence',200);
             $table->string('image',100);
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->timestamps();
         });

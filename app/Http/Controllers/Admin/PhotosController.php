@@ -38,13 +38,14 @@ class PhotosController extends Controller
         try{
             foreach($request->photos as $photo)
             {
-                $folder = 'uploads/photos';
+                $album_name = Album::find($request->album_id)->name;
+                $folder = 'uploads/photos/'.$album_name;
                 $file_extension= $photo->getClientOriginalExtension();
                 $file_name=random_int(100000,1000000000).'.'.$file_extension;
                 $photo->move($folder,$file_name);
                 $insert['photo'] = $file_name;
                 $insert['album_id'] = $request->album_id;
-                $insert['active'] = 1;
+                $insert['status'] = 1;
                 $insert['order'] = Photo::max('order')+1;
                 Photo::create($insert);
             }
@@ -56,7 +57,8 @@ class PhotosController extends Controller
 
     public function destroy(Photo $photo){
         try{
-            $this->deleteWithImage('uploads/photos/'.$photo->photo,$photo);
+            $photo->load('album');
+            $this->deleteWithImage('uploads/photos/'.$photo->album->name.'/'.$photo->photo,$photo);
             return redirect()->route('photos.index')->with(['success_msg'=>'تم حذف الصورة بنجاح']);
         }catch (Exception $ex){
             return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);

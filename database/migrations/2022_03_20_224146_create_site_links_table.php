@@ -19,10 +19,11 @@ class CreateSiteLinksTable extends Migration
             $table->unsignedBigInteger('site_section_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('link',200)->nullable();
-            $table->boolean('active');
+            $table->boolean('status');
             $table->foreign('site_section_id')->references('id')->on('site_sections')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('site_links')->onDelete('cascade');
             $table->unique(['name','site_section_id']);
+            $table->timestamps();
         });
     }
 

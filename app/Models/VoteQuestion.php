@@ -9,7 +9,7 @@ class VoteQuestion extends Model
 {
     use HasFactory;
     protected $table='vote_questions';
-    protected $fillable=['question','answer1','answer2','answer3','answer4','active','order'];
+    protected $fillable=['question','answer1','answer2','answer3','answer4','status','order'];
     public $timestamps=true;
 
     public function answers(){

@@ -18,17 +18,17 @@ use PHPUnit\Exception;
 class HomeController extends Controller
 {
     public function index(){
-        $data['image']=SiteSection::with('image')->where('name','main')->first()->image->image;
-        $data['latest_tickers'] = Blog::where(['category_id'=>2,'active'=>1])->get();
-        $data['offer'] = SiteSection::where(['name'=>'offers'])->first()->site_contents->first()->body;
-        $data['paid_course'] = Course::where(['active'=>1,'course_payable'=>1])->orderByDesc('price')->first();
-        $article = Blog::where(['category_id'=>1,'active'=>1])->latest()->first();
-        $news = Blog::where(['category_id'=>2,'active'=>1])->latest()->first();
-        $woman = Blog::where(['category_id'=>3,'active'=>1])->latest()->first();
-        $data['testimonials'] = Blog::where(['category_id'=>4,'active'=>1])->orderBy('id','desc')->limit(10)->get();
-        $data['testimonials_count'] = Blog::where(['category_id'=>4,'active'=>1])->orderBy('id','desc')->limit(5)->count();
-        $data['partners']=Partner::where('active',1)->get();
-        $vote=VoteQuestion::where('active',1)->first();
+        $data['image']=SiteSection::with('image')->where('name','main')->first();
+        $data['latest_tickers'] = Blog::where(['category_id'=>2,'status'=>1])->get();
+        $data['offer'] = SiteSection::with(['site_contents'=>function($query){$query->where(['status'=>1]);}])->where(['name'=>'offers'])->first();
+        $data['paid_course'] = Course::where(['status'=>1,'course_payable'=>1])->orderByDesc('price')->first();
+        $article = Blog::with('category')->where(['category_id'=>1,'status'=>1])->latest()->first();
+        $news = Blog::with('category')->where(['category_id'=>2,'status'=>1])->latest()->first();
+        $woman = Blog::with('category')->where(['category_id'=>3,'status'=>1])->latest()->first();
+        $data['testimonials'] = Blog::with('category')->where(['category_id'=>4,'status'=>1])->orderBy('id','desc')->limit(10)->get();
+        $data['testimonials_count'] = Blog::where(['category_id'=>4,'status'=>1])->orderBy('id','desc')->limit(5)->count();
+        $data['partners']=Partner::where('status',1)->get();
+        $vote=VoteQuestion::where('status',1)->first();
         return view('site.blog.home',compact('data','article','news','woman','vote'));
     }
 

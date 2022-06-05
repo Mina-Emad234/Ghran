@@ -10,5 +10,5 @@ class Media extends Model
     use HasFactory;
     protected $table = 'media';
     protected $fillable = ['name', 'identity', 'mobile', 'email', 'course', 'read'];
-    public $timestamps = false;
+    public $timestamps = true;
 }

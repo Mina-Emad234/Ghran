@@ -26,13 +26,13 @@ class CourseApplicantController extends Controller
 
     public function registerPage($course_id,Request $request)
     {
-        $course = Course::where(['course_payable'=>1,'active'=>1])->findOrFail($course_id);
+        $course = Course::where(['course_payable'=>1,'status'=>1])->findOrFail($course_id);
         return view('site.course_applicant.send',compact('course'));
     }
 
     public function send($course_id,CourseApplicantRequest $request)
     {
-        $course=Course::where(['active'=>1,'course_payable'=>1])->find($course_id);
+        $course=Course::where(['status'=>1,'course_payable'=>1])->find($course_id);
         $data=[
             'NotificationOption' => 'Lnk',
             'InvoiceValue'       => $course->price,
@@ -89,7 +89,7 @@ class CourseApplicantController extends Controller
 
             $data = [
                 'name' => $request->Session()->get('name'),
-                'courses' => Course::where(['id' => $course_id, 'course_payable' => 1, 'active' => 1])->first()->name
+                'courses' => Course::where(['id' => $course_id, 'course_payable' => 1, 'status' => 1])->first()->name
             ];
             Mail::to($request->Session()->get('email'))->send(new ApplicantMail($data));
             setcookie('course_id', $course_id, 2147483647, '/');

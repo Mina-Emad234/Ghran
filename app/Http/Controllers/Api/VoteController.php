@@ -23,7 +23,7 @@ class VoteController extends Controller
         $i=0;
         foreach ($votes as $vote){
             unset($votes[$i]);
-            $votes->push(array_merge($vote->toArray(),['link'=>url('/api/vote/'.$vote->id)]));
+            $votes->push(array_merge($vote->toArray(),['link'=>url('/api/vote_api/'.$vote->id)]));
             $i++;
         }
         return $votes;
@@ -45,10 +45,10 @@ class VoteController extends Controller
                 'answer3'=>$request->answer3,
                 'answer4'=>$request->answer4,
                 'order'=>VoteQuestion::max('order') + 1,
-                'active'=>$request->active
+                'active'=>$request->status
             ]);
             $last=VoteQuestion::latest()->first();
-            if($last->active==1) {
+            if($last->status==1) {
                 VoteQuestion::where('id','!=',$last->id)->update(['active'=>0]);
             }
             return response($vote);
@@ -90,7 +90,7 @@ class VoteController extends Controller
     {
         try{
             if($request->has('id') && $request->id == $vote->id) {
-                if ($request->has('active') && $request->active == 1) {
+                if ($request->has('active') && $request->status == 1) {
                     VoteQuestion::where('id', '!=', $vote->id)->update(['active' => 0]);
                 }
                 $vote->update($request->all());

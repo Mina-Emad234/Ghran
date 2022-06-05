@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class SiteLink extends Model
 {
    protected $table='site_links';
-   protected $fillable=['name','site_section_id','parent_id','link','active'];
-   public $timestamps = false;
+   protected $fillable=['name','site_section_id','parent_id','link','status'];
+   public $timestamps = true;
 
     public function site_section(){
         return $this->belongsTo(SiteSection::class,'site_section_id','id');

@@ -16,7 +16,7 @@ class CreateInfosTable extends Migration
         Schema::create('infos', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->timestamps();
         });

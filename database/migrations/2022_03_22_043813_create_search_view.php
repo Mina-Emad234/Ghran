@@ -46,47 +46,47 @@ class CreateSearchView extends Migration
                     title,
                    concat('/posts/show/',slug) as link,
                    body
-                FROM blogs
+                FROM blogs where status = 1
                     UNION SELECT
                     name as title,
                    concat('/posts/tag_blog/',slug) as link,
                    null as body
-                FROM tags
+                FROM tags where status = 1
                     UNION SELECT
                     name as title,
                     concat('/courses/videos/',id) as link,
                     description as body
-                FROM courses where course_payable = 0
+                FROM courses where course_payable = 0 AND status = 1
                 UNION SELECT
                     name as title,
                     concat('/course_applicants/register/',id) as link,
                     description as body
-                FROM courses  where course_payable = 1
+                FROM courses  where course_payable = 1 AND status = 1
                 UNION SELECT
                     name as title,
                     concat('/courses/video/',id) as link,
                      null as body
-                FROM videos
+                FROM videos where status = 1
                 UNION SELECT
                  name as title,
                    concat('/album_categories/photos/',slug) as link,
                    null as body
-                 FROM albums
+                 FROM albums where status = 1
                 UNION SELECT
                 name as title,
                    '/partners' as link,
                    null as body
-                FROM partners
+                FROM partners where status = 1
                 UNION SELECT
                 site_contents.title,
                    concat('/pages/',site_sections.name,'#',site_contents.id) as link,
                    site_contents.body
-                FROM site_contents join site_sections on site_contents.site_section_id = site_sections.id
+                FROM site_contents join site_sections on site_contents.site_section_id = site_sections.id where status = 1
                 UNION SELECT
                 name as title,
                  link,
                  null as body
-                FROM site_links
+                FROM site_links where status = 1
             SQL;
     }
 

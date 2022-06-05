@@ -17,7 +17,7 @@ class CreatePartnersTable extends Migration
             $table->id();
             $table->string('name',100);
             $table->string('image',100);
-            $table->boolean('active');
+            $table->boolean('status');
             $table->integer('order');
             $table->timestamps();
         });

@@ -38,6 +38,7 @@ class CreateTeamsTable extends Migration
             $table->string('parent_job',30);
             $table->string('fav_days',50);
             $table->boolean('read')->default(0);
+            $table->timestamps();
         });
     }
 

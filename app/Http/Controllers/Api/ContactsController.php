@@ -22,7 +22,7 @@ class ContactsController extends Controller
         $i=0;
         foreach ($contacts as $contact){
             unset($contacts[$i]);
-            $contacts->push(array_merge($contact->toArray(),['link'=>url('/api/contacts/'.$contact->id)]));
+            $contacts->push(array_merge($contact->toArray(),['link'=>url('/api/contacts_api/'.$contact->id)]));
             $i++;
         }
         return $contacts;

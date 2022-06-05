@@ -17,24 +17,25 @@ class LoginController extends Controller
     {
 //       return $request;
         //check credentials
-        $admin=Admin::where('email',$request->input('email'))->first();
         $remember_me = $request->has('remember_me') ? true : false;
-        if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'active' => 1], $remember_me)) {
+        if (auth()->guard('admin')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'status' => 1], $remember_me)) {
+            $admin=Admin::where('email',$request->input('email'))->first();
             $admin->update(['login_attempts'=>0]);
             return redirect()->route('admin.home');
-        }elseif($admin){
-            if($admin->active == 0) {
+        }
+        $admin=Admin::where('email',$request->input('email'))->first();
+
+        if($admin){
+            if($admin->status == 0) {
                 return redirect()->back()->withInput()->with(['auth_error' => "تم حظر هذا الحساب، من فضلك تواصل مع المسؤل لإسترجاع الحساب."]);
             }
             $admin->update(['login_attempts'=>$admin->login_attempts+=1]);
             if ($admin->login_attempts >= 5){
-                $admin->update(['active'=> 0]);
+                $admin->update(['status'=> 0]);
             }
-            return redirect()->back()->withInput()->with(['auth_error'=>"هناك خطأ في البريد الإلكتروني أو كلمة السر، من فضلك حاول مرة أخرى."]);
-        }else{
-            return redirect()->back()->withInput()->with(['auth_error'=>"هناك خطأ في البريد الإلكتروني أو كلمة السر، من فضلك حاول مرة أخرى."]);
         }
-        }
+        return redirect()->back()->withInput()->with(['auth_error'=>"هناك خطأ في البريد الإلكتروني أو كلمة السر، من فضلك حاول مرة أخرى."]);
+    }
     public function getGuard(){
         return auth('admin');
     }

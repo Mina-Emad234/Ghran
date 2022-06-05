@@ -38,11 +38,11 @@ class VoteQuestionsController extends Controller
                 'answer3'=>$request->answer3,
                 'answer4'=>$request->answer4,
                 'order'=>VoteQuestion::max('order') + 1,
-                'active'=>$active
+                'status'=>$active
             ]);
             $id=VoteQuestion::latest()->first()->id;
             if($active) {
-                VoteQuestion::where('id','!=',$id)->update(['active'=>0]);
+                VoteQuestion::where('id','!=',$id)->update(['status'=>0]);
             }
             return redirect()->route('questions.index')->with(['success_msg'=>'تم إضافة الإستفتاء بنجاح']);
         }catch (Exception $ex){
@@ -60,14 +60,14 @@ class VoteQuestionsController extends Controller
         try{
             $active = $this->checkActive($request);
             if($active) {
-                VoteQuestion::where('id','!=',$question->id)->update(['active'=>0]);
+                VoteQuestion::where('id','!=',$question->id)->update(['status'=>0]);
             }
             $data['question']=$request->question;
             $data['answer1']=$request->answer1;
             $data['answer2']=$request->answer2;
             $data['answer3']=$request->answer3;
             $data['answer4']=$request->answer4;
-            $data['active'] = $active;
+            $data['status'] = $active;
             $update = $question->update($data);
 
             return redirect()->route('questions.index')->with(['success_msg'=>'تم تحديث الإستفتاء بنجاح']);
@@ -87,8 +87,8 @@ class VoteQuestionsController extends Controller
     }
 
     public function activate(VoteQuestion $vote){
-        VoteQuestion::where('id','!=',$vote->id)->update(['active'=>0]);
-        $activate = $vote->update(['active'=>1]);
+        VoteQuestion::where('id','!=',$vote->id)->update(['status'=>0]);
+        $activate = $vote->update(['status'=>1]);
 
         return redirect()->route('questions.index')->with(['success_msg'=>'تم تفعيل الإستفتاء بنجاح']);
     }

@@ -19,13 +19,13 @@
 
         <div class="col-md-8">
             <div class="content" style="min-height: 800px">
-                <div class="panel panel-default" dir="ltr">
+                <div class="panel panel-default" dir="rtl">
                     <div class="panel-heading" role="tab" id="headingTwo">
-                        <h4 class="panel-title collapsed acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">Information</h4>
+                        <h4 class="panel-title collapsed acc-head" data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="false" aria-controls="collapse">معلومات قد تهمك</h4>
                     </div>
                     <div id="collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                         <div class="panel-body">
-                            <ol id="vertical-ticker" dir="ltr">
+                            <ol id="vertical-ticker" dir="rtl">
 
                                 @foreach ($infos as $info)
                                 <li><a>{!! $info->body !!}</a></li>

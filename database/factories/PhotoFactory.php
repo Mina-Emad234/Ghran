@@ -17,10 +17,12 @@ class PhotoFactory extends Factory
     public function definition()
     {
         static $order = 1;
+        $album_id= Album::inRandomOrder()->first()->id;
+        $album_name = Album::find($album_id)->name;
         return [
-            'photo'=>$this->faker->image(public_path('uploads/photos'),800,600,null,false,true) ,
-            'album_id'=>Album::inRandomOrder()->first()->id,
-            'active'=>1,
+            'photo'=>$this->faker->image(public_path('uploads/photos/'.$album_name),800,600,null,false,true) ,
+            'album_id'=$album_id,
+            'status'=>1,
             'order'=>$order++,
         ];
     }

@@ -21,7 +21,7 @@ class TagsController extends Controller
         $i=0;
         foreach ($tags as $tag){
             unset($tags[$i]);
-            $tags->push(array_merge($tag->toArray(),['link'=>url('/api/tags/'.$tag->id)]));
+            $tags->push(array_merge($tag->toArray(),['link'=>url('/api/tags_api/'.$tag->id)]));
             $i++;
         }
         return $tags;
@@ -40,7 +40,7 @@ class TagsController extends Controller
                 'name'=>$request->name,
                 'slug'=>str_replace(' ','-',$request->name),
                 'order'=>tag::max('order') + 1,
-                'active'=>$request->active
+                'active'=>$request->status
             ]);
             return $tag;
         }catch (Exception $ex){

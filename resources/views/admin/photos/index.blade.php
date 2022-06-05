@@ -38,9 +38,16 @@
                 @php
                     $row=0;
                     $counter = $row + 1;
+
                 @endphp
                 @foreach($photos as $photo)
-
+                    @php
+                        if(isset($album)){
+                           $album_name = $album->name;
+                       }else{
+                           $album_name = $photo->album->name;
+                       }
+                    @endphp
                 <tr @if($counter % 2 == 1)
                          class='odd'
                     @endif >
@@ -48,16 +55,18 @@
                     @if(!isset($album))
                     <td>{{$photo->album->name}}</td>
                     @endif
+
+
                     <td>
-                        @if($photo->photo != "" && file_exists("uploads/photos/" . $photo->photo))
-                        <img src="{{asset('uploads/photos/'.$photo->photo)}}" width="80" height="50" />
+                        @if($photo->photo != "" && file_exists("uploads/photos/" .$album_name.'/'. $photo->photo))
+                        <img src="{{asset('uploads/photos/'.$album_name.'/'.$photo->photo)}}" width="80" height="50" />
                         @else
                         <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                         @endif
                     </td>
                     <td><span dir="ltr">{{$photo->created_at->diffForHumans()}}</span></td>
                     <td title="">
-                        @if ($photo->active == 0)
+                        @if ($photo->status == 0)
 
                         <a title="تفعيل " class="tool boxStyle"
                            href="{{route('photos.activate',$photo->id)}}"><img

@@ -21,7 +21,7 @@ class InformationController extends Controller
         $i=0;
         foreach ($infos as $info){
             unset($infos[$i]);
-            $infos->push(array_merge($info->toArray(),['link'=>url('/api/information/'.$info->id)]));
+            $infos->push(array_merge($info->toArray(),['link'=>url('/api/info_api/'.$info->id)]));
             $i++;
         }
         return response($infos);
@@ -39,7 +39,7 @@ class InformationController extends Controller
             $info = Info::create([
                 'body'=>$request->body,
                 'order'=>Info::max('order') + 1,
-                'active'=>$request->active
+                'active'=>$request->status
             ]);
             return $info;
         }catch (Exception $ex){

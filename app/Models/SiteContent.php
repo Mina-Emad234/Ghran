@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SiteContent extends Model
 {
     protected $table = 'site_contents';
-    protected $fillable = ['title', 'site_section_id', 'body', 'active'];
+    protected $fillable = ['title', 'site_section_id', 'body', 'status'];
     public $timestamps = true;
 
     public function site_section(){

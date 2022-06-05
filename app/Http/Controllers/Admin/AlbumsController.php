@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ImageCategoryRequest ;
 use App\Models\Album;
+use App\Models\Blog;
 use App\Traits\GhranTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Exception;
 
@@ -29,11 +31,16 @@ class AlbumsController extends Controller
     {
         try {
             $file_name=$this->upload($request->image,'uploads/albums');
+            $active = $this->checkActive($request);
             Album::create([
                 'name' => $request->name,
                 'slug' => str_replace(' ', '-', $request->name),
-                'image' => $file_name
+                'image' => $file_name,
+                'status'=>$active
             ]);
+            if(!File::isDirectory(public_path('uploads/photos/'.$request->name))) {
+                File::makeDirectory(public_path('uploads/photos/' . $request->name));
+            }
             return redirect()->route('albums.index')->with(['success_msg' => 'تم إضافة قسم بنجاح']);
         }catch (Exception $ex){
             return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
@@ -49,8 +56,13 @@ class AlbumsController extends Controller
     {
         try{
             $this->updateUpload($request,'image','uploads/albums',$album->image,$album);
+            $active = $this->checkActive($request);
             $data['name']=$request->name;
             $data['slug']=str_replace(' ','-',$request->name);
+            $data['status'] = $active;
+            if(File::isDirectory(public_path('uploads/photos/'.$album->name))) {
+                rename(public_path('uploads/photos/' . $album->name), public_path('uploads/photos/' . $request->name));
+            }
             $update = $album->update($data);
             return redirect()->route('albums.index')->with(['success_msg'=>'تم تحديث القسم بنجاح']);
         }catch (Exception $ex){
@@ -60,13 +72,24 @@ class AlbumsController extends Controller
 
     public function destroy(Album $album){
         try{
+
+            $album->load('photos');
             foreach($album->photos as $photo){
-                storage::disk('photos')->delete($photo->photo);
+                unlink(public_path('uploads/photos/'.$album->name.'/'.$photo->photo));
             }
+            File::deleteDirectory(public_path('uploads/photos/'.$album->name));
+
             $this->deleteWithImage('uploads/albums/'.$album->image,$album);
             return redirect()->route('albums.index')->with(['success_msg'=>'تم حذف القسم بنجاح']);
         }catch (Exception $ex){
             return redirect()->back()->with(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى']);
         }
+    }
+    public function activate(Album $album){
+        return $this->modelActivation($album,1,'تم تفعيل ألبوم صور بنجاح','albums.index');
+    }
+
+    public function deactivate(Album $album){
+        return $this->modelActivation($album,0,'تم إلغاء تفعيل ألبوم صور بنجاح','albums.index');
     }
 }

@@ -45,7 +45,7 @@ class TagsController extends Controller
                 'name'=>$request->name,
                 'slug'=>str_replace(' ','-',$request->name),
                 'order'=>tag::max('order') + 1,
-                'active'=>$active
+                'status'=>$active
             ]);
 
             return redirect()->route('tags.index')->with(['success_msg'=>'تم إضافة كلمة البحت بنجاح']);
@@ -66,7 +66,7 @@ class TagsController extends Controller
 
             $data['name']=$request->name;
             $data['slug']=str_replace(' ','-',$request->name);
-            $data['active']=$active;
+            $data['status']=$active;
             $update = $tag->update($data);
 
             return redirect()->route('tags.index')->with(['success_msg'=>'تم تحديث كلمة البحث بنجاح']);

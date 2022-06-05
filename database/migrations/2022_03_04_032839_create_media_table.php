@@ -22,6 +22,7 @@ class CreateMediaTable extends Migration
             $table->enum('courses',['التصوير الفوتوغرافي','تصويــــر الفيديو','إدارة المواقع الالكترونية',
                                                     'المونتـــــــــاج','التصميـــــــــم','التمثيـــــــــل']);
             $table->boolean('read')->default(0);
+            $table->timestamps();
         });
     }
 

@@ -4,7 +4,11 @@
     <style>
     .banner-main {
         min-height: 507px;
-        background: url({{asset('site/img/'.$data['image'])}}) no-repeat top center;
+        @if($data['image'])
+        background: url({{asset('site/img/'.$data['image']->image->image)}}) no-repeat top center;
+        @else
+        background: url({{asset('admins/images/no-img.png')}}) no-repeat top center;
+        @endif
         background-size: cover;
     }
 </style>
@@ -37,7 +41,11 @@
                 {!! $course->description !!}
                 <div class="box-darg margin-top-30">
                     <div class="pull-right margin-left-30">
-                        {!! $data['offer'] !!}
+                         @if($data['offer'])
+                             @foreach($data['offer']->site_contents as $offer)
+                                {!! $offer->body !!}
+                            @endforeach
+                             @endif
                     </div>
                     <div class="pull-left margin-top-15"><a href="{{route('course_applicant.register',$course->id)}}" class="btn btn-custom big">نموذج التسجيل</a></div>
                 </div>
@@ -62,8 +70,8 @@
                 <div class="col-md-4">
                     <div class="news-box">
                         @if(!empty($article))
-                        @if ($article->image != "" && file_exists("uploads/blogs/" . $article->image))
-                            <img src="{{'../../../uploads/blogs/'.$article->image}}" class="img-responsive" />
+                        @if ($article->image != "" && file_exists("uploads/blogs/" .$article->category->name.'/'. $article->image))
+                            <img src="{{'../../../uploads/blogs/'.$article->category->name.'/'.$article->image}}" class="img-responsive" />
                         @else
                             <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                         @endif
@@ -91,8 +99,8 @@
                 <div class="col-md-4">
                     <div class="news-box">
                         @if(!empty($news))
-                                @if($news->image != "" && file_exists("uploads/blogs/" . $news->image))
-                                    <img src="{{'../../../uploads/blogs/'.$news->image}}" class="img-responsive" />
+                                @if($news->image != "" && file_exists("uploads/blogs/" .$news->category->name.'/'. $news->image))
+                                    <img src="{{'../../../uploads/blogs/'.$news->category->name.'/'.$news->image}}" class="img-responsive" />
                                 @else
                                     <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                                 @endif
@@ -116,13 +124,13 @@
                 <div class="col-md-4">
                     <div class="news-box">
                         @if(!empty($woman))
-                                @if ($woman->image != "" && file_exists("uploads/blogs/" . $woman->image))
-                                    <img src="{{'../../../uploads/blogs/'.$woman->image}}" class="img-responsive" />
+                                @if ($woman->image != "" && file_exists("uploads/blogs/" . $woman->category->name.'/'.$woman->image))
+                                    <img src="{{'../../../uploads/blogs/'.$woman->category->name.'/'.$woman->image}}" class="img-responsive" />
                                 @else
                                     <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                                 @endif
                                 <h3>{{$woman->title}}</h3>
-                                <p>{!!substr($woman->body,0,strpos($woman->body,' ',150)).'...'!!}</p>
+                                    <p>{!!substr($news->body,0,strpos($woman->body,' ',150)).'...'!!}</p>
                                 <a href="{{route('post.show',$woman->slug)}}">أقرا المزيد ..</a>
                                 <div class="comment">
                                     <div><p class="font">تاريخ النشر<span dir="ltr" class="number">{{$woman->created_at->diffForHumans()}}</span></p></div>
@@ -159,8 +167,8 @@
                         <div class="row row-centered">
                             <div class="row-md-12 col-centered">
                                 <div class="col-sm-3 text-center">
-                                    @if($testimonial->image != "" && file_exists("uploads/blogs/".$testimonial->image))
-                                        <img src="{{'../../../uploads/blogs/'.$testimonial->image}}" class="img-responsive" />
+                                    @if($testimonial->image != "" && file_exists("uploads/blogs/".$testimonial->category->name.'/'.$testimonial->image))
+                                        <img src="{{'../../../uploads/blogs/'.$testimonial->category->name.'/'.$testimonial->image}}" class="img-responsive" />
                                     @else
                                         <img src="{{asset('admins/images/no-img.png')}}" width="80" height="50" />
                                     @endif

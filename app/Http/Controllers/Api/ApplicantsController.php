@@ -20,7 +20,7 @@ class ApplicantsController extends Controller
         $i=0;
         foreach ($applicants as $applicant){
             unset($applicants[$i]);
-            $applicants->push(array_merge($applicant->toArray(),['link'=>url('/api/courses/applicants/'.$applicant->id)]));
+            $applicants->push(array_merge($applicant->toArray(),['link'=>url('/api/courses/applicants_api/'.$applicant->id)]));
             $i++;
         }
         return $applicants;
@@ -47,7 +47,7 @@ class ApplicantsController extends Controller
     public function store(ApplicantRequest $request){
         try{
             if($request->has('course_id')) {
-                $course = Course::where(['active' => 1, 'course_payable' => 1])->find($request->course_id);
+                $course = Course::where(['status' => 1, 'course_payable' => 1])->find($request->course_id);
             }else{
                 return response(['error_msg' => 'هناك مشكلة ما من فضلك حاول مرة أخرى'],400);
             }

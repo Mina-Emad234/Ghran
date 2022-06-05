@@ -9,7 +9,7 @@ class Tag extends Model
 {
     use HasFactory;
     protected $table='tags';
-    protected $fillable=['name','slug','active','order'];
+    protected $fillable=['name','slug','status','order'];
     protected $hidden=['order'];
     public $timestamps=true;
 

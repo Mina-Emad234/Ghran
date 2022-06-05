@@ -14,7 +14,7 @@ class AddOrderColumnToTagsTable extends Migration
     public function up()
     {
         Schema::table('tags', function (Blueprint $table) {
-            $table->integer('order')->after('active');
+            $table->integer('order')->after('status');
         });
     }
 
@@ -26,7 +26,7 @@ class AddOrderColumnToTagsTable extends Migration
     public function down()
     {
         Schema::table('tags', function (Blueprint $table) {
-            //
+            $table->dropColumn('order');
         });
     }
 }

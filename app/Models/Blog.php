@@ -9,7 +9,7 @@ class Blog extends Model
 {
     use HasFactory;
     protected $table = 'blogs';
-    protected $fillable=['category_id','title', 'slug','body','image','active'];
+    protected $fillable=['category_id','title', 'slug','body','image','status'];
     public $timestamps = true;
 
     protected $appends=['image_url'];
@@ -26,7 +26,7 @@ class Blog extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return asset('uploads/blogs/'.$this->image);
+        return asset('uploads/blogs/'.$this->category->name.'/'.$this->image);
     }
 
 }
